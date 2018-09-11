@@ -19,14 +19,20 @@ var feltTextureImage;
 var feltTextureImageX;
 var feltTextureImageY;
 
+// The image of vines that go from left to right on the canvas
+var vinesImage;
+// The current position of the image called "vines"
+var vinesImageX;
+var vinesImageY;
 
 // preload()
 //
-// Load the two images we're using before the program starts
+// Load the three images we're using before the program starts
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+  vinesImage = loadImage("assets/images/vines.png");
 }
 
 
@@ -41,6 +47,10 @@ function setup() {
   // Start the clown image at the centre of the canvas
   clownImageX = width/2;
   clownImageY = height/2;
+
+  //Start the vines Image off the screen on the left of the canvas
+  vinesImageX = 0 - vinesImage.width/2;
+  vinesImageY = height/2;
 
   // Start the felt image perfectly off screen above the canvas
   feltTextureImageX = width/2;
@@ -61,9 +71,14 @@ function draw() {
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
 
+  //Move the vines image to the right by increasing the x position
+  vinesImageX ++;
+
   // Display the felt image
   image(feltTextureImage,feltTextureImageX,feltTextureImageY);
 
+  // Display the vines image
+  image(vinesImage, vinesImageX, vinesImageY);
   // Move the clown by moving it 1/10th of its current distance from the mouse
 
   // Calculate the distance in X and in Y
