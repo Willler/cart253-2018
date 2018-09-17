@@ -19,6 +19,12 @@ var spookyImage;
 var spookyImageX;
 var spookyImageY;
 
+// The image of cat face
+var catImage;
+// The current position of the cat face image
+var catImageX;
+var catImageY;
+
 // The transparent image of "felt" that wipes down the canvas
 var feltTextureImage;
 // The current position of the transparent image of "felt"
@@ -40,6 +46,7 @@ function preload() {
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   vinesImage = loadImage("assets/images/vines.png");
   spookyImage = loadImage("assets/images/spooky.png");
+  catImage = loadImage("assets/images/cat.png");
 }
 
 
@@ -58,6 +65,10 @@ function setup() {
   // Start the spooky skeleton face at the center of the canvas
   spookyImageX = width/2;
   spookyImageY = width/2;
+
+  // Start the cat image at the center of the canvas
+  catImageX = width/2;
+  catImageY = width/2;
 
   //Start the vines Image off the screen on the left of the canvas
   vinesImageX = 0 - vinesImage.width/2;
@@ -98,6 +109,9 @@ function draw() {
   // Add 1/10th of the x and y distance to the clown's current (x,y) location
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
+  // Add 1/50th of the x and y distance to the Cat's current (x, y) location, using the same variables as for the clown
+  catImageX = catImageX + xDistance/50;
+  catImageY = catImageY + yDistance/50;
 
   // display spooky skeleton face at mouse coordinates
   spookyImageX = mouseX
@@ -106,6 +120,8 @@ function draw() {
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
 
+  // Display the cat Image
+  image(catImage, catImageX, catImageY);
   // Display the skeleton face image
   image(spookyImage, spookyImageX, spookyImageY);
 }
