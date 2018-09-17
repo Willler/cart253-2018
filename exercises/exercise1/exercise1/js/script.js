@@ -13,6 +13,12 @@ var clownImage;
 var clownImageX;
 var clownImageY;
 
+// The image of a spooky skeleton face
+var spookyImage;
+// The current position of the spooky skeleton face
+var spookyImageX;
+var spookyImageY;
+
 // The transparent image of "felt" that wipes down the canvas
 var feltTextureImage;
 // The current position of the transparent image of "felt"
@@ -33,6 +39,7 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   vinesImage = loadImage("assets/images/vines.png");
+  spookyImage = loadImage("assets/images/spooky.png");
 }
 
 
@@ -47,6 +54,10 @@ function setup() {
   // Start the clown image at the centre of the canvas
   clownImageX = width/2;
   clownImageY = height/2;
+
+  // Start the spooky skeleton face at the center of the canvas
+  spookyImageX = width/2;
+  spookyImageY = width/2;
 
   //Start the vines Image off the screen on the left of the canvas
   vinesImageX = 0 - vinesImage.width/2;
@@ -88,6 +99,13 @@ function draw() {
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
 
+  // display spooky skeleton face at mouse coordinates
+  spookyImageX = mouseX
+  spookyImageY = mouseY
+
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  // Display the skeleton face image
+  image(spookyImage, spookyImageX, spookyImageY);
 }
