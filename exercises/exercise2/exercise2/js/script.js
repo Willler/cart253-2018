@@ -1,9 +1,9 @@
 /*********************************************************
 
-Exercise 2 - The Artful Dodger
-Pippin Barr
+Exercise 2 - The Artful Dodger, New Game +
+William L'Eriger
 
-Starter code for exercise 2.
+Modified Starter code for exercise 2 made by Pippin Barr.
 
 *********************************************************/
 
@@ -27,11 +27,18 @@ var enemySizeIncrease = 5;
 // The speed and velocity of our enemy circle
 var enemySpeed = 5;
 var enemyVX = 5;
-// How much bigger the enemy circle gets with each successful dodge
+// How much faster the enemy circle gets with each successful dodge
 var enemySpeedIncrease = 0.5;
 
 // How many dodges the player has made
 var dodges = 0;
+
+// preload ()
+//
+// preload objects such as fonts, images and etc. so that they are loaded before the setup and draw functions
+function preload() {
+  scoreFont = loadFont("assets/fonts/IndieFlower.ttf");
+}
 
 // setup()
 //
@@ -59,6 +66,20 @@ function setup() {
 function draw() {
   // A pink background
   background(255,220,220);
+
+  // Set the alignment of text objects on the center
+  textAlign(CENTER);
+
+  // Setting the color, size and font of the displayed text
+  textSize(24);
+  textFont(scoreFont);
+  fill(0);
+
+  // The "evasion rating" score which records the number of successful dodges made by the player
+  text('Evasion Rating:', 375, 25);
+
+  // Set the score, the number of successful dodges, to text format
+  text(dodges, 475, 26);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
