@@ -1,11 +1,12 @@
 // Exercise 1 - Moving pictures
-// Pippin Barr
+// William L'Eriger
 //
-// Starter code for exercise 1.
-// It moves two pictures around on the canvas.
-// One moves linearly down the screen.
-// One moves toward the mouse cursor.
+// Modified starter code for exercise one provided by Pippin Barr.
+// It moves five pictures on the canvas, two in a static direction and three following the cursor.
+// One image moves linearly down the screen while the other moves horizontally from left to right.
+// The other three move towards the mouse. One directly on it, one trailing a little bit behind and the other much farther behind.
 
+// Creating my image variables
 
 // The image of a clown face
 var clownImage;
@@ -39,7 +40,7 @@ var vinesImageY;
 
 // preload()
 //
-// Load the three images we're using before the program starts
+// Load the five images we're using before the program starts
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
@@ -55,6 +56,7 @@ function preload() {
 // Set up the canvas, position the images, set the image mode.
 
 function setup() {
+
   // Create our canvas
   createCanvas(640,640);
 
@@ -82,18 +84,17 @@ function setup() {
   imageMode(CENTER);
 }
 
-
 // draw()
 //
-// Moves the felt image linearly
-// Moves the clown face toward the current mouse location
+// Moves the felt image and the vines image linearly
+// Moves the clown face, the cat face and the spooky skeleton face toward the current mouse location, at different distances
 
 function draw() {
 
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
 
-  //Move the vines image to the right by increasing the x position
+  // Move the vines image to the right by increasing the x position
   vinesImageX ++;
 
   // Display the felt image
@@ -101,8 +102,8 @@ function draw() {
 
   // Display the vines image
   image(vinesImage, vinesImageX, vinesImageY);
-  // Move the clown by moving it 1/10th of its current distance from the mouse
 
+  // Move the clown by moving it 1/10th of its current distance from the mouse and the cat by 1/50th of its current distance
   // Calculate the distance in X and in Y
   var xDistance = mouseX - clownImageX;
   var yDistance = mouseY - clownImageY;
@@ -122,6 +123,7 @@ function draw() {
 
   // Display the cat Image
   image(catImage, catImageX, catImageY);
+
   // Display the skeleton face image
   image(spookyImage, spookyImageX, spookyImageY);
 }
