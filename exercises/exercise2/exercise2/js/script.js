@@ -38,6 +38,9 @@ var dodges = 0;
 // preload objects such as fonts, images and etc. so that they are loaded before the setup and draw functions
 function preload() {
   scoreFont = loadFont("assets/fonts/IndieFlower.ttf");
+  groundImage = loadImage("assets/images/groundTexture.png");
+  avatarImage = loadImage("assets/images/fireball.png");
+  enemyImage = loadImage("assets/images/whiteGhost.png");
 }
 
 // setup()
@@ -65,15 +68,15 @@ function setup() {
 // game over situations.
 function draw() {
   // A pink background
-  background(255,220,220);
+  background(groundImage, 100);
 
   // Set the alignment of text objects on the center
   textAlign(CENTER);
 
   // Setting the color, size and font of the displayed text
-  textSize(24);
+  textSize(28);
   textFont(scoreFont);
-  fill(0);
+  fill(255);
 
   // The "evasion rating" score which records the number of successful dodges made by the player
   text('Evasion Rating:', 375, 25);
@@ -163,14 +166,10 @@ function draw() {
   // Display the current number of successful in the console
   console.log(dodges);
 
-  // The player is black
-  fill(0);
-  // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
+  // Draw the player as an image, a fireball
+  image(avatarImage,avatarX,avatarY,avatarSize,avatarSize);
 
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
+  // Draw the enemy as an image, a spooky white ghost
+  image(enemyImage,enemyX,enemyY,enemySize,enemySize);
 
 }
