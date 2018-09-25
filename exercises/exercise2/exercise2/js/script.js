@@ -67,7 +67,7 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
+  // The background image, a dungeon wall
   background(groundImage, 100);
 
   // Set the alignment of text objects on the center
@@ -83,6 +83,10 @@ function draw() {
 
   // Set the score, the number of successful dodges, to text format
   text(dodges, 475, 26);
+
+  // Show the instructions for the cheat ability in text format so that the player knows how to use it, as well as reajusting the text size for this specific text display
+  textSize(18);
+  text('Use SHIFT to shoo away the ghost!', 325, 475);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -172,4 +176,19 @@ function draw() {
   // Draw the enemy as an image, a spooky white ghost
   image(enemyImage,enemyX,enemyY,enemySize,enemySize);
 
+}
+
+//  keyPressed()
+//
+// Check if a key has been pressed and then run the code if it has been
+function keyPressed() {
+  // Check if the SHIFT key is pressed
+  if (keyCode === SHIFT) {
+    // Set the enemy x-position back to 0 (on the left border), a cheat ability that gives you more time to dodge
+    enemyX = 0;
+    // Remove 2 points from the evasion rating, the penalty for using the cheat ability
+    dodges -= 2;
+    // Tell the player they cheated in the console log;
+    console.log("YOU CHEATED!!!");
+  }
 }
