@@ -153,18 +153,9 @@ function draw() {
     dodges = 0;
   }
 
-  // Check if the enemy has moved all the way across the screen
+  // Check if the enemy has moved all the way across the screen, then call the enemyReset function
   if (enemyX > width) {
-    // This means the player dodged so update its dodge statistic
-    dodges = dodges + 1;
-    // Tell them how many dodges they have made
-    console.log(dodges + " DODGES!");
-    // Reset the enemy's position to the left at a random height
-    enemyX = 0;
-    enemyY = random(0,height);
-    // Increase the enemy's speed and size to make the game harder
-    enemySpeed = enemySpeed + enemySpeedIncrease;
-    enemySize = enemySize + enemySizeIncrease;
+    enemyReset();
   }
 
   // Display the current number of successful in the console
@@ -175,7 +166,29 @@ function draw() {
 
   // Draw the enemy as an image, a spooky white ghost
   image(enemyImage,enemyX,enemyY,enemySize,enemySize);
+}
 
+// enemyreset()
+//
+// Reset the enemy at x = 0, increase the evasion rating score, change the avatar speed and size by a random amount
+function enemyReset() {
+  // This means the player dodged so update its dodge statistic
+  dodges = dodges + 1;
+  // Tell them how many dodges they have made
+  console.log(dodges + " DODGES!");
+  // Reset the enemy's position to the left at a random height
+  enemyX = 0;
+  enemyY = random(0,height);
+  // Increase the enemy's speed and size to make the game harder
+  enemySpeed = enemySpeed + enemySpeedIncrease;
+  enemySize = enemySize + enemySizeIncrease;
+  // Increase or decrease the avatar size by a random amount after each successful dodge, constraint the values so it doesnt drop below 0
+  // or go out of control
+  avatarSize = constrain(avatarSize, 10, 100);
+  avatarSize += random(-10, 10);
+  // Increase or decrease the avatar's speed by a random amount after each dodge, constraint values do that it doesnt drop below  or above certain values
+  avatarSpeed = constrain(avatarSpeed, 5, 15);
+  avatarSpeed += random(-5, 5);
 }
 
 //  keyPressed()
