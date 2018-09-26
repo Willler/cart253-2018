@@ -21,12 +21,14 @@ var avatarVY = 0;
 var enemyX;
 var enemyY;
 var enemySize = 50;
+
 // How much bigger the enemy circle gets with each successful dodge
 var enemySizeIncrease = 5;
 
 // The speed and velocity of our enemy circle
 var enemySpeed = 5;
 var enemyVX = 5;
+
 // How much faster the enemy circle gets with each successful dodge
 var enemySpeedIncrease = 0.5;
 
@@ -84,7 +86,8 @@ function draw() {
   // Set the score, the number of successful dodges, to text format
   text(dodges, 475, 26);
 
-  // Show the instructions for the cheat ability in text format so that the player knows how to use it, as well as reajusting the text size for this specific text display
+  // Show the instructions for the cheat ability in text format so that the player knows how to use it,
+  // as well as reajusting the text size for this specific text display
   textSize(18);
   text('Use SHIFT to shoo away the ghost!', 325, 475);
 
@@ -94,7 +97,6 @@ function draw() {
 
   // Check which keys are down and set the avatar's velocity based on its
   // speed appropriately
-
   // Left and right
   if (keyIsDown(LEFT_ARROW)) {
     avatarVX = -avatarSpeed;
@@ -186,7 +188,8 @@ function enemyReset() {
   // or go out of control
   avatarSize = constrain(avatarSize, 10, 100);
   avatarSize += random(-10, 10);
-  // Increase or decrease the avatar's speed by a random amount after each dodge, constraint values do that it doesnt drop below  or above certain values
+  // Increase or decrease the avatar's speed by a random amount after each dodge, constraint values do that it doesnt drop below
+  // or above certain values
   avatarSpeed = constrain(avatarSpeed, 5, 15);
   avatarSpeed += random(-5, 5);
 }
