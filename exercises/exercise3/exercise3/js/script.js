@@ -61,6 +61,8 @@ function setup() {
   background("#ffff00");
   imageMode(CENTER);
 
+
+
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
     // Choose a random location for this decoy
@@ -108,6 +110,16 @@ function setup() {
   targetY = random(0,height);
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
+
+  // Creating the frame for the target image, the user interface, using a rectangle object, calling it last so it is above the decoy images
+  fill("#750814");
+  stroke("#ffb200");
+  strokeWeight(10);
+  rect(windowWidth/1.5, 0, windowWidth/3, windowHeight/5);
+
+  // draw the target image within the user interface rectangle
+  image(targetImage,(windowWidth - 125), 75);
+
 }
 
 function draw() {
