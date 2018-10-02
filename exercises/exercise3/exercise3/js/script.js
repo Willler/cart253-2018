@@ -111,6 +111,12 @@ function setup() {
   targetX = random(0,width);
   targetY = random(0,height);
 
+  // If the random location of the target falls within the user interface box, reroll the random dice and get a new position until it does
+  // not fall within the box
+  while (targetX > windowWidth/3 && targetY < windowHeight/5) {
+    targetX = random(0,width);
+    targetY = random(0,height);
+  }
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
 
