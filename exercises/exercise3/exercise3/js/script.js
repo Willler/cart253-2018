@@ -1,6 +1,6 @@
 /******************************************************************************
-Where's Sausage Dog?
-by Pippin Barr
+Where's Sausage Dog - Pest Control Version
+by William L'Eriger - Original byPippin Barr
 
 An algorithmic version of a Where's Wally searching game where you
 need to click on the sausage dog you're searching for in amongst all
@@ -14,6 +14,10 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 var targetX;
 var targetY;
 var targetImage;
+
+// The velocity variables of the target, the sausage Dog
+var targetVX;
+var targetVY;
 
 // The ten decoy images
 var decoyImage1;
@@ -29,10 +33,11 @@ var decoyImage10;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-var numDecoys = 100;
+var numDecoys = 500;
 
 // Keep track of whether they've won
 var gameOver = false;
+
 
 // preload()
 //
@@ -65,45 +70,48 @@ function setup() {
 
 
 
-  // Use a for loop to draw as many decoys as we need
+  // Use a for loop to draw as many decoys as we need, which is equal to the numDecoys variable
   for (var i = 0; i < numDecoys; i++) {
     // Choose a random location for this decoy
     var x = random(0,width);
     var y = random(0,height);
     // Generate a random number we can use for probability
     var r = random();
+
+    // generate a random scale for width and height to remain proportional so that each decoy image increases difficulty with size
+    var decoySizeScale = random(0.3, 1.8);
     // Use the random number to display one of the ten decoy
     // images, each with a 10% chance of being shown
-    // We'll talk more about this nice quality of random soon enough
+    // These decoys are randomly sized based on the equation of multiplying the width or height with the scale variable
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y, decoyImage1.width*decoySizeScale, decoyImage1.height*decoySizeScale);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y, decoyImage2.width*decoySizeScale, decoyImage2.height*decoySizeScale);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y, decoyImage3.width*decoySizeScale, decoyImage3.height*decoySizeScale);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y, decoyImage4.width*decoySizeScale, decoyImage4.height*decoySizeScale);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y, decoyImage5.width*decoySizeScale, decoyImage5.height*decoySizeScale);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y, decoyImage6.width*decoySizeScale, decoyImage6.height*decoySizeScale);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y, decoyImage7.width*decoySizeScale, decoyImage7.height*decoySizeScale);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8, x ,y, decoyImage8.width*decoySizeScale, decoyImage8.height*decoySizeScale);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9, x, y, decoyImage9.width*decoySizeScale, decoyImage9.height*decoySizeScale);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10, x, y, decoyImage10.width*decoySizeScale, decoyImage10.height*decoySizeScale);
     }
   }
 
@@ -146,14 +154,31 @@ function draw() {
     textSize(128);
     textAlign(CENTER,CENTER);
     noStroke();
-    fill(random(255));
-    // Tell them they won!
-    text("YOU HAVE HUNTED.",width/2,height/2);
-
+    fill(random(255), 0, 0);
+    // Tell them they have eliminated the target in flashing red text
+    text("PREY SLAUGHTERED",width/2,height/2);
     noFill();
-    stroke(random(255));
+    stroke(random(255), 0, 0);
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
+
+    // After the player has won, make the dog go crazy in all directions, leaving behind after images with flashing, bloody red circles
+    targetVX = targetX += random(-100, 100);
+    targetVY = targetY += random(-100, 100);
+    image(targetImage,targetX,targetY);
+
+    // make the target dog image that is going crazy able to wrap around the screen to create a larger jumbled mess
+    if (targetX > width) {
+      targetX -= width;
+    } else if (targetX < 0) {
+      targetX += width;
+    }
+
+    if (targetY > height) {
+      targetY -= height;
+    } else if (targetY < 0) {
+      targetY += height;
+    }
   }
 }
 
