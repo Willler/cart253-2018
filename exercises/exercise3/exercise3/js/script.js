@@ -36,7 +36,7 @@ var gameOver = false;
 
 // preload()
 //
-// Loads the target and decoy images before the program starts
+// Loads the target and decoy images before the program starts, also load fonts
 function preload() {
   targetImage = loadImage("assets/images/animals-target.png");
 
@@ -50,6 +50,8 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  specialFont = loadFont("assets/fonts/specialElite.ttf");
 }
 
 // setup()
@@ -108,6 +110,7 @@ function setup() {
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
   targetY = random(0,height);
+
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
 
@@ -118,8 +121,16 @@ function setup() {
   rect(windowWidth/1.5, 0, windowWidth/3, windowHeight/5);
 
   // draw the target image within the user interface rectangle
-  image(targetImage,(windowWidth - 125), 75);
+  image(targetImage,(windowWidth - 115), 75);
 
+  // Add a caption to the image that serves as instructions to the player, along with the styling for it
+  textFont(specialFont);
+  textSize(20);
+  textAlign(CENTER);
+  noStroke();
+  fill(255);
+  text("Invasive Species Detected", (windowWidth - 350), 70);
+  text("Eliminate Target on Sight", (windowWidth - 350), 100);
 }
 
 function draw() {
@@ -131,7 +142,7 @@ function draw() {
     noStroke();
     fill(random(255));
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("YOU HAVE HUNTED.",width/2,height/2);
 
     noFill();
     stroke(random(255));
