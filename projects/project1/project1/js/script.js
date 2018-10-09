@@ -53,10 +53,11 @@ var backgroundFill = 163;
 
 var preySize = 5;
 
-
+// preload assets, including sounds and fonts
 function preload() {
   heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
   preyDeathSound = new Audio("assets/sounds/screech.wav");
+  gameFont = loadFont("assets/fonts/fontBold.ttf");
 }
 // setup()
 //
@@ -309,7 +310,7 @@ function drawPlayer() {
 //
 // Display text about the game being over!
 function showGameOver() {
-  textSize(32);
+  textSize(36);
   textAlign(CENTER,CENTER);
 
   // if the number of eaten preys is lower then 6, display game over text as black, else white
@@ -319,8 +320,9 @@ function showGameOver() {
     fill (255);
   }
   noStroke();
+  textFont(gameFont);
   var gameOverText = "GAME OVER\n";
-  gameOverText += "You have eliminated " + preyEaten + " DISEASE\n";
+  gameOverText += "You have eliminated " + preyEaten + " DISEASE CELL(S)\n";
   gameOverText += "before you died."
   text(gameOverText,width/2,height/2);
 }
