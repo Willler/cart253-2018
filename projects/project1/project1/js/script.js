@@ -41,12 +41,15 @@ var preyTY = 100;
 var preyHealth;
 var preyMaxHealth = 100;
 // Prey fill color
-var preyFill = 200;
+var preyFill = 0;
 
 // Amount of health obtained per frame of "eating" the prey
 var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
+
+// background red fill Variable
+var backgroundFill = 163;
 
 // setup()
 //
@@ -88,7 +91,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+  background(backgroundFill,0,0);
 
   if (!gameOver) {
     handleInput();
@@ -132,6 +135,16 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+
+  // Check if shift key is down for boost in speed
+  // Use the constrain function to limit the acceleration to maximum values so that
+  // the velocity does not go out of hand
+  // *** NEW FUNCTION *** //
+  if (keyIsDown(SHIFT)) {
+    playerMaxSpeed = constrain(playerMaxSpeed + 0.2, -5, 5);
+  } else {
+    playerMaxSpeed = 2;
+  }
 }
 
 // movePlayer()
@@ -165,7 +178,15 @@ function movePlayer() {
 // Check if the player is dead
 function updateHealth() {
   // Reduce player health, constrain to reasonable range
-  playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+  // at normal speed, reduce playerHealth by 0.5 every frame, increase to 1 when using the boost ability with shift
+  /// ***NEW*** ///
+  if (playerMaxSpeed === 2) {
+      playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+  } else {
+      playerHealth = constrain(playerHealth - 1,0,playerMaxHealth);
+  }
+/// ***NEW OVER*** ///
+
   // Check if the player is dead
   if (playerHealth === 0) {
     // If so, the game is over
@@ -195,6 +216,15 @@ function checkEating() {
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten++;
+
+      // *** NEW CODE *** //
+      // set background red fill value darker, closer to black as the prey eats the color out to be reborn
+      backgroundFill -= 15;
+      // set the prey's red color value higher, so it gets progressively reder as it gets reborn
+      preyFill += 15;
+      // make the prey smaller as the color it can absorb gets less and less vibrant
+      preyRadius -= 1;
+
     }
   }
 }
@@ -210,6 +240,7 @@ function movePrey() {
     // determines how fast and where the prey moves
     // Use map() to convert from the 0-1 range of the noise() function
     // to the appropriate range of velocities for the prey
+    // *** NEW UPDATED MOVEMENT *** //
     preyVX = map(noise(preyTX), 0, 1,-preyMaxSpeed,preyMaxSpeed);
     preyVY = map(noise(preyTY), 0, 1,-preyMaxSpeed,preyMaxSpeed);
 
@@ -240,7 +271,7 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill,preyHealth);
+  fill(preyFill, 0 , 0);
   ellipse(preyX,preyY,preyRadius*2);
 }
 
@@ -258,7 +289,14 @@ function drawPlayer() {
 function showGameOver() {
   textSize(32);
   textAlign(CENTER,CENTER);
-  fill(0);
+
+  // if the number of eaten preys is lower then 6, display game over text as black, else white
+  if (preyEaten < 6) {
+    fill(0);
+  } else {
+    fill (255);
+  }
+
   var gameOverText = "GAME OVER\n";
   gameOverText += "You ate " + preyEaten + " prey\n";
   gameOverText += "before you died."
