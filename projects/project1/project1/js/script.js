@@ -56,6 +56,7 @@ var preySize = 5;
 
 function preload() {
   heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
+  preyDeathSound = new Audio("assets/sounds/screech.wav");
 }
 // setup()
 //
@@ -235,7 +236,8 @@ function checkEating() {
       preyFill += 15;
       // make the prey smaller as the color it can absorb gets less and less vibrant
       preyRadius -= 1;
-      // the player is a brave cell within the body and eliminated the disease cell, but doesnt get bigger
+      // play the death sound for the prey
+      preyDeathSound.play();
     }
   }
 }
@@ -310,7 +312,7 @@ function showGameOver() {
   }
 
   var gameOverText = "GAME OVER\n";
-  gameOverText += "You ate " + preyEaten + " prey\n";
+  gameOverText += "You have eliminated " + preyEaten + " DISEASE\n";
   gameOverText += "before you died."
   text(gameOverText,width/2,height/2);
 }
