@@ -102,7 +102,14 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(backgroundFill,0,0);
-
+  stroke(preyFill, 0, 0);
+  strokeWeight(8);
+  noFill();
+  ellipse(300, 200, 500, 800);
+  ellipse(500, 500, 300, 200);
+  ellipse(450, 0, 500, 100);
+  ellipse(250, 500, 800, 400);
+  ellipse(0, 150, 1000, 100);
   if (!gameOver) {
     handleInput();
 
@@ -285,6 +292,7 @@ function movePrey() {
 // Draw the prey as an ellipse with a variable as its red value
 function drawPrey() {
   fill(preyFill, 0 , 0);
+  noStroke();
   ellipse(preyX,preyY,map(noise(preySize), 0, 1, preyRadius*2, preyRadius*3));
   preySize += 1;
 }
@@ -310,7 +318,7 @@ function showGameOver() {
   } else {
     fill (255);
   }
-
+  noStroke();
   var gameOverText = "GAME OVER\n";
   gameOverText += "You have eliminated " + preyEaten + " DISEASE\n";
   gameOverText += "before you died."
