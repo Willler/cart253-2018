@@ -53,6 +53,10 @@ var backgroundFill = 163;
 
 var preySize = 5;
 
+
+function preload() {
+  heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
+}
 // setup()
 //
 // Sets up the basic elements of the game
@@ -63,6 +67,9 @@ function setup() {
 
   setupPrey();
   setupPlayer();
+  heartbeatSound.loop = true;
+  heartbeatSound.play();
+
 }
 
 // setupPrey()
@@ -193,6 +200,8 @@ function updateHealth() {
   if (playerHealth === 0) {
     // If so, the game is over
     gameOver = true;
+    // set heartbeat sound back to the beginning
+    heartbeatSound.currentTime = 0;
   }
 }
 
@@ -226,7 +235,7 @@ function checkEating() {
       preyFill += 15;
       // make the prey smaller as the color it can absorb gets less and less vibrant
       preyRadius -= 1;
-
+      // the player is a brave cell within the body and eliminated the disease cell, but doesnt get bigger
     }
   }
 }
