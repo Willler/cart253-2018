@@ -51,6 +51,8 @@ var preyEaten = 0;
 // background red fill Variable
 var backgroundFill = 163;
 
+var preySize = 5;
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -269,10 +271,11 @@ function movePrey() {
 
 // drawPrey()
 //
-// Draw the prey as an ellipse with alpha based on health
+// Draw the prey as an ellipse with a variable as its red value
 function drawPrey() {
   fill(preyFill, 0 , 0);
-  ellipse(preyX,preyY,preyRadius*2);
+  ellipse(preyX,preyY,map(noise(preySize), 0, 1, preyRadius*2, preyRadius*3));
+  preySize += 1;
 }
 
 // drawPlayer()
@@ -280,7 +283,7 @@ function drawPrey() {
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
   fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  ellipse(playerX,playerY, playerRadius*2);
 }
 
 // showGameOver()
