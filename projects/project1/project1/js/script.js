@@ -62,6 +62,7 @@ var medicineUsed = false;
 function preload() {
   heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
   preyDeathSound = new Audio("assets/sounds/screech.wav");
+  medicineSound = new Audio("assets/sounds/drink.wav"); // this sound doesnt seem to work in all browsers, it works in chrome, but not firefox
   gameFont = loadFont("assets/fonts/fontBold.ttf");
 }
 // setup()
@@ -78,7 +79,6 @@ function setup() {
   // Play the heartbeat sound from the very beginning
   heartbeatSound.loop = true;
   heartbeatSound.play();
-
 }
 
 // setupPrey()
@@ -175,6 +175,7 @@ function handleInput() {
     if (keyIsDown(CONTROL)) {
       playerHealth += 50;
       medicineUsed = true;
+      medicineSound.play();
     } else {
       playerHealth = playerHealth;
     }
@@ -332,10 +333,15 @@ function drawPrey() {
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
+  stroke(155, 0, 0);
+  strokeWeight(preyEaten/2);
   fill(playerFill,playerHealth);
   ellipse(playerX,playerY, playerRadius*2);
 }
 
+// drawMedicineText()
+//
+// if you havent used the special ability to take medicine, display instruction text
 function drawMedicineText() {
   textFont(gameFont);
   textAlign(CENTER, CENTER);
