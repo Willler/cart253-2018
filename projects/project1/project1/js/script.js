@@ -1,9 +1,10 @@
 /******************************************************
 
-Game - Chaser
-Pippin Barr
+Game - Chaser (Disease Killer version)
+William L'Eriger - Original by Pippin Barr
 
-A simple game of cat and mouse.
+A simple game of cat and mouse, except you play as a warrior cell inside a disease-adled body. The disease is
+uncarable, so the game goes on forever until you give up on life, or die trying to save yourself
 
 Physics-based movement, keyboard controls, health/stamina,
 sprinting, random movement, screen wrap.
@@ -33,10 +34,10 @@ var preyRadius = 25;
 var preyVX;
 var preyVY;
 var preyMaxSpeed = 12;
-// Variables used for perlin noise
+// Variables used for perlin noise **new**
 var preyTX = 0;
 var preyTY = 100;
-//  variable used for perlin noise size pulsing of prey
+//  variable used for perlin noise size pulsing of prey **new**
 var preySize = 5;
 
 // Prey health
@@ -50,21 +51,22 @@ var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
-// background red fill Variable
+// background red fill Variable **new**
 var backgroundFill = 163;
 
 // variable to check if medicine was used
-var medicineUsed = false;
+var medicineUsed = false; **new**
 
 // preload()
 //
-// preload assets, including sounds and fonts
+// preload assets, including sounds and fonts **new**
 function preload() {
   heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
   preyDeathSound = new Audio("assets/sounds/screech.wav");
   medicineSound = new Audio("assets/sounds/drink.wav"); // this sound doesnt seem to work in all browsers, it works in chrome, but not firefox
   gameFont = loadFont("assets/fonts/fontBold.ttf");
 }
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -76,7 +78,7 @@ function setup() {
   setupPrey();
   setupPlayer();
 
-  // Play the heartbeat sound from the very beginning
+  // Play the heartbeat sound from the very beginning **new**
   heartbeatSound.loop = true;
   heartbeatSound.play();
 }
@@ -110,7 +112,7 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(backgroundFill,0,0);
-  drawBackground();
+  drawBackground(); // **new**
 
   if (!gameOver) {
     handleInput();
@@ -123,7 +125,7 @@ function draw() {
 
     drawPrey();
     drawPlayer();
-    drawMedicineText();
+    drawMedicineText(); // **new**
   }
   else {
     showGameOver();
@@ -170,7 +172,7 @@ function handleInput() {
   // this will allow the player to inject emergency medicine, thus changing the medicineUsed variable to true,
   // and give them a bit of playerHealth back
   // if the key is not pressed, the health stays equal to itself
-
+  // ***NEW IF STATEMENT***
   if (medicineUsed === false) {
     if (keyIsDown(CONTROL)) {
       playerHealth += 50;
@@ -184,7 +186,7 @@ function handleInput() {
 
 // drawBackground()
 //
-// draw the background design
+// draw the background design **new function**
 function drawBackground() {
   stroke(preyFill, 0, 0);
   strokeWeight(8);
@@ -234,13 +236,12 @@ function updateHealth() {
   } else {
       playerHealth = constrain(playerHealth - 1,0,playerMaxHealth);
   }
-/// ***NEW OVER*** ///
 
   // Check if the player is dead
   if (playerHealth === 0) {
     // If so, the game is over
     gameOver = true;
-    // set heartbeat sound back to the beginning
+    // set heartbeat sound back to the beginning **new**
     heartbeatSound.currentTime = 0;
   }
 }
@@ -277,6 +278,7 @@ function checkEating() {
       preyRadius -= 1;
       // play the death sound for the prey
       preyDeathSound.play();
+      // ***end of new code***
     }
   }
 }
@@ -334,7 +336,7 @@ function drawPrey() {
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
   stroke(155, 0, 0);
-  strokeWeight(preyEaten/2);
+  strokeWeight(preyEaten/2); // added a varying strokeWeight
   fill(playerFill,playerHealth);
   ellipse(playerX,playerY, playerRadius*2);
 }
@@ -342,6 +344,7 @@ function drawPlayer() {
 // drawMedicineText()
 //
 // if you havent used the special ability to take medicine, display instruction text
+// ***NEW FUNCTION***
 function drawMedicineText() {
   textFont(gameFont);
   textAlign(CENTER, CENTER);
