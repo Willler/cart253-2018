@@ -4,7 +4,9 @@ Game - Chaser (Disease Killer version)
 William L'Eriger - Original by Pippin Barr
 
 A simple game of cat and mouse, except you play as a warrior cell inside a disease-adled body. The disease is
-uncarable, so the game goes on forever until you give up on life, or die trying to save yourself
+uncarable, so the game goes on forever until you give up on life, or die trying to save yourself.
+
+***I forgot to prefix my commits with P1, so this last one is to mark the end of Project 1***
 
 Physics-based movement, keyboard controls, health/stamina,
 sprinting, random movement, screen wrap.
