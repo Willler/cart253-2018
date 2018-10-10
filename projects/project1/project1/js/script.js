@@ -53,6 +53,8 @@ var backgroundFill = 163;
 
 var preySize = 5;
 
+// preload()
+//
 // preload assets, including sounds and fonts
 function preload() {
   heartbeatSound = new Audio("assets/sounds/heartbeat.wav");
@@ -103,14 +105,8 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(backgroundFill,0,0);
-  stroke(preyFill, 0, 0);
-  strokeWeight(8);
-  noFill();
-  ellipse(300, 200, 500, 800);
-  ellipse(500, 500, 300, 200);
-  ellipse(450, 0, 500, 100);
-  ellipse(250, 500, 800, 400);
-  ellipse(0, 150, 1000, 100);
+  drawBackground();
+
   if (!gameOver) {
     handleInput();
 
@@ -163,6 +159,20 @@ function handleInput() {
   } else {
     playerMaxSpeed = 2;
   }
+}
+
+// drawBackground()
+//
+// draw the background design
+function drawBackground() {
+  stroke(preyFill, 0, 0);
+  strokeWeight(8);
+  noFill();
+  ellipse(300, 200, 500, 800);
+  ellipse(500, 500, 300, 200);
+  ellipse(450, 0, 500, 100);
+  ellipse(250, 500, 800, 400);
+  ellipse(0, 150, 1000, 100);
 }
 
 // movePlayer()
