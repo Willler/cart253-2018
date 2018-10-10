@@ -57,7 +57,7 @@ var preyEaten = 0;
 var backgroundFill = 163;
 
 // variable to check if medicine was used
-var medicineUsed = false; **new**
+var medicineUsed = false; // **new**
 
 // preload()
 //
