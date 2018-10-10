@@ -32,10 +32,12 @@ var preyY;
 var preyRadius = 25;
 var preyVX;
 var preyVY;
-var preyMaxSpeed = 10;
+var preyMaxSpeed = 12;
 // Variables used for perlin noise
 var preyTX = 0;
 var preyTY = 100;
+//  variable used for perlin noise size pulsing of prey
+var preySize = 5;
 
 // Prey health
 var preyHealth;
@@ -51,7 +53,8 @@ var preyEaten = 0;
 // background red fill Variable
 var backgroundFill = 163;
 
-var preySize = 5;
+// variable to check if medicine was used
+var medicineUsed = false;
 
 // preload()
 //
@@ -71,6 +74,8 @@ function setup() {
 
   setupPrey();
   setupPlayer();
+
+  // Play the heartbeat sound from the very beginning
   heartbeatSound.loop = true;
   heartbeatSound.play();
 
@@ -118,6 +123,7 @@ function draw() {
 
     drawPrey();
     drawPlayer();
+    drawMedicineText();
   }
   else {
     showGameOver();
@@ -158,6 +164,20 @@ function handleInput() {
     playerMaxSpeed = constrain(playerMaxSpeed + 0.2, -5, 5);
   } else {
     playerMaxSpeed = 2;
+  }
+
+  // Check if CONTROL key is pushed down
+  // this will allow the player to inject emergency medicine, thus changing the medicineUsed variable to true,
+  // and give them a bit of playerHealth back
+  // if the key is not pressed, the health stays equal to itself
+
+  if (medicineUsed === false) {
+    if (keyIsDown(CONTROL)) {
+      playerHealth += 50;
+      medicineUsed = true;
+    } else {
+      playerHealth = playerHealth;
+    }
   }
 }
 
@@ -316,6 +336,17 @@ function drawPlayer() {
   ellipse(playerX,playerY, playerRadius*2);
 }
 
+function drawMedicineText() {
+  textFont(gameFont);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  textSize(24);
+  if (medicineUsed === false) {
+    text("CTRL: EMERGENCY MEDICINE", 400, 470);
+  } else {
+    //no text
+  }
+}
 // showGameOver()
 //
 // Display text about the game being over!
