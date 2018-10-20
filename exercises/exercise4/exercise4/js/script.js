@@ -6,7 +6,9 @@
 
 // Game colors
 var bgColor = 0;
-var fgColor = 255;
+var fgColorBall = 255; // color of the ball
+var fgColorRight = 255; // color of the right paddle
+var fgColorLeft = 255; // color of the left paddle
 
 // BALL
 
@@ -57,7 +59,7 @@ var rightPaddle = {
   speed: 5,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40, // The key code for the DOWN ARROW
-  rightScore: 0 // *** NEW *** the variable for the right paddle's 
+  rightScore: 0 // *** NEW *** the variable for the right paddle's
 }
 
 // A variable to hold the beep sound we will play on bouncing
@@ -80,7 +82,7 @@ function setup() {
   createCanvas(640,480);
   rectMode(CENTER);
   noStroke();
-  fill(fgColor);
+  //fill(fgColor);
 
   setupPaddles();
   setupBall();
@@ -138,9 +140,17 @@ function draw() {
   handleBallOffScreen();
 
   // Display the paddles and ball
-  displayPaddle(leftPaddle);
-  displayPaddle(rightPaddle);
+  // displayPaddle(leftPaddle);
+  // displayPaddle(rightPaddle);
+
+  // *** NEW *** //
+  // Changed the previously single function to two separate ones in order to change color values when scoring
+  displayRightPaddle(rightPaddle);
+  displayLeftPaddle(leftPaddle);
+  // *** End *** //
   displayBall();
+
+
 }
 
 
@@ -270,11 +280,16 @@ function handleBallOffScreen() {
   // check if it works in console log
   if (ballRight < 0) {
     leftPaddle.leftScore ++;
-    console.log("left", leftPaddle.leftScore);
+    console.log("right score", leftPaddle.leftScore);
+    // when right side scores, lower the intensity of the left paddle's color
+    fgColorLeft -= 20;
+
   }
   if (ballLeft > width) {
     rightPaddle.rightScore ++;
-    console.log("right", rightPaddle.rightScore);
+    console.log("left score", rightPaddle.rightScore);
+    // when left side scores, lower the intensity of the right side's paddle
+    fgColorRight -= 20;
   }
   /// *** END NEW CODE *** ///
   }
@@ -284,12 +299,20 @@ function handleBallOffScreen() {
 //
 // Draws ball on screen based on its properties
 function displayBall() {
+  fill(fgColorBall); // **NEW**
   rect(ball.x,ball.y,ball.size,ball.size);
 }
 
 // displayPaddle(paddle)
 //
 // Draws the specified paddle on screen based on its properties
-function displayPaddle(paddle) {
-  rect(paddle.x,paddle.y,paddle.w,paddle.h);
+/// *** NEW *** ///
+function displayLeftPaddle(leftPaddle) {
+  paddleLeft = fill(fgColorLeft, 0, 0);
+  rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
+}
+
+function displayRightPaddle(rightPaddle) {
+  paddleRight = fill(0, fgColorRight, 0);
+  rect(rightPaddle.x, rightPaddle.y, rightPaddle.w, rightPaddle.h);
 }
