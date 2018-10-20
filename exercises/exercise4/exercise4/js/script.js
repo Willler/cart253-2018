@@ -10,6 +10,8 @@ var fgColorBall = 255; // color of the ball
 var fgColorRight = 255; // color of the right paddle
 var fgColorLeft = 255; // color of the left paddle
 
+// game end variables
+var gameOver = false;
 // BALL
 
 // Basic definition of a ball object with its key properties of
@@ -43,7 +45,6 @@ var leftPaddle = {
   upKeyCode: 87, // The key code for W
   downKeyCode: 83, // The key code for S
   leftScore: 0, // ***New*** variable for the left paddle's score
-  //lastScored: false //**NEW** Check if the last scorer is the left paddle
 }
 
 // RIGHT PADDLE
@@ -61,7 +62,6 @@ var rightPaddle = {
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40, // The key code for the DOWN ARROW
   rightScore: 0, // *** NEW *** the variable for the right paddle's
-  //lastScored: false // **new** check if the last scorer was the right paddle
 }
 
 // A variable to hold the beep sound we will play on bouncing
@@ -118,42 +118,46 @@ function setupBall() {
 // Calls the appropriate functions to run the game
 function draw() {
   // Fill the background
-  background(bgColor);
+    background(bgColor);
 
-  // Handle input
-  // Notice how we're using the SAME FUNCTION to handle the input
-  // for the two paddles!
-  handleInput(leftPaddle);
-  handleInput(rightPaddle);
 
-  // Update positions of all objects
-  // Notice how we're using the SAME FUNCTION to handle the input
-  // for all three objects!
-  updatePosition(leftPaddle);
-  updatePosition(rightPaddle);
-  updatePosition(ball);
+    // Handle input
+    // Notice how we're using the SAME FUNCTION to handle the input
+    // for the two paddles!
+    handleInput(leftPaddle);
+    handleInput(rightPaddle);
 
-  // Handle collisions
-  handleBallWallCollision();
-  handleBallPaddleCollision(leftPaddle);
-  handleBallPaddleCollision(rightPaddle);
+    // Update positions of all objects
+    // Notice how we're using the SAME FUNCTION to handle the input
+    // for all three objects!
+    updatePosition(leftPaddle);
+    updatePosition(rightPaddle);
+    updatePosition(ball);
 
-  // Handle the ball going off screen
-  handleBallOffScreen();
+    // Handle collisions
+    handleBallWallCollision();
+    handleBallPaddleCollision(leftPaddle);
+    handleBallPaddleCollision(rightPaddle);
 
-  // Display the paddles and ball
-  // displayPaddle(leftPaddle);
-  // displayPaddle(rightPaddle);
+    // Handle the ball going off screen
+    handleBallOffScreen();
 
-  // *** NEW *** //
-  // Changed the previously single function to two separate ones in order to change color values when scoring
-  displayRightPaddle(rightPaddle);
-  displayLeftPaddle(leftPaddle);
-  // *** End *** //
-  displayBall();
+    // Display the paddles and ball
+    // displayPaddle(leftPaddle);
+    // displayPaddle(rightPaddle);
+
+    // *** NEW *** //
+    // Changed the previously single function to two separate ones in order to change color values when scoring
+    displayRightPaddle(rightPaddle);
+    displayLeftPaddle(leftPaddle);
+    // *** End *** //
+    displayBall();
+    endGame();
+  }
+
 
   //reset();
-}
+
 
 
 // handleInput(paddle)
@@ -311,6 +315,15 @@ function reset () {
   ball.y = random(5, (height - 5));
   }
 
+function endGame() {
+  if (rightPaddle.rightScore >= 13 || leftPaddle.leftScore >= 13) {
+    rightPaddle.rightScore = 0;
+    leftPaddle.leftScore = 0;
+    fgColorLeft = 255;
+    fgColorRight = 255;
+    gameOver = true;
+}
+}
   /// *** END NEW FUNCTION *** ///
 
 
