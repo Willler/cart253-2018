@@ -42,7 +42,8 @@ var leftPaddle = {
   speed: 5,
   upKeyCode: 87, // The key code for W
   downKeyCode: 83, // The key code for S
-  leftScore: 0 // ***New*** variable for the left paddle's score
+  leftScore: 0, // ***New*** variable for the left paddle's score
+  //lastScored: false //**NEW** Check if the last scorer is the left paddle
 }
 
 // RIGHT PADDLE
@@ -59,7 +60,8 @@ var rightPaddle = {
   speed: 5,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40, // The key code for the DOWN ARROW
-  rightScore: 0 // *** NEW *** the variable for the right paddle's
+  rightScore: 0, // *** NEW *** the variable for the right paddle's
+  //lastScored: false // **new** check if the last scorer was the right paddle
 }
 
 // A variable to hold the beep sound we will play on bouncing
@@ -150,7 +152,7 @@ function draw() {
   // *** End *** //
   displayBall();
 
-
+  //reset();
 }
 
 
@@ -283,17 +285,34 @@ function handleBallOffScreen() {
     console.log("right score", leftPaddle.leftScore);
     // when right side scores, lower the intensity of the left paddle's color
     fgColorLeft -= 20;
-
+    reset();
   }
   if (ballLeft > width) {
     rightPaddle.rightScore ++;
     console.log("left score", rightPaddle.rightScore);
     // when left side scores, lower the intensity of the right side's paddle
     fgColorRight -= 20;
+    reset();
   }
   /// *** END NEW CODE *** ///
   }
 }
+
+// *** NEW FUNCTION *** //
+// function reset()
+//
+// once a point is scored, reset the ball according to the code within this function
+// in this case, send back to winner on the x axis and randomize the y axis
+function reset () {
+  ball.vx = -ball.vx;
+
+  ball.vy = constrain(ball.vy, -1.5, 1.5);
+  ball.vy = random(-5, 5)/ball.vy;
+  ball.y = random(5, (height - 5));
+  }
+
+  /// *** END NEW FUNCTION *** ///
+
 
 // displayBall()
 //
