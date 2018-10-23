@@ -7,13 +7,14 @@
 // Ball constructor
 //
 // Sets the properties with the provided arguments
-function Ball(x,y,vx,vy,size,speed) {
+function Ball(x,y,vx,vy,size,speed,color) {
   this.x = x;
   this.y = y;
   this.vx = vx;
   this.vy = vy;
   this.size = size;
   this.speed = speed;
+  this.color = 255;
 }
 
 // update()
@@ -41,11 +42,19 @@ Ball.prototype.update = function () {
 // Otherwise it returns false.
 Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
-  if (this.x + this.size < 0 || this.x > width) {
+/*  if (this.x + this.size < 0 || this.x > width) {
     return true;
   }
   else {
     return false;
+  }*/
+
+  if (this.x + this.size < 0) {
+    return 1;
+  }
+
+  if (this.x > width) {
+    return 2;
   }
 }
 
@@ -53,7 +62,7 @@ Ball.prototype.isOffScreen = function () {
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
-  fill(255);
+  fill(0, this.color, this.color);
   rect(this.x,this.y,this.size,this.size);
 }
 
@@ -71,6 +80,8 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      // apply random color for the Ball
+      this.color = random(255);
     }
   }
 }
