@@ -1,8 +1,8 @@
-// Pong
-// by Pippin Barr
+// Pong - Orchestra (Cacophony Version)
+// by William L'Eriger, original by Pippin Barr
 //
-// A primitive implementation of Pong with no scoring system
-// just the ability to play the game with the keyboard.
+// A slight improvement on the primitive implementation of Pong with a scoring system and disappearing paddles!
+// Playable with two players on the keyboard.
 
 // Game colors
 var bgColor = 0;
@@ -72,6 +72,10 @@ var beepSFX;
 // Loads the beep audio for the sound of bouncing
 function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
+  metalSFX = new Audio("assets/sounds/metal.wav");
+  orchestraSFX = new Audio("assets/sounds/orchestra.wav")
+  brassSFX = new Audio("assets/sounds/brass.wav")
+  ambientBackgroundMusic = new Audio("assets/sounds/ambient.wav")
 }
 
 // setup()
@@ -88,6 +92,10 @@ function setup() {
 
   setupPaddles();
   setupBall();
+
+  ambientBackgroundMusic.currentTime = 0;
+  ambientBackgroundMusic.play();
+  ambientBackgroundMusic.loop = true;
 }
 
 // setupPaddles()
@@ -224,8 +232,8 @@ function handleBallWallCollision() {
     // If it touched the top or bottom, reverse its vy
     ball.vy = -ball.vy;
     // Play our bouncing sound effect by rewinding and then playing
-    beepSFX.currentTime = 0;
-    beepSFX.play();
+    brassSFX.currentTime = 0;
+    brassSFX.play();
   }
 }
 
@@ -254,8 +262,10 @@ function handleBallPaddleCollision(paddle) {
       // Then the ball is touching the paddle so reverse its vx
       ball.vx = -ball.vx;
       // Play our bouncing sound effect by rewinding and then playing
-      beepSFX.currentTime = 0;
-      beepSFX.play();
+      metalSFX.currentTime = 0;
+      metalSFX.play();
+
+      fgColorBall = random(255);
     }
   }
 }
@@ -275,6 +285,9 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
+
+    orchestraSFX.currentTime = 0;
+    orchestraSFX.play();
     // NOTE that we don't change its velocity here so it just
     // carries on moving with the same velocity after its
     // position is reset.
