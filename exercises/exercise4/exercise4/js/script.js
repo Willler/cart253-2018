@@ -1,11 +1,12 @@
-// Pong - Orchestra (Cacophony Version)
+// Pong - Orchestra (Ambient Cacophony Version)
 // by William L'Eriger, original by Pippin Barr
 //
 // A slight improvement on the primitive implementation of Pong with a scoring system and disappearing paddles!
 // Playable with two players on the keyboard.
 
 // Game colors
-var bgColor = 0;
+//var bgColor = 0;
+///////////////////////////********NEW*******////////////////////
 var fgColorBallRed = 0; // red color of the ball
 var fgColorBallGreen = 255; // green color value of ball
 var fgColorBallBlue = 255; // blue color value of ball
@@ -14,14 +15,16 @@ var fgColorLeft = 255; // color of the left paddle
 
 // game end variables
 var gameOver = false;
-// BALL
 
+////////////////////////////*****END NEW*******/////////////////////
+// BALL
+//
 // Basic definition of a ball object with its key properties of
 // position, size, velocity, and speed
 var ball = {
   x: 0,
   y: 0,
-  size: 20,
+  size: 15, /////***UPDATED
   vx: 0,
   vy: 0,
   speed: 5
@@ -39,8 +42,8 @@ var paddleInset = 50;
 var leftPaddle = {
   x: 0,
   y: 0,
-  w: 20,
-  h: 70,
+  w: 5, //////****UPDATED
+  h: 90,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -56,8 +59,8 @@ var leftPaddle = {
 var rightPaddle = {
   x: 0,
   y: 0,
-  w: 20,
-  h: 70,
+  w: 5, //////*******UPDATED
+  h: 90,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -73,11 +76,14 @@ var beepSFX;
 //
 // Loads the beep audio for the sound of bouncing
 function preload() {
+  //////////******NEW SOUNDS *********///////////////
   beepSFX = new Audio("assets/sounds/beep.wav");
   metalSFX = new Audio("assets/sounds/metal.wav");
-  orchestraSFX = new Audio("assets/sounds/orchestra.wav")
-  brassSFX = new Audio("assets/sounds/brass.wav")
-  ambientBackgroundMusic = new Audio("assets/sounds/ambient.wav")
+  orchestraSFX = new Audio("assets/sounds/orchestra.wav");
+  brassSFX = new Audio("assets/sounds/brass.wav");
+  ambientBackgroundMusic = new Audio("assets/sounds/ambient.wav");
+
+  backgroundIMG = loadImage("assets/images/landscape.jpg"); /////NEW IMAGE/////
 }
 
 // setup()
@@ -94,7 +100,7 @@ function setup() {
 
   setupPaddles();
   setupBall();
-
+////// Code for new ambient bg music, setting the currentTime to 0 at the beginning and looping it infinitely
   ambientBackgroundMusic.currentTime = 0;
   ambientBackgroundMusic.play();
   ambientBackgroundMusic.loop = true;
@@ -127,8 +133,8 @@ function setupBall() {
 //
 // Calls the appropriate functions to run the game
 function draw() {
-  // Fill the background
-    background(bgColor);
+  // Fill the background with a landscape image
+    background(backgroundIMG);
 
 
     // Handle input
@@ -162,7 +168,8 @@ function draw() {
     displayLeftPaddle(leftPaddle);
     // *** End *** //
     displayBall();
-    endGame();
+
+    loopGame(); /// new loopGame function that resets scores to 0
   }
 
 
@@ -233,7 +240,7 @@ function handleBallWallCollision() {
   if (ballTop < 0 || ballBottom > height) {
     // If it touched the top or bottom, reverse its vy
     ball.vy = -ball.vy;
-    // Play our bouncing sound effect by rewinding and then playing
+    // Play a brass sound effect by rewinding and then playing /////////////////////////UPDATED//////////////////////////
     brassSFX.currentTime = 0;
     brassSFX.play();
   }
@@ -263,10 +270,10 @@ function handleBallPaddleCollision(paddle) {
     if (ballLeft < paddleRight && ballRight > paddleLeft) {
       // Then the ball is touching the paddle so reverse its vx
       ball.vx = -ball.vx;
-      // Play our bouncing sound effect by rewinding and then playing
+      // Play a metal "ping" sound effect by rewinding and then playing ////////////////////UPDATED/////////////
       metalSFX.currentTime = 0;
       metalSFX.play();
-
+      // New code to randomize the green and blue rgb values to get a random color that fits the theme
       fgColorBallGreen = random(255);
       fgColorBallBlue = random(255);
     }
@@ -288,7 +295,7 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
-
+    // Play a sound when a point is scored by either side ////////////////////////////////// NEW //////////////////////
     orchestraSFX.currentTime = 0;
     orchestraSFX.play();
     // NOTE that we don't change its velocity here so it just
@@ -296,7 +303,7 @@ function handleBallOffScreen() {
     // position is reset.
     // This is where we would count points etc!
 
-  /// *** NEW CODE ***///
+  /// *** NEW CODE ***/////////////////////////////////////////
   // if the ball goes out of the right side, add a point to the leftScore, which is associated with the left paddle
   // if the ball goes out of the left side, do the opposite
   // check if it works in console log
@@ -314,11 +321,11 @@ function handleBallOffScreen() {
     fgColorRight -= 20;
     reset();
   }
-  /// *** END NEW CODE *** ///
+  /// *** END NEW CODE *** ///////////////////
   }
 }
 
-// *** NEW FUNCTION *** //
+// *** NEW FUNCTIONS *** ///////////////////////////////////////
 // function reset()
 //
 // once a point is scored, reset the ball according to the code within this function
@@ -331,7 +338,10 @@ function reset () {
   ball.y = random(5, (height - 5));
   }
 
-function endGame() {
+// function loopGame()
+//
+// once a player reached 13 points and their paddle turns black, reset all score values and displays to 0, set gameOver variable to true
+function loopGame() {
   if (rightPaddle.rightScore >= 13 || leftPaddle.leftScore >= 13) {
     rightPaddle.rightScore = 0;
     leftPaddle.leftScore = 0;
@@ -340,27 +350,27 @@ function endGame() {
     gameOver = true;
 }
 }
-  /// *** END NEW FUNCTION *** ///
+  /// *** END NEW FUNCTIONS *** ///
 
 
 // displayBall()
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-  fill(fgColorBallRed, fgColorBallGreen, fgColorBallBlue); // **NEW**
+  fill(fgColorBallRed, fgColorBallGreen, fgColorBallBlue); // **NEW AND UPDATED**
   rect(ball.x,ball.y,ball.size,ball.size);
 }
 
-// displayPaddle(paddle)
+// function displayLeftPaddle(leftPaddle) and function displayRightPaddle(rightPaddle)
 //
-// Draws the specified paddle on screen based on its properties
-/// *** NEW *** ///
+// Draws the specified paddles on screen based on their properties
+/// *** NEW AND UPDATED PADDLE FUNCTIONS*** ///
 function displayLeftPaddle(leftPaddle) {
-  paddleLeft = fill(0, 0, fgColorLeft);
+  paddleLeft = fill(100, 100, fgColorLeft); // blue value based on variable
   rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
 }
 
 function displayRightPaddle(rightPaddle) {
-  paddleRight = fill(0, fgColorRight, 0);
+  paddleRight = fill(100, fgColorRight, 100); // green value based on variable
   rect(rightPaddle.x, rightPaddle.y, rightPaddle.w, rightPaddle.h);
 }
