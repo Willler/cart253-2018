@@ -6,7 +6,9 @@
 
 // Game colors
 var bgColor = 0;
-var fgColorBall = 255; // color of the ball
+var fgColorBallRed = 0; // red color of the ball
+var fgColorBallGreen = 255; // green color value of ball
+var fgColorBallBlue = 255; // blue color value of ball
 var fgColorRight = 255; // color of the right paddle
 var fgColorLeft = 255; // color of the left paddle
 
@@ -265,7 +267,8 @@ function handleBallPaddleCollision(paddle) {
       metalSFX.currentTime = 0;
       metalSFX.play();
 
-      fgColorBall = random(255);
+      fgColorBallGreen = random(255);
+      fgColorBallBlue = random(255);
     }
   }
 }
@@ -344,7 +347,7 @@ function endGame() {
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-  fill(fgColorBall); // **NEW**
+  fill(fgColorBallRed, fgColorBallGreen, fgColorBallBlue); // **NEW**
   rect(ball.x,ball.y,ball.size,ball.size);
 }
 
@@ -353,7 +356,7 @@ function displayBall() {
 // Draws the specified paddle on screen based on its properties
 /// *** NEW *** ///
 function displayLeftPaddle(leftPaddle) {
-  paddleLeft = fill(fgColorLeft, 0, 0);
+  paddleLeft = fill(0, 0, fgColorLeft);
   rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
 }
 
