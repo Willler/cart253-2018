@@ -42,12 +42,12 @@ function draw() {
   leftPaddle.update();
   rightPaddle.update();
 
-  if (ball.isOffScreen()===1) {
+  if (ball.isOffScreen()===1) { /////////////modified
     rightPaddle.score++;
     ball.reset();
     console.log(leftPaddle.score, rightPaddle.score)
   }
-  if (ball.isOffScreen()===2) {
+  if (ball.isOffScreen()===2) { ///////////////modified
     leftPaddle.score++;
     console.log(leftPaddle.score, rightPaddle.score)
     ball.reset();

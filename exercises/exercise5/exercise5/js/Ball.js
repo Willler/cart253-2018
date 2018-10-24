@@ -48,7 +48,9 @@ Ball.prototype.isOffScreen = function () {
   else {
     return false;
   }*/
-
+/////////////////////////////////////////////UPDATED//////////////////////
+// changed the contents of isOffScreen() to check if the ball goes out to the left or to the right, returning 1 or 2 depending on which one
+// this will allow me to determine score inside script.js
   if (this.x + this.size < 0) {
     return 1;
   }
@@ -92,10 +94,12 @@ Ball.prototype.handleCollision = function(paddle) {
 Ball.prototype.reset = function () {
   this.x = width/2;
   // this.y = height/2;
-
+  /////////////////////////////////////////////////////// NEW ///////////////////////////
+  //reverse the vx velocity so that the ball is reflected onto the scorer
   this.vx = -this.vx;
-
+  // constrain and randomize the vy and y values to randomize the reset position and vy slightly
   this.vy = constrain(this.vy, -1, 1);
   this.vy = random(-5/5)/this.vy;
-  this.y = random (height);
+  this.y = random(height);
+  ///////////////////////////////////////////////////// END NEW /////////////////////////
 }
