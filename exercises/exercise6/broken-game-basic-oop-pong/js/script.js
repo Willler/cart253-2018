@@ -21,6 +21,7 @@ var rightPaddle;
 function setup() {
   createCanvas(640,480);
   noStroke();
+  fill(255); //////////////fixed
   // Create a ball
   ball = new Ball(width/2,height/2,50,50,10,50);
   // Create the right paddle with UP and DOWN as controls
