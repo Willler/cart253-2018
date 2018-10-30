@@ -43,7 +43,8 @@ function draw() {
   leftPaddle.update();
   rightPaddle.update();
 
-  if (ball.isOffScreen()) 
+//////////////////////////////////FIXED
+  if (ball.isOffScreen())
     reset();
   }
 
