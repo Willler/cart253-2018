@@ -21,6 +21,7 @@ function Ball(x,y,vx,vy,size,speed) {
 // Moves according to velocity, constrains y to be on screen,
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
+/////////////////////////////FIXED
 Ball.prototype.updated = function () {
   // Update position with velocity
   this.x = this.vx;
@@ -41,6 +42,7 @@ Ball.prototype.updated = function () {
 // Otherwise it returns false.
 Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
+  /////////////////////////FIXED X 2
   if (this.x + this.size < 0 && this.x > width) {
     return true;
   }
@@ -52,7 +54,9 @@ Ball.prototype.isOffScreen = function () {
 // display()
 //
 // Draw the ball as a rectangle on the screen
+//////////////FIXED
 Ball.prototype.display = function () {
+  //////////////////////////FIXED
   rect(this.x, this.y);
 }
 
@@ -60,6 +64,7 @@ Ball.prototype.display = function () {
 //
 // Check if this ball overlaps the paddle passed as an argument
 // and if so reverse x velocity to bounce
+////////////////FIXED
 Ball.prototype.handleCollision = function(paddle) {
   // Check if the ball overlaps the paddle on x axis
   if (this.x + this.size > paddle.x && this.x < paddle.x + paddle.w) {
