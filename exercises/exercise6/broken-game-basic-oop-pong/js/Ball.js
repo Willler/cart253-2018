@@ -33,7 +33,7 @@ Ball.prototype.update = function () { ////////////fixed
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
     ////////////////fixed
-    this.vy -= this.vy;
+    this.vy = -this.vy;
   }
 }
 

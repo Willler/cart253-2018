@@ -23,7 +23,7 @@ function setup() {
   noStroke();
   fill(255); //////////////fixed
   // Create a ball
-  ball = new Ball(width/2,height/2,50,50,10,50);
+  ball = new Ball(width/2,height/2,5,5,10,5); ///////fixed vx, vy and speed
   // Create the right paddle with UP and DOWN as controls
   ///////////////////////////FIXED
   rightPaddle = new Paddle(width-10,height/2,10,60,10,UP_ARROW,DOWN_ARROW);
