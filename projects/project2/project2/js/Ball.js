@@ -53,15 +53,15 @@ Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
 
   if (this.x + this.size < 0) {
-    this.scoreRight ++;
-    console.log(this.scoreLeft, this.scoreRight);
-    return true;
+    // this.scoreRight ++;
+    // console.log(this.scoreLeft, this.scoreRight);
+    return "left";
   }  else if (this.x > width) {
-    this.scoreLeft ++;
-    console.log(this.scoreLeft, this.scoreRight);
-    return true;
+    // this.scoreLeft ++;
+    // console.log(this.scoreLeft, this.scoreRight);
+    return "right";
   } else {
-    return false;
+    return "neither";
   }
 }
 

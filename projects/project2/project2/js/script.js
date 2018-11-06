@@ -64,7 +64,13 @@ function draw() {
     leftPaddle.update();
     rightPaddle.update();
 
-    if (ball.isOffScreen()) {
+    if (ball.isOffScreen() === "left") {
+      leftPaddle.score ++;
+      console.log(leftPaddle.score, rightPaddle.score);
+      ball.reset();
+    } else if (ball.isOffScreen() === "right") {
+      rightPaddle.score ++;
+      console.log(leftPaddle.score, rightPaddle.score);
       ball.reset();
     }
     enemy.isOffScreen();

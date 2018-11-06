@@ -70,6 +70,9 @@ Enemy.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      // remove one point from player that gets hit by Enemy
+      paddle.score -= 1;
+      console.log(leftPaddle.score, rightPaddle.score);
     }
   }
 }
