@@ -12,12 +12,14 @@ var backgroundStripesColor3 = 240;
 // Ball constructor
 //
 // Sets the properties with the provided arguments
-function Ball(x,y,vx,vy,size,speed) {
+// **added the border attribute
+function Ball(x,y,vx,vy,size,border,speed) {
   this.x = x;
   this.y = y;
   this.vx = vx;
   this.vy = vy;
   this.size = size;
+  this.border = border; //////////////********NEWWWWWWWW
   this.speed = speed;
 }
 
@@ -58,8 +60,8 @@ Ball.prototype.isOffScreen = function () {
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
-  fill(255);
-  rect(this.x,this.y,this.size,this.size);
+  fill(244, 66, 209);
+  rect(this.x,this.y,this.size,this.size, this.border); ////////*********added border
 }
 
 // handleCollision(paddle)
@@ -77,9 +79,9 @@ Ball.prototype.handleCollision = function(paddle) {
       // Reverse x velocity to bounce
       this.vx = -this.vx;
       // change the color of the background stripes to a random, light color
-      backgroundStripesColor1 = random(150,255);
-      backgroundStripesColor2 = random(150,255);
-      backgroundStripesColor3 = random(150,255);
+      backgroundStripesColor1 = random(50, 150);
+      backgroundStripesColor2 = random(50, 150);
+      backgroundStripesColor3 = random(50, 150);
     }
   }
 }
