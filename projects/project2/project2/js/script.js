@@ -47,6 +47,8 @@ function setup() {
 function draw() {
   if (gameStart === false) {
     drawStartMenu();
+  } else if (ball.scoreLeft === 11 || ball.scoreRight === 11) {
+    drawEndScreen();
   } else {
     //drawBackground() function to draw stripes for the background
     drawBackground();
@@ -107,11 +109,31 @@ function drawStartMenu() {
   text("S H I F T into high gear. . !", 20, 300);
 }
 
+// drawEndScreen()
+//
+// draw the end screen that appears once a player reaches a certain score
+//////////////***************NEW*****///////////
+function drawEndScreen() {
+  background(0);
+  stroke(244, 66, 209);
+  line(0, 50, 800, 50);
+  stroke(56, 168, 255);
+  line(0, 100, 800, 100);
+// stop the background music of the main game
+  bgMusic.pause();
+}
+
 //keyPressed()
 //
 // check if a specific key has been pressed and return value
 function keyPressed() {
+  // press shift to begin the game
   if(keyCode === SHIFT) {
     gameStart = true;
+  }
+  // press the CONTROL key to restart after hitting the end screen, this will reset scores to 0
+  if(keyCode === CONTROL) {
+    ball.scoreLeft = 0;
+    ball.scoreRight = 0;
   }
 }
