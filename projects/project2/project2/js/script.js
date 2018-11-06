@@ -119,8 +119,17 @@ function drawEndScreen() {
   line(0, 50, 800, 50);
   stroke(56, 168, 255);
   line(0, 100, 800, 100);
-// stop the background music of the main game
+
+// draw end text
+  textSize(48);
+  strokeWeight(2);
+  noFill();
+  textAlign(LEFT);
+  text("The J O U R N E Y Ends...", 100, 200);
+  text("Press C O N T R O L to refuel.", 100, 250);
+// stop the background music of the main game, reset it back to the beginning
   bgMusic.pause();
+  bgMusic.currentTime = 0;
 }
 
 //keyPressed()
