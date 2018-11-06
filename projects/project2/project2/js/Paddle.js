@@ -6,7 +6,7 @@
 // Paddle constructor
 //
 // Sets the properties with the provided arguments or defaults
-function Paddle(x,y,w,h,border, speed,downKey,upKey) {
+function Paddle(x,y,w,h,border,speed,downKey,upKey) {
   this.x = x;
   this.y = y;
   this.vx = 0;
