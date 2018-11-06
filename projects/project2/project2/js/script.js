@@ -35,6 +35,9 @@ function setup() {
 function draw() {
   background(0);
 
+  //drawBackground() function to draw stripes over the existing black background
+  drawBackground();
+
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
@@ -52,4 +55,15 @@ function draw() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+}
+
+//drawBackground()
+//
+// draw a stylish background using geometric shapes
+function drawBackground() {
+  noStroke();
+  fill(backgroundStripesColor,backgroundStripesColor,backgroundStripesColor);
+  rect(0, 0, width, 120);
+  rect(0, 240, width, 120);
+
 }
