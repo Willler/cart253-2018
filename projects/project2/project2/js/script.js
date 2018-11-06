@@ -61,11 +61,11 @@ function draw() {
 // draw a stylish background using geometric shapes
 function drawBackground() {
   noStroke();
-  fill(backgroundStripesColor1,0,backgroundStripesColor3);
-  rect(0, 0, width, 90);
-  rect(0, 180, width, 90);
-  rect(0, 360, width, 90);
-  fill(backgroundStripesColor3,0,backgroundStripesColor1);
-  rect(0, 90, width, 90);
-  rect(0, 270, width, 90);
+  fill(backgroundStripesColor1,0,backgroundStripesColor3, 80);
+  rect(0, 0, width, 90,);
+  rect(0, 180, width, 90,);
+  rect(0, 360, width, 90,);
+  fill(backgroundStripesColor3,0,backgroundStripesColor1, 80);
+  rect(0, 90, width, 90,);
+  rect(0, 270, width, 90,);
 }
