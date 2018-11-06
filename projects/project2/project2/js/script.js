@@ -14,6 +14,9 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+// Variable to check if the game has been started *****************NEW**************////////
+var gameStart = false;
+
 
 //preload()
 //
@@ -35,9 +38,6 @@ function setup() {
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(20,height/2,5,90,5,10,83,87); ///****MODIFIED
-
-    bgMusic.play();
-    bgMusic.loop = true;
 }
 
 // draw()
@@ -45,27 +45,31 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
+  if (gameStart === false) {
+    drawStartMenu();
+  } else {
+    //drawBackground() function to draw stripes for the background
+    drawBackground();
 
-  //drawBackground() function to draw stripes for the background
-  drawBackground();
+    leftPaddle.handleInput();
+    rightPaddle.handleInput();
 
-  leftPaddle.handleInput();
-  rightPaddle.handleInput();
+    ball.update();
+    leftPaddle.update();
+    rightPaddle.update();
 
-  ball.update();
-  leftPaddle.update();
-  rightPaddle.update();
+    if (ball.isOffScreen()) {
+      ball.reset();
+    }
 
-  if (ball.isOffScreen()) {
-    ball.reset();
+    ball.handleCollision(leftPaddle);
+    ball.handleCollision(rightPaddle);
+
+    ball.display();
+    leftPaddle.display();
+    rightPaddle.display();
   }
 
-  ball.handleCollision(leftPaddle);
-  ball.handleCollision(rightPaddle);
-
-  ball.display();
-  leftPaddle.display();
-  rightPaddle.display();
 }
 
 //drawBackground()
@@ -80,4 +84,22 @@ function drawBackground() {
   fill(backgroundStripesColor3,0,backgroundStripesColor1, 80);
   rect(0, 90, width, 90,);
   rect(0, 270, width, 90,);
+
+
+  bgMusic.play();
+  bgMusic.loop = true;
+}
+
+function drawStartMenu() {
+  background(0);
+  stroke(244, 66, 209);
+  line(0, 400, 800, 400);
+  stroke(56, 168, 255);
+  line(0, 415, 800, 415);
+}
+
+function keyPressed() {
+  if(keyCode === SHIFT) {
+    gameStart = true;
+  }
 }
