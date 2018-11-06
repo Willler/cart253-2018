@@ -77,27 +77,39 @@ function draw() {
 // draw a stylish background using geometric shapes
 function drawBackground() {
   noStroke();
-  fill(backgroundStripesColor1,0,backgroundStripesColor3, 80);
+  fill(backgroundStripesColor1,0,backgroundStripesColor3, 70);
   rect(0, 0, width, 90,);
   rect(0, 180, width, 90,);
   rect(0, 360, width, 90,);
-  fill(backgroundStripesColor3,0,backgroundStripesColor1, 80);
+  fill(backgroundStripesColor3,0,backgroundStripesColor1, 70);
   rect(0, 90, width, 90,);
   rect(0, 270, width, 90,);
 
-
+  // play the background music
   bgMusic.play();
   bgMusic.loop = true;
 }
 
+//drawStartMenu()
+//
+// draw the start menu
 function drawStartMenu() {
   background(0);
   stroke(244, 66, 209);
   line(0, 400, 800, 400);
   stroke(56, 168, 255);
   line(0, 415, 800, 415);
+
+  //menu text, instructions + flavor
+  strokeWeight(3);
+  textSize(36);
+  text("Begin an A E S T H E T I C Experience. . .", 100, 380);
+  text("S H I F T into high gear. . !", 20, 300);
 }
 
+//keyPressed()
+//
+// check if a specific key has been pressed and return value
 function keyPressed() {
   if(keyCode === SHIFT) {
     gameStart = true;
