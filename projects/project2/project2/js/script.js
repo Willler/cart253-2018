@@ -18,7 +18,7 @@ var rightPaddle;
 //
 // Creates the ball and paddles
 function setup() {
-  createCanvas(640,480);
+  createCanvas(800,450); ///////////modified canvas size ******NEW******
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
@@ -33,9 +33,8 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(0);
 
-  //drawBackground() function to draw stripes over the existing black background
+  //drawBackground() function to draw stripes for the background
   drawBackground();
 
   leftPaddle.handleInput();
@@ -62,8 +61,11 @@ function draw() {
 // draw a stylish background using geometric shapes
 function drawBackground() {
   noStroke();
-  fill(backgroundStripesColor,backgroundStripesColor,backgroundStripesColor);
-  rect(0, 0, width, 120);
-  rect(0, 240, width, 120);
-
+  fill(backgroundStripesColor1,backgroundStripesColor2,backgroundStripesColor3);
+  rect(0, 0, width, 90);
+  rect(0, 180, width, 90);
+  rect(0, 360, width, 90);
+  fill(backgroundStripesColor3,backgroundStripesColor1,backgroundStripesColor2);
+  rect(0, 90, width, 90);
+  rect(0, 270, width, 90);
 }

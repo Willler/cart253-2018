@@ -4,8 +4,10 @@
 // and bottom edges of the canvas, going off the left and right sides,
 // and bouncing off paddles.
 
-// set a variable for the background stripes color
-var backgroundStripesColor = 0;
+// set a variable for the background stripes color, three different ones for variation
+var backgroundStripesColor1 = 255;
+var backgroundStripesColor2 = 210;
+var backgroundStripesColor3 = 240;
 
 // Ball constructor
 //
@@ -74,8 +76,10 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
-      // change the color of the background stripes to a random, neon color
-      backgroundStripesColor = random(150,255);
+      // change the color of the background stripes to a random, light color
+      backgroundStripesColor1 = random(150,255);
+      backgroundStripesColor2 = random(150,255);
+      backgroundStripesColor3 = random(150,255);
     }
   }
 }
