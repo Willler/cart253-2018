@@ -44,7 +44,7 @@ Enemy.prototype.isOffScreen = function () {
   if (this.x + this.size < 0) {
     this.x += width;
   } else if (this.x > width) {
-    x -= width;
+    this.x -= width;
   }
 }
 
@@ -52,7 +52,7 @@ Enemy.prototype.isOffScreen = function () {
 //
 // Draw the Enemy as a rectangle on the screen
 Enemy.prototype.display = function () {
-  fill(244, 66, 209);
+  fill(0, 250, 0);
   rect(this.x,this.y,this.size,this.size, this.border);
 }
 
@@ -72,4 +72,12 @@ Enemy.prototype.handleCollision = function(paddle) {
       this.vx = -this.vx;
     }
   }
+}
+
+// reset()
+//
+// Set position back to a random location
+Ball.prototype.reset = function () {
+  this.x = random(300, 500);
+  this.y = random(150, 350);
 }

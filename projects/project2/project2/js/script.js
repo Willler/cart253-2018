@@ -33,6 +33,9 @@ function setup() {
   createCanvas(800,450); ///////////modified canvas size ******NEW******
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5,5); ////////////*****modified
+
+  // create an Enemy
+  enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-30,height/2,5,90,5,10,DOWN_ARROW,UP_ARROW); /////*****MODIFIED
   // Create the left paddle with W and S as controls
@@ -57,17 +60,23 @@ function draw() {
     rightPaddle.handleInput();
 
     ball.update();
+    enemy.update(); //////////////////NEW
     leftPaddle.update();
     rightPaddle.update();
 
     if (ball.isOffScreen()) {
       ball.reset();
     }
+    enemy.isOffScreen();
 
     ball.handleCollision(leftPaddle);
     ball.handleCollision(rightPaddle);
 
+    enemy.handleCollision(leftPaddle);
+    enemy.handleCollision(rightPaddle);
+
     ball.display();
+    enemy.display();
     leftPaddle.display();
     rightPaddle.display();
   }
