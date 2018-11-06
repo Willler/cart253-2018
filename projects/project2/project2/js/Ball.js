@@ -82,6 +82,8 @@ Ball.prototype.handleCollision = function(paddle) {
       backgroundStripesColor1 = random(50, 150);
       backgroundStripesColor2 = random(50, 150);
       backgroundStripesColor3 = random(50, 150);
+      // add a sound for when the ball hits the paddle
+      paddleHitSound.play();
     }
   }
 }

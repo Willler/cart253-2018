@@ -14,6 +14,15 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+
+//preload()
+//
+// preloads the assets used in the game
+function preload() {
+  bgMusic = new Audio("assets/sounds/bgMusic.wav");
+  paddleHitSound = new Audio("assets/sounds/bassKickSound.wav");
+}
+
 // setup()
 //
 // Creates the ball and paddles
@@ -26,6 +35,9 @@ function setup() {
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(20,height/2,5,90,5,10,83,87); ///****MODIFIED
+
+    bgMusic.play();
+    bgMusic.loop = true;
 }
 
 // draw()
