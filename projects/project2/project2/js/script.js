@@ -228,7 +228,7 @@ function drawScore() {
   stroke(255);
   noFill();
   textSize(map(sin(angle), -1, 1, minTextSize, maxTextSize));
-  text(leftPaddle.score, 50, 50);
-  text(rightPaddle.score, 720, 50);
+  text(leftPaddle.score, 720, 50);
+  text(rightPaddle.score, 50, 50);
   angle += 0.03;
 }

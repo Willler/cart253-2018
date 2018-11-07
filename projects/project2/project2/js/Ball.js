@@ -133,5 +133,8 @@ Ball.prototype.gateCollision = function(gate) {
 // Set position back to the middle of the screen
 Ball.prototype.reset = function () {
   this.x = width/2;
-  this.y = height/2;
+
+  this.y = random(150, 350);
+
+  this.vx = -this.vx;
 }
