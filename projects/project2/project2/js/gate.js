@@ -14,4 +14,12 @@ function Gate(x, y, w, h, border,acceleration) {
   this.h = h;
   this.border = border;
   this.acceleration = acceleration;
+
+  this.blue = blue;
+  this.red = red;
+}
+
+Gate.prototype.display = function() {
+  fill(this.red,0,this.blue);
+  rect(this.x, this.y, this.w, this.y, this.border);
 }
