@@ -5,9 +5,9 @@
 // and bouncing off paddles.
 
 // set a variable for the background stripes color, three different ones for variation
-var backgroundStripesColor1 = 255;
-var backgroundStripesColor2 = 210;
-var backgroundStripesColor3 = 240;
+var backgroundStripesColor1 = 50;
+var backgroundStripesColor2 = 75;
+var backgroundStripesColor3 = 100;
 
 // Ball constructor
 //

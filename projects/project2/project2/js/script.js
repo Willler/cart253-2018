@@ -30,6 +30,8 @@ var gameStart = false;
 function preload() {
   bgMusic = new Audio("assets/sounds/bgMusic.wav");
   paddleHitSound = new Audio("assets/sounds/bassKickSound.wav");
+  endMusic = new Audio("assets/sounds/endMusic.wav")
+  enemyHitSound = new Audio("assets/sounds/enemyHitSound.wav")
 }
 
 // setup()
@@ -66,7 +68,7 @@ function setup() {
 function draw() {
   if (gameStart === false) {
     drawStartMenu();
-  } else if (ball.scoreLeft === 11 || ball.scoreRight === 11) {
+  } else if (leftPaddle.score === 11 || rightPaddle.score === 11) {
     drawEndScreen();
   } else {
     //drawBackground() function to draw stripes for the background
