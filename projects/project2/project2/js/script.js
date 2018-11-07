@@ -17,11 +17,17 @@ var gateTop;
 var gateMiddle;
 var gateBottom;
 
+// array variables for the enemy objects
 var enemy = [];
 var numEnemies = 3;
 
 // Variable to check if the game has been started *****************NEW**************////////
 var gameStart = false;
+
+// variables for oscillating text
+var minTextSize = 16;
+var maxTextSize = 32;
+var angle = 0;
 
 
 //preload()
@@ -211,9 +217,14 @@ function keyPressed() {
   }
 }
 
+//drawScore()
+//
+// draws the score on the screen in text, oscillating
 function drawScore() {
   stroke(255);
   noFill();
+  textSize(map(sin(angle), -1, 1, minTextSize, maxTextSize));
   text(leftPaddle.score, 50, 50);
   text(rightPaddle.score, 720, 50);
+  angle += 0.03;
 }
