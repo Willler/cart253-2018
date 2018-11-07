@@ -73,6 +73,8 @@ Enemy.prototype.handleCollision = function(paddle) {
       // remove one point from player that gets hit by Enemy
       paddle.score -= 1;
       console.log(leftPaddle.score, rightPaddle.score);
+      // play enemy hit sound
+      enemyHitSound.play();
     }
   }
 }

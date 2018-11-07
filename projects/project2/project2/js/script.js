@@ -30,8 +30,10 @@ var gameStart = false;
 function preload() {
   bgMusic = new Audio("assets/sounds/bgMusic.wav");
   paddleHitSound = new Audio("assets/sounds/bassKickSound.wav");
-  endMusic = new Audio("assets/sounds/endMusic.wav")
-  enemyHitSound = new Audio("assets/sounds/enemyHitSound.wav")
+  endMusic = new Audio("assets/sounds/endMusic.wav");
+  enemyHitSound = new Audio("assets/sounds/enemyHitSound.wav");
+
+  displayFont = loadFont("assets/fonts/barrio.ttf");
 }
 
 // setup()
@@ -40,7 +42,7 @@ function preload() {
 function setup() {
   createCanvas(800,450); ///////////modified canvas size ******NEW******
   // Create a ball
-  ball = new Ball(width/2,height/2,5,5,10,5,5); ////////////*****modified
+  ball = new Ball(width/2,height/2,3,3,10,5,5); ////////////*****modified
 
   // create an Enemy
   // enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
@@ -134,6 +136,11 @@ function drawBackground() {
   // play the background music
   bgMusic.play();
   bgMusic.loop = true;
+
+  // if end music was playing, stop it, reset it to 0
+  endMusic.pause();
+  endMusic.currentTime = 0;
+
 }
 
 //drawStartMenu()
@@ -141,15 +148,25 @@ function drawBackground() {
 // draw the start menu
 function drawStartMenu() {
   background(0);
+  noFill();
   stroke(244, 66, 209);
   line(0, 400, 800, 400);
   stroke(56, 168, 255);
   line(0, 415, 800, 415);
 
+  stroke(244, 66, 209);
+  ellipse(700, 200, 100);
+  ellipse(500, 70, 50);
+  stroke(56, 168, 255);
+  ellipse(600, 100, 75);
+
+
   //menu text, instructions + flavor
-  strokeWeight(3);
+  strokeWeight(2);
   textSize(36);
+  textFont(displayFont);
   text("Begin an A E S T H E T I C Experience. . .", 100, 380);
+  stroke(244, 66, 209);
   text("S H I F T into high gear. . !", 20, 300);
 }
 
@@ -169,11 +186,13 @@ function drawEndScreen() {
   strokeWeight(2);
   noFill();
   textAlign(LEFT);
-  text("The J O U R N E Y Ends...", 100, 200);
-  text("Press C O N T R O L to refuel.", 100, 250);
+  text("The J O U R N E Y Ends...", 20, 200);
+  stroke(244, 66, 209);
+  text("Press C O N T R O L to refuel.", 20, 260);
 // stop the background music of the main game, reset it back to the beginning
   bgMusic.pause();
   bgMusic.currentTime = 0;
+  endMusic.play();
 }
 
 //keyPressed()
