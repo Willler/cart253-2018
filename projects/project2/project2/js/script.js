@@ -75,6 +75,7 @@ function draw() {
   } else {
     //drawBackground() function to draw stripes for the background
     drawBackground();
+    drawScore();
 
     leftPaddle.handleInput();
     rightPaddle.handleInput();
@@ -208,4 +209,11 @@ function keyPressed() {
     leftPaddle.score = 0;
     rightPaddle.score = 0;
   }
+}
+
+function drawScore() {
+  stroke(255);
+  noFill();
+  text(leftPaddle.score, 50, 50);
+  text(rightPaddle.score, 720, 50);
 }

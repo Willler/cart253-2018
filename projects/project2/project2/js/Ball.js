@@ -69,6 +69,7 @@ Ball.prototype.isOffScreen = function () {
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
+  noStroke();
   fill(244, 66, 209);
   rect(this.x,this.y,this.size,this.size, this.border); ////////*********added border
 }

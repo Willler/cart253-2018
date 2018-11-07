@@ -50,7 +50,7 @@ Paddle.prototype.update = function() {
 // Draw the paddle as a rectangle on the screen
 // *******NEWWWWWWWW
 Paddle.prototype.display = function() {
-  // stroke(244, 66, 209);
+  noStroke();
   fill(56, 168, 255);
   rect(this.x,this.y,this.w,this.h,this.border); ///////***********NEW*******
 }

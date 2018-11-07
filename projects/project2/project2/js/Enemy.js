@@ -52,6 +52,7 @@ Enemy.prototype.isOffScreen = function () {
 //
 // Draw the Enemy as a rectangle on the screen
 Enemy.prototype.display = function () {
+  noStroke();
   fill(0, 250, 0);
   rect(this.x,this.y,this.size,this.size, this.border);
 }

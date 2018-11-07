@@ -23,6 +23,7 @@ function Gate(x, y, w, h, border, acceleration, red, blue) {
 //
 // displays the gate objects according to attributes
 Gate.prototype.display = function() {
+  noStroke();
   fill(this.red,0,this.blue);
   rect(this.x, this.y, this.w, this.h, this.border);
 }
