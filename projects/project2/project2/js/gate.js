@@ -7,7 +7,7 @@
 // gate constructor
 //
 // Sets the properties with the provided arguments
-function Gate(x, y, w, h, border,acceleration) {
+function Gate(x, y, w, h, border,acceleration, red, blue) {
   this.x = x;
   this.y = y;
   this.w = w;
@@ -19,7 +19,10 @@ function Gate(x, y, w, h, border,acceleration) {
   this.red = red;
 }
 
+//gate display()
+//
+// displays the gate objects according to attributes
 Gate.prototype.display = function() {
   fill(this.red,0,this.blue);
-  rect(this.x, this.y, this.w, this.y, this.border);
+  rect(this.x, this.y, this.w, this.h, this.border);
 }

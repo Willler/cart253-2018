@@ -36,11 +36,18 @@ function setup() {
 
   // create an Enemy
   enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
+
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-30,height/2,5,90,5,10,DOWN_ARROW,UP_ARROW); /////*****MODIFIED
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(20,height/2,5,90,5,10,83,87); ///****MODIFIED
+
+  // create the gates
+  gateTop = new Gate(395, 25, 10, 100, 5, 1, 150, 250);
+  gateMiddle = new Gate(395, 175, 10, 100, 5, 1, 25, 100);
+  gateBottom = new Gate(395, 325, 10, 100, 5, 1, 150, 250);
+
 }
 
 // draw()
@@ -85,6 +92,9 @@ function draw() {
     enemy.display();
     leftPaddle.display();
     rightPaddle.display();
+    gateTop.display();
+    gateMiddle.display();
+    gateBottom.display();
   }
 
 }
