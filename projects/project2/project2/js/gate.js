@@ -1,8 +1,7 @@
-// Gate
+// Gate - Acceleration
 //
 // A class to define how a new type of object, the gate, behaves.
-// Its functions include the ability to make the ball accelerate and decelerate, depending on which one
-// as well as reversing the ball y-direction
+// Its functions include the ability to make the ball accelerate, slowly and gradually
 
 // gate constructor
 //
@@ -14,7 +13,7 @@ function Gate(x, y, w, h, border, acceleration, red, blue) {
   this.h = h;
   this.border = border;
   this.acceleration = acceleration;
-
+// variables for color
   this.blue = blue;
   this.red = red;
 }

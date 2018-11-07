@@ -21,9 +21,6 @@ function Ball(x,y,vx,vy,size,border,speed) {
   this.size = size;
   this.border = border; //////////////********NEWWWWWWWW
   this.speed = speed;
-
-  this.scoreRight = 0;
-  this.scoreLeft = 0;
 }
 
 // update()
@@ -42,6 +39,7 @@ Ball.prototype.update = function () {
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
+  // play the sound effect for hitting the walls up and down
     wallHitSound.play();
   }
 }
@@ -119,13 +117,6 @@ Ball.prototype.gateCollision = function(gate) {
 
   }
 }
-
-  //  if (this.x < gate.x + gate.w) {
-  //    if (this.y + this.size > gate.y && this.y < gate.y + gate.h) {
-  //     console.log("overlapping gate");
-  //     this.x --;
-  //   }
-  // }
 }
 
 // reset()

@@ -1,12 +1,13 @@
-// Basic OO Pong
-// by Pippin Barr
+// Aesthetic Pong
+// by William L'Eriger - OG by Pippin Barr
 //
-// A primitive implementation of Pong with no scoring system
-// just the ability to play the game with the keyboard.
+// A chillwave version of pong
+// gives a feeling of competition, but relaxation
 //
 // Arrow keys control the right hand paddle, W and S control
 // the left hand paddle.
 //
+// enemy balls can remove points from players
 // Written with JavaScript OOP.
 
 // Variable to contain the objects representing our ball and paddles, as well as enemy and gates
@@ -53,8 +54,7 @@ function setup() {
   ball = new Ball(width/2,height/2,3,3,10,5,5); ////////////*****modified
 
   // create an Enemy
-  // enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
-
+  // using a for loop and the array
   for (var i = 0; i < numEnemies; i++) {
   enemy.push(new Enemy(width/2,height/2,random(-3,3),random(-3,3),5,6));
 }
@@ -76,13 +76,16 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
+  // check if the variable gameStart is false, so if the game has not started yet
   if (gameStart === false) {
     drawStartMenu();
-  } else if (leftPaddle.score === 11 || rightPaddle.score === 11) {
+  // check if the end score has been reached, if so, end the game
+  } else if (leftPaddle.score === 11 || rightPaddle.score === 1) {
     drawEndScreen();
   } else {
     //drawBackground() function to draw stripes for the background
     drawBackground();
+    // the score text
     drawScore();
 
     leftPaddle.handleInput();
@@ -90,6 +93,7 @@ function draw() {
 
     ball.update();
 
+/////// add all the enemy [i] to the for loop, which will draw the max amount of enemies
     for (var i = 0; i < enemy.length; i++) {
       enemy[i].update(); //////////////////NEW
       enemy[i].isOffScreen();
@@ -97,18 +101,18 @@ function draw() {
       enemy[i].handleCollision(rightPaddle);
       enemy[i].display();
     }
+
     leftPaddle.update();
     rightPaddle.update();
 
+/////// check if the ball goes off the screen to the left or the right, add a point to the opposite paddle, play the scoring sound, reset the ball
     if (ball.isOffScreen() === "left") {
-      leftPaddle.score ++;
-      console.log(leftPaddle.score, rightPaddle.score);
+      rightPaddle.score ++;
       scoreSound.play();
       ball.reset();
     } else if (ball.isOffScreen() === "right") {
-      rightPaddle.score ++;
+      leftPaddle.score ++;
       scoreSound.play();
-      console.log(leftPaddle.score, rightPaddle.score);
       ball.reset();
     }
 
@@ -118,11 +122,7 @@ function draw() {
     ball.gateCollision(gateTop);
     ball.gateCollision(gateBottom);
 
-    // enemy[i].handleCollision(leftPaddle);
-    // enemy[i].handleCollision(rightPaddle);
-
     ball.display();
-    // enemy[i].display();
     leftPaddle.display();
     rightPaddle.display();
     gateTop.display();
@@ -136,6 +136,7 @@ function draw() {
 // draw a stylish background using geometric shapes
 function drawBackground() {
   noStroke();
+  // use colors defined in ball.js
   fill(backgroundStripesColor1,0,backgroundStripesColor3, 70);
   rect(0, 0, width, 90,);
   rect(0, 180, width, 90,);
@@ -192,6 +193,10 @@ function drawEndScreen() {
   stroke(56, 168, 255);
   line(0, 100, 800, 100);
 
+  ellipse(600, 350, 50);
+  stroke(244, 66, 209);
+  ellipse(675, 350, 50);
+
 // draw end text
   textSize(48);
   strokeWeight(2);
@@ -227,8 +232,10 @@ function keyPressed() {
 function drawScore() {
   stroke(255);
   noFill();
+// map the text size between two specific values
   textSize(map(sin(angle), -1, 1, minTextSize, maxTextSize));
-  text(leftPaddle.score, 720, 50);
-  text(rightPaddle.score, 50, 50);
+  text(leftPaddle.score, 50, 50);
+  text(rightPaddle.score, 720, 50);
+// increase angle, which will affect the rate at which the text oscillates
   angle += 0.03;
 }

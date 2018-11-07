@@ -71,7 +71,7 @@ Enemy.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
-      // remove one point from player that gets hit by Enemy
+      // remove one point from player that gets hit
       paddle.score -= 1;
       console.log(leftPaddle.score, rightPaddle.score);
       // play enemy hit sound
