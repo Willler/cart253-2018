@@ -80,7 +80,7 @@ function draw() {
   if (gameStart === false) {
     drawStartMenu();
   // check if the end score has been reached, if so, end the game
-  } else if (leftPaddle.score === 11 || rightPaddle.score === 1) {
+} else if (leftPaddle.score === 11 || rightPaddle.score === 11) {
     drawEndScreen();
   } else {
     //drawBackground() function to draw stripes for the background
