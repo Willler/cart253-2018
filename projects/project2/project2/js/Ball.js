@@ -97,6 +97,35 @@ Ball.prototype.handleCollision = function(paddle) {
   }
 }
 
+//handleCollision(gate)
+//
+// check if the ball overlaps with the gates in an argument
+// if it is, accelerate or decelerate
+Ball.prototype.gateCollision = function(gate) {
+  // check overlap on x axis
+  if (this.x + this.size > gate.x && this.x < gate.x + gate.w) {
+    //check overlap on y axis
+    if (this.y + this.size > gate.y && this.y < gate.y + gate.h) {
+      // check if vx is positive
+      if (this.vx > 0) {
+        this.vx += 0.1;
+        //check if vx is negative
+      } else if (this.vx < 0) {
+        this.vx -= 0.1;
+      }
+    console.log(this.vx);
+
+  }
+}
+
+  //  if (this.x < gate.x + gate.w) {
+  //    if (this.y + this.size > gate.y && this.y < gate.y + gate.h) {
+  //     console.log("overlapping gate");
+  //     this.x --;
+  //   }
+  // }
+}
+
 // reset()
 //
 // Set position back to the middle of the screen

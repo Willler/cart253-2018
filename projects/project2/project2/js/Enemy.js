@@ -80,7 +80,7 @@ Enemy.prototype.handleCollision = function(paddle) {
 // reset()
 //
 // Set position back to a random location
-Ball.prototype.reset = function () {
+Enemy.prototype.reset = function () {
   this.x = random(300, 500);
   this.y = random(150, 350);
 }

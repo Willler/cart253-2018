@@ -7,7 +7,7 @@
 // gate constructor
 //
 // Sets the properties with the provided arguments
-function Gate(x, y, w, h, border,acceleration, red, blue) {
+function Gate(x, y, w, h, border, acceleration, red, blue) {
   this.x = x;
   this.y = y;
   this.w = w;

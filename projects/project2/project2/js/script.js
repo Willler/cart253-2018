@@ -13,6 +13,10 @@
 var ball;
 var leftPaddle;
 var rightPaddle;
+var enemy;
+var gateTop;
+var gateMiddle;
+var gateBottom;
 
 // Variable to check if the game has been started *****************NEW**************////////
 var gameStart = false;
@@ -45,7 +49,6 @@ function setup() {
 
   // create the gates
   gateTop = new Gate(395, 25, 10, 100, 5, 1, 150, 250);
-  gateMiddle = new Gate(395, 175, 10, 100, 5, 1, 25, 100);
   gateBottom = new Gate(395, 325, 10, 100, 5, 1, 150, 250);
 
 }
@@ -85,6 +88,9 @@ function draw() {
     ball.handleCollision(leftPaddle);
     ball.handleCollision(rightPaddle);
 
+    ball.gateCollision(gateTop);
+    ball.gateCollision(gateBottom);
+
     enemy.handleCollision(leftPaddle);
     enemy.handleCollision(rightPaddle);
 
@@ -93,7 +99,6 @@ function draw() {
     leftPaddle.display();
     rightPaddle.display();
     gateTop.display();
-    gateMiddle.display();
     gateBottom.display();
   }
 
@@ -167,7 +172,7 @@ function keyPressed() {
   }
   // press the CONTROL key to restart after hitting the end screen, this will reset scores to 0
   if(keyCode === CONTROL) {
-    ball.scoreLeft = 0;
-    ball.scoreRight = 0;
+    leftPaddle.score = 0;
+    rightPaddle.score = 0;
   }
 }
