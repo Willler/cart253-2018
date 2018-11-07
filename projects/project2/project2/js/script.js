@@ -38,6 +38,8 @@ function preload() {
   paddleHitSound = new Audio("assets/sounds/bassKickSound.wav");
   endMusic = new Audio("assets/sounds/endMusic.wav");
   enemyHitSound = new Audio("assets/sounds/enemyHitSound.wav");
+  wallHitSound = new Audio("assets/sounds/wallHit.wav");
+  scoreSound = new Audio("assets/sounds/scoreSound.wav");
 
   displayFont = loadFont("assets/fonts/barrio.ttf");
 }
@@ -101,9 +103,11 @@ function draw() {
     if (ball.isOffScreen() === "left") {
       leftPaddle.score ++;
       console.log(leftPaddle.score, rightPaddle.score);
+      scoreSound.play();
       ball.reset();
     } else if (ball.isOffScreen() === "right") {
       rightPaddle.score ++;
+      scoreSound.play();
       console.log(leftPaddle.score, rightPaddle.score);
       ball.reset();
     }
