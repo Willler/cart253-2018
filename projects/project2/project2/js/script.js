@@ -9,14 +9,16 @@
 //
 // Written with JavaScript OOP.
 
-// Variable to contain the objects representing our ball and paddles
+// Variable to contain the objects representing our ball and paddles, as well as enemy and gates
 var ball;
 var leftPaddle;
 var rightPaddle;
-var enemy;
 var gateTop;
 var gateMiddle;
 var gateBottom;
+
+var enemy = [];
+var numEnemies = 3;
 
 // Variable to check if the game has been started *****************NEW**************////////
 var gameStart = false;
@@ -39,7 +41,11 @@ function setup() {
   ball = new Ball(width/2,height/2,5,5,10,5,5); ////////////*****modified
 
   // create an Enemy
-  enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
+  // enemy = new Enemy(width/2, height/2, 3, 3, 10, 5, 6);
+
+  for (var i = 0; i < numEnemies; i++) {
+  enemy.push(new Enemy(width/2,height/2,random(-3,3),random(-3,3),5,6));
+}
 
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-30,height/2,5,90,5,10,DOWN_ARROW,UP_ARROW); /////*****MODIFIED
@@ -70,7 +76,14 @@ function draw() {
     rightPaddle.handleInput();
 
     ball.update();
-    enemy.update(); //////////////////NEW
+
+    for (var i = 0; i < enemy.length; i++) {
+      enemy[i].update(); //////////////////NEW
+      enemy[i].isOffScreen();
+      enemy[i].handleCollision(leftPaddle);
+      enemy[i].handleCollision(rightPaddle);
+      enemy[i].display();
+    }
     leftPaddle.update();
     rightPaddle.update();
 
@@ -83,7 +96,6 @@ function draw() {
       console.log(leftPaddle.score, rightPaddle.score);
       ball.reset();
     }
-    enemy.isOffScreen();
 
     ball.handleCollision(leftPaddle);
     ball.handleCollision(rightPaddle);
@@ -91,11 +103,11 @@ function draw() {
     ball.gateCollision(gateTop);
     ball.gateCollision(gateBottom);
 
-    enemy.handleCollision(leftPaddle);
-    enemy.handleCollision(rightPaddle);
+    // enemy[i].handleCollision(leftPaddle);
+    // enemy[i].handleCollision(rightPaddle);
 
     ball.display();
-    enemy.display();
+    // enemy[i].display();
     leftPaddle.display();
     rightPaddle.display();
     gateTop.display();
