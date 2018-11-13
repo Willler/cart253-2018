@@ -14,16 +14,18 @@ var radius = 150;
 
 
 // variables for position and velocity
-var headX = 0;
-var headY = 0;
-var headVY = 0;
-var headVX = 0;
+var headX;
+var headY;
+var headVX;
 
 
 function setup() {
   createCanvas(1000,500);
   headX = width/2;
   headY = height/2;
+
+  // the velocity variables, defined
+  headVX = 1;
 }
 
 function draw() {
@@ -41,6 +43,9 @@ function drawMenuHead() {
 
   // draw background
   background(0);
+
+  // determine velocity of the head image
+  headMovement();
 
   // variable and calculation for oscillation, using a sine wave
   var growth = sin(angle) * (radius/10);
@@ -74,9 +79,14 @@ function drawMenuHead() {
   pop();
 }
 
-// canvasMouseHover()
+// headMovement()
 //
-// checks if mouse position is at the right of the middle point, the left, or in the middle neutral zone
-function canvasMouseHover() {
+// the function in which velocity is determined, using a mouseX if statement
+function headMovement() {
 
+  if(mouseX > width/2) {
+    headX = headX - headVX;
+  } else if (mouseX < width/2) {
+    headX = headX + headVX;
+  }
 }
