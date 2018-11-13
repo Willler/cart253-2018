@@ -31,6 +31,7 @@ function setup() {
 function draw() {
   drawMenuHead();
   spotlightDisplay();
+  spotlightText();
 }
 
 
@@ -102,10 +103,26 @@ function spotlightDisplay() {
   if (headX === 100) {
     // vx = 0;
     fill(255);
-    ellipse(650, height/2, 500, 300);
+    ellipse(650, height/2, 500 , 300);
   } else if (headX === (width - 100)) {
     // vx = 0;
     fill(255);
     ellipse(350, height/2, 500, 300);
+  }
+}
+
+function spotlightText() {
+
+// how the text will look
+  textAlign(CENTER);
+  stroke(0);
+  fill(150, 0, 0);
+  textSize(64);
+
+// if statement to show text when constrain extremities are shown
+  if (headX === 100) {
+    text("The Mask", 650, height/2);
+  } else if (headX === (width - 100)) {
+    text("The Truth", 350, height/2);
   }
 }
