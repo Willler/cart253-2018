@@ -30,6 +30,7 @@ function setup() {
 
 function draw() {
   drawMenuHead();
+  spotlightDisplay();
 }
 
 
@@ -92,4 +93,19 @@ function headMovement() {
   }
 
   headX = constrain(headX, 100, width - 100);
+}
+
+// spotlightDisplay();
+//
+// shows a spotlight/window where text will appear once the head reaches a certain point
+function spotlightDisplay() {
+  if (headX === 100) {
+    // vx = 0;
+    fill(255);
+    ellipse(650, height/2, 500, 300);
+  } else if (headX === (width - 100)) {
+    // vx = 0;
+    fill(255);
+    ellipse(350, height/2, 500, 300);
+  }
 }
