@@ -25,7 +25,7 @@ function setup() {
   headY = height/2;
 
   // the velocity variables, defined
-  headVX = 1;
+  headVX = 2;
 }
 
 function draw() {
@@ -84,9 +84,12 @@ function drawMenuHead() {
 // the function in which velocity is determined, using a mouseX if statement
 function headMovement() {
 
-  if(mouseX > width/2) {
+// if mouse left of canvas, make object move to the right, vice-versa
+  if(mouseX > (width/2) + 100) {
     headX = headX - headVX;
-  } else if (mouseX < width/2) {
+  } else if (mouseX < (width/2) - 100) {
     headX = headX + headVX;
   }
+
+  headX = constrain(headX, 100, width - 100);
 }
