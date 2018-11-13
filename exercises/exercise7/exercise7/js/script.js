@@ -12,9 +12,18 @@
 var angle = 0;
 var radius = 150;
 
+
+// variables for position and velocity
+var headX = 0;
+var headY = 0;
+var headVY = 0;
+var headVX = 0;
+
+
 function setup() {
   createCanvas(1000,500);
-
+  headX = width/2;
+  headY = height/2;
 }
 
 function draw() {
@@ -39,19 +48,19 @@ function drawMenuHead() {
   // the shadow
   ellipseMode(CENTER);
   fill(25);
-  ellipse((width/2) + 10, 300, 130 + growth, 150 + growth);
+  ellipse((headX) + 10, headY + 50, 130 + growth, 150 + growth);
   noStroke();
-  ellipse((width/2) + 10, height/2, 150 + growth);
+  ellipse((headX) + 10, headY, 150 + growth);
 
   // the hat
   ellipseMode(CENTER);
   fill(255);
 
   // the face
-  ellipse(width/2, 300, 130 + growth, 150 + growth);
+  ellipse(headX, headY + 50, 130 + growth, 150 + growth);
   fill(255,0,0);
   noStroke();
-  ellipse(width/2, height/2, 150 + growth);
+  ellipse(headX, headY, 150 + growth);
 
   // the mouth
   // stroke(0);
@@ -63,4 +72,11 @@ function drawMenuHead() {
 
   // pop contents
   pop();
+}
+
+// canvasMouseHover()
+//
+// checks if mouse position is at the right of the middle point, the left, or in the middle neutral zone
+function canvasMouseHover() {
+
 }
