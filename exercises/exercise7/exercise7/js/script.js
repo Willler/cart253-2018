@@ -26,6 +26,9 @@ var headMaxX
 // preload assets before running the code, such as fonts, images and sounds
 function preload() {
   displayFont = loadFont("assets/fonts/display.ttf");
+
+  menuMusic = new Audio("assets/sounds/waltz.wav");
+  menuSpotlightSound = new Audio("assets/sounds/strum.wav");
 }
 
 function setup() {
@@ -35,12 +38,17 @@ function setup() {
 
   // the velocity variables, defined
   headVX = 2;
+
+  // play the background menuMusic
+  menuMusic.play();
+  menuMusic.loop = true;
 }
 
 function draw() {
   drawMenuHead();
   spotlightDisplay();
   spotlightText();
+  playSpotlightSound();
 }
 
 
@@ -64,6 +72,7 @@ function drawMenuHead() {
   var growth = sin(angle) * (radius/10);
 
   // the shadow
+  noStroke();
   ellipseMode(CENTER);
   fill(25);
   ellipse((headX) + 10, headY + 50, 130 + growth, 150 + growth);
@@ -111,8 +120,13 @@ function headMovement() {
 //
 // shows a spotlight/window where text will appear once the head reaches a certain point
 function spotlightDisplay() {
+
+  noStroke();
+
   if (headX === 200) {
     // vx = 0;
+    fill(25);
+    ellipse(660, height/2 + 10, 500 , 300);
     fill(255);
     ellipse(650, height/2, 500 , 300);
   } else if (headX === (width - 200)) {
@@ -126,7 +140,7 @@ function spotlightText() {
 
 // how the text will look
   textAlign(CENTER);
-  stroke(0);
+  noStroke();
   fill(150, 0, 0);
   textSize(64);
   textFont(displayFont);
@@ -143,6 +157,9 @@ function spotlightText() {
   }
 }
 
+// drawSpotlightVines()
+//
+// draws a background vine-like display using enlarged letters when head stops moving
 function drawSpotlightVines() {
 
   noStroke();
@@ -155,4 +172,13 @@ function drawSpotlightVines() {
     text("QS", 150, 800);
   }
 
+}
+
+// playSpotlightSound()
+//
+// plays the spotlight guitar strum once head stops moving
+function playSpotlightSound() {
+  if (headX === 200 || headX === (width - 200)) {
+    menuSpotlightSound.play();
+  }
 }
