@@ -18,6 +18,8 @@ var headX;
 var headY;
 var headVX;
 
+// variables for constraining head position on the x axis
+var headMaxX
 
 // preload()
 //
@@ -51,7 +53,9 @@ function drawMenuHead() {
   push();
 
   // draw background
-  background(0);
+  background(57, 77, 0);
+
+  drawSpotlightVines();
 
   // determine velocity of the head image
   headMovement();
@@ -66,13 +70,13 @@ function drawMenuHead() {
   noStroke();
   ellipse((headX) + 10, headY, 150 + growth);
 
-  // the hat
-  ellipseMode(CENTER);
-  fill(255);
-
   // the face
+  ellipseMode(CENTER);
+  fill(204, 153, 102);
   ellipse(headX, headY + 50, 130 + growth, 150 + growth);
-  fill(255,0,0);
+
+  // the hat
+  fill(150,0,0);
   noStroke();
   ellipse(headX, headY, 150 + growth);
 
@@ -100,18 +104,18 @@ function headMovement() {
     headX = headX + headVX;
   }
 
-  headX = constrain(headX, 100, width - 100);
+  headX = constrain(headX, 200, width - 200);
 }
 
 // spotlightDisplay();
 //
 // shows a spotlight/window where text will appear once the head reaches a certain point
 function spotlightDisplay() {
-  if (headX === 100) {
+  if (headX === 200) {
     // vx = 0;
     fill(255);
     ellipse(650, height/2, 500 , 300);
-  } else if (headX === (width - 100)) {
+  } else if (headX === (width - 200)) {
     // vx = 0;
     fill(255);
     ellipse(350, height/2, 500, 300);
@@ -128,13 +132,27 @@ function spotlightText() {
   textFont(displayFont);
 
 // if statement to show text when constrain extremities are shown
-  if (headX === 100) {
+  if (headX === 200) {
     text("The Mask", 650, height/2);
     textSize(24);
     text("- The Side Seen in Public -", 650, (height/2) + 50);
-  } else if (headX === (width - 100)) {
+  } else if (headX === (width - 200)) {
     text("The Truth", 350, height/2);
     textSize(24);
     text("- The Side Seen by None -", 350, (height/2) + 50);
   }
+}
+
+function drawSpotlightVines() {
+
+  noStroke();
+
+  if (headX === 200) {
+    textSize(1500);
+    text("FV", 400, 800);
+  } else if (headX === (width - 200)) {
+    textSize(1500);
+    text("QS", 150, 800);
+  }
+
 }
