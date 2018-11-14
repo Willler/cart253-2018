@@ -167,6 +167,8 @@ function spotlightDisplay() {
 //spotlightText()
 //
 // function that shows the spotlight text when called
+// NOTE: I plan on having the header be clickable to open a minigame in the final product
+// by using the p5.dom library, for now however, it is just regular text
 function spotlightText() {
 
 // how the text will look
