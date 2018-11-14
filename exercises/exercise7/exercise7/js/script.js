@@ -19,6 +19,13 @@ var headY;
 var headVX;
 
 
+// preload()
+//
+// preload assets before running the code, such as fonts, images and sounds
+function preload() {
+  displayFont = loadFont("assets/fonts/display.ttf");
+}
+
 function setup() {
   createCanvas(1000,500);
   headX = width/2;
@@ -118,11 +125,16 @@ function spotlightText() {
   stroke(0);
   fill(150, 0, 0);
   textSize(64);
+  textFont(displayFont);
 
 // if statement to show text when constrain extremities are shown
   if (headX === 100) {
     text("The Mask", 650, height/2);
+    textSize(24);
+    text("- The Side Seen in Public -", 650, (height/2) + 50);
   } else if (headX === (width - 100)) {
     text("The Truth", 350, height/2);
+    textSize(24);
+    text("- The Side Seen by None -", 350, (height/2) + 50);
   }
 }
