@@ -52,7 +52,7 @@ function setup() {
   }
 
   // create the umbrella object
-  umbrella = new Umbrella(width/2, 300, 5, 0, 150, 50, RIGHT_ARROW, LEFT_ARROW);
+  umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 }
 
 
@@ -72,6 +72,8 @@ function draw() {
     rain[i].display();
   }
 
+  umbrella.handleInput();
+  umbrella.update();
   umbrella.display();
 }
 
@@ -111,6 +113,7 @@ function drawBackground() {
 
   //buildings
   fill(0);
+  rectMode(CORNER);
 
   // first three buildings on the left
   rect(0, 200, 75, 300);

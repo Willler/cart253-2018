@@ -7,11 +7,11 @@
 //
 // Where the umbrella object parameters and variables will be configured
 // and initialized
-function Umbrella(x, y, vx, vy, width, height, speed, rightKey, leftKey) {
+function Umbrella(x, y, width, height, speed, rightKey, leftKey) {
   this.x = x;
   this.y = y;
-  this.vx = vx;
-  this.vy = vy;
+  this.vx = 0;
+  this.vy = 0;
   this.width = width;
   this.height = height;
   this.speed = speed;
@@ -23,15 +23,24 @@ function Umbrella(x, y, vx, vy, width, height, speed, rightKey, leftKey) {
 //
 // where changes to the umbrella object are determined
 Umbrella.prototype.update = function () {
-
+  this.x += this.vx;
+  // this.x = constrain(this.x, 50, width - 50);
 }
 
 // handleInput()
 //
 // function that determines how the umbrella will be controlled
-// by the player, such as movement
+// by the player, such as movement, check if right or left arrow key is pressed
 Umbrella.prototype.handleInput = function () {
-
+  if (keyIsDown(this.rightKey)) {
+    this.vx = this.speed;
+}
+  else if (keyIsDown(this.leftKey)) {
+    this.vx = -this.speed;
+}
+  else {
+    this.vx = 0;
+}
 }
 
 // display()
