@@ -20,6 +20,9 @@ var playerVY;
 var rain = [];
 var rainDrops = 50;
 
+// variables for the Umbrella
+var umbrella;
+
 // preload()
 //
 // Description of preload
@@ -47,6 +50,9 @@ function setup() {
   for (var i = 0; i < rainDrops; i++) {
   rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
   }
+
+  // create the umbrella object
+  umbrella = new Umbrella(width/2, 300, 5, 0, 150, 50, RIGHT_ARROW, LEFT_ARROW);
 }
 
 
@@ -65,6 +71,8 @@ function draw() {
     rain[i].touchedBottom();
     rain[i].display();
   }
+
+  umbrella.display();
 }
 
 // drawPlayer()
