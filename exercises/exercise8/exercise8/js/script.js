@@ -65,16 +65,19 @@ function draw() {
 
   playerMovement();
 
+  umbrella.handleInput();
+  umbrella.update();
+  umbrella.display();
+  
  // call the rain.js functions through the array
   for (var i = 0; i < rain.length; i++) {
     rain[i].update();
     rain[i].touchedBottom();
     rain[i].display();
+    rain[i].handleCollision(umbrella);
   }
 
-  umbrella.handleInput();
-  umbrella.update();
-  umbrella.display();
+
 }
 
 // drawPlayer()

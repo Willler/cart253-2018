@@ -46,10 +46,17 @@ Rain.prototype.display = function () {
   ellipse(this.x, this.y, this.size);
 }
 
-// handleCollision()
+// handleCollision(umbrella)
 //
 // determines what happens when the rain collides with another object
 // in this case, it will be against the umbrella
-Rain.prototype.handleCollision = function () {
+Rain.prototype.handleCollision = function(umbrella) {
+  if (this.y + this.size > umbrella.y && this.x > umbrella.x - umbrella.width/2  && this.x < umbrella.x + umbrella.width/2) {
+    // this.y -= this.vy;
+    //
+    // this.vy = -this.vy;
+    this.y = 0;
+    this.x = random(10, 990);
 
+  }
 }
