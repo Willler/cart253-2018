@@ -35,6 +35,10 @@ function setup() {
   //determine the initial player character position
   playerX = width/2;
   playerY = height - 50;
+
+  // initialize value of playerVX
+  playerVX = 2;
+
 }
 
 
@@ -44,11 +48,21 @@ function setup() {
 function draw() {
   drawBackground();
   drawPlayer();
+
+  playerMovement();
 }
 
 function drawPlayer() {
   fill(255);
   ellipse(playerX, playerY, 50);
+}
+
+function playerMovement() {
+  playerX = playerX + playerVX;
+
+  if (playerX === 150 || playerX === 850) {
+    playerVX = -playerVX;
+  }
 }
 
 function drawBackground() {

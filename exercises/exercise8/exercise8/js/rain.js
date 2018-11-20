@@ -8,14 +8,22 @@
 // Where the rain object parameters and variables will be configured
 // and initialized
 function Rain() {
-
+  this.x = x;
+  this.y = y;
+  this.vx = vx;
+  this.vy = vy;
+  this.size = size;
+  this.border = border;
+  this.speed = speed;
 }
 
 // update()
 //
 // where changes to the rain object are determined
 Rain.prototype.update = function () {
-
+  // Update position with velocity
+  this.x += this.vx;
+  this.y += this.vy;
 }
 
 // touchedBottom()
@@ -23,14 +31,19 @@ Rain.prototype.update = function () {
 // function that makes the rain drop do something when they reach the bottom
 // of the canvas
 Rain.prototype.touchedBottom = function () {
-
+  if (this.y > height) {
+    this.y = 0;
+    this.x = random(10, 990);
+  }
 }
 
 // display()
 //
 // where we determine the object's appearance
 Rain.prototype.display = function () {
-
+  fill(200);
+  noStroke();
+  ellipse(this.x, this.y, this.size);
 }
 
 // handleCollision()
