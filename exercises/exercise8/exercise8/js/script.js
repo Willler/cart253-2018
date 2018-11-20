@@ -10,6 +10,12 @@ And shield themselves against the world/rain
 
 ******************/
 
+// player character variables
+var playerX;
+var playerY;
+var playerVX;
+var playerVY;
+
 // preload()
 //
 // Description of preload
@@ -23,6 +29,12 @@ function preload() {
 // Description of setup
 function setup() {
 
+  //creating the canvas
+  createCanvas(1000,500);
+
+  //determine the initial player character position
+  playerX = width/2;
+  playerY = height - 50;
 }
 
 
@@ -30,13 +42,43 @@ function setup() {
 //
 // Description of draw()
 function draw() {
-
+  drawBackground();
+  drawPlayer();
 }
 
 function drawPlayer() {
-
+  fill(255);
+  ellipse(playerX, playerY, 50);
 }
 
 function drawBackground() {
-  
+  background(11, 18, 30);
+
+  //city hue/mist
+  ellipseMode(CENTER);
+  noStroke();
+  fill(66, 58, 89);
+  ellipse(width/2, height, width + 50, height + 50);
+  fill(44, 38, 61);
+  ellipse(width/2, height, width, height);
+
+
+  //buildings
+  fill(0);
+
+  // first three buildings on the left
+  rect(0, 200, 75, 300);
+  rect(180, 150, 75, 350);
+  rect(60, 100, 125, 400);
+
+  // buildings in the middle
+  rect(300, 125, 60, 375);
+  rect(470, 200, 120, 300);
+  rect(380, 180, 100, 320);
+  rect(590, 250, 150, 250);
+
+  // buildings on the right
+  rect(750, 50, 100, 450);
+  rect(840, 200, 75, 300);
+  rect(910, 100, 90, 400);
 }
