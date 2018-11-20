@@ -59,21 +59,25 @@ function draw() {
 
   playerMovement();
 
-
+ // call the rain.js functions through the array
   for (var i = 0; i < rain.length; i++) {
     rain[i].update();
-
     rain[i].touchedBottom();
-
     rain[i].display();
   }
 }
 
+// drawPlayer()
+//
+// function to draw the player sprite
 function drawPlayer() {
   fill(255);
   ellipse(playerX, playerY, 50);
 }
 
+// playerMovement()
+//
+// function to determine how the player sprite moves around
 function playerMovement() {
   playerX = playerX + playerVX;
 
@@ -82,16 +86,19 @@ function playerMovement() {
   }
 }
 
+// drawBackground()
+//
+// draw the background image
 function drawBackground() {
-  background(11, 18, 30);
+  background(11, 18, 30, 80);
 
   //city hue/mist
   ellipseMode(CENTER);
   noStroke();
   fill(66, 58, 89);
-  ellipse(width/2, height, width + 50, height + 50);
+  ellipse(width/2, height, width + 50, height + 50, 80);
   fill(44, 38, 61);
-  ellipse(width/2, height, width, height);
+  ellipse(width/2, height, width, height, 80);
 
 
   //buildings
