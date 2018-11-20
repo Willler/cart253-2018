@@ -16,8 +16,9 @@ var playerY;
 var playerVX;
 var playerVY;
 
-// variables for objects
-var rain;
+// variables for rain array
+var rain = [];
+var rainDrops = 50;
 
 // preload()
 //
@@ -42,8 +43,10 @@ function setup() {
   // initialize value of playerVX
   playerVX = 2;
 
-  // create the rain object
-  rain = new Rain(random(50,950),0,0,3,10,5,5);
+  // create the rain object array
+  for (var i = 0; i < rainDrops; i++) {
+  rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
+  }
 }
 
 
@@ -56,11 +59,14 @@ function draw() {
 
   playerMovement();
 
-  rain.update();
 
-  rain.touchedBottom();
+  for (var i = 0; i < rain.length; i++) {
+    rain[i].update();
 
-  rain.display();
+    rain[i].touchedBottom();
+
+    rain[i].display();
+  }
 }
 
 function drawPlayer() {
