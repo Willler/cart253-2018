@@ -7,7 +7,7 @@
 //
 // Where the rain object parameters and variables will be configured
 // and initialized
-function Rain() {
+function Rain(x, y, vx, vy, size, border, speed) {
   this.x = x;
   this.y = y;
   this.vx = vx;

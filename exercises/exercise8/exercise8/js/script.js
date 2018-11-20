@@ -16,6 +16,9 @@ var playerY;
 var playerVX;
 var playerVY;
 
+// variables for objects
+var rain;
+
 // preload()
 //
 // Description of preload
@@ -39,6 +42,8 @@ function setup() {
   // initialize value of playerVX
   playerVX = 2;
 
+  // create the rain object
+  rain = new Rain(random(50,950),0,0,3,10,5,5);
 }
 
 
@@ -50,6 +55,12 @@ function draw() {
   drawPlayer();
 
   playerMovement();
+
+  rain.update();
+
+  rain.touchedBottom();
+
+  rain.display();
 }
 
 function drawPlayer() {
