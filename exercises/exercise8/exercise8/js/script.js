@@ -70,12 +70,15 @@ function setup() {
 //
 // Description of draw()
 function draw() {
+  // background functions
   drawBackground();
   drawBackgroundText()
   drawPlayer();
 
+  // as the name implies
   playerMovement();
 
+  // functions taken from the umbrella script
   umbrella.handleInput();
   umbrella.update();
   umbrella.display();
@@ -94,6 +97,8 @@ function draw() {
 // drawPlayer()
 //
 // function to draw the player sprite
+// it is grey/monochrome on purpose
+// to show contrast between the colorful mask/umbrella and the reality underneath
 function drawPlayer() {
 
   //hair background
@@ -127,9 +132,11 @@ function drawPlayer() {
 // playerMovement()
 //
 // function to determine how the player sprite moves around
+// for now, it moves left to right statically, will improve with perlin noise or something better suited in final version
 function playerMovement() {
   playerX = playerX + playerVX;
 
+  // constrain the player within set boundaries on the x-axis
   if (playerX === 150 || playerX === 850) {
     playerVX = -playerVX;
   }
@@ -138,6 +145,7 @@ function playerMovement() {
 // drawBackground()
 //
 // draw the background image
+// an evening cityscape, melancholy and dreary
 function drawBackground() {
   background(11, 18, 30, 80);
 
@@ -150,7 +158,7 @@ function drawBackground() {
   ellipse(width/2, height, width, height, 80);
 
 
-  //buildings (there is probably a better way to do this)
+  //buildings (there is probably a better way to do this), with lights put in here and there
   fill(0);
   rectMode(CORNER);
 
@@ -205,6 +213,11 @@ function drawBackground() {
   rect(910, 100, 90, 400);
 }
 
+// drawBackgroundText()
+//
+// put in a text display to subtly show the player the controls
+// its not obvious, which is on purpose
+// as its not always easy to know what to do in public
 function drawBackgroundText() {
   textSize(24);
   fill(255);

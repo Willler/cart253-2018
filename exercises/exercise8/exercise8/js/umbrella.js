@@ -32,6 +32,8 @@ Umbrella.prototype.update = function () {
 // function that determines how the umbrella will be controlled
 // by the player, such as movement, check if right or left arrow key is pressed
 Umbrella.prototype.handleInput = function () {
+
+  // if the appropriate key is down, move left or right, if nothing pressed stay still
   if (keyIsDown(this.rightKey)) {
     this.vx = this.speed;
 }
@@ -46,11 +48,13 @@ Umbrella.prototype.handleInput = function () {
 // display()
 //
 // where we determine the object's appearance
+// it is a bright red umbrella to contrast the rest of the elements
 Umbrella.prototype.display = function () {
 
   noStroke();
   rectMode(CENTER);
 
+  // frills and decorations on the bottom
   fill(150, 0, 0);
   ellipse(this.x, this.y + 25, this.width/3, this.height/2);
   ellipse(this.x - 40, this.y + 15, this.width/3, this.height);
@@ -59,6 +63,7 @@ Umbrella.prototype.display = function () {
   ellipse(this.x + 60, this.y + 20, this.width/4, this.height +10);
 
   fill(200, 0, 0);
+  // the main object which raindrops interact with
   ellipse(this.x, this.y, this.width, this.height);
 
   fill(0);

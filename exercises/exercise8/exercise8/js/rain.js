@@ -31,6 +31,7 @@ Rain.prototype.update = function () {
 // function that makes the rain drop do something when they reach the bottom
 // of the canvas
 Rain.prototype.touchedBottom = function () {
+  // check if the y value is greater than the height of the canvas
   if (this.y > height) {
     this.y = 0;
     this.x = random(10, 990);
@@ -51,6 +52,10 @@ Rain.prototype.display = function () {
 // determines what happens when the rain collides with another object
 // in this case, it will be against the umbrella
 Rain.prototype.handleCollision = function(umbrella) {
+
+  // a very convoluted if statement to calculate if the y-values of the rain and the umbrella have intersected
+  // and if so, reset the rain drop to the top at a random x value
+  // also constraining the area affected to within the umbrella x-value range
   if (this.y + this.size > umbrella.y && this.x > umbrella.x - umbrella.width/2  && this.x < umbrella.x + umbrella.width/2) {
     // this.y -= this.vy;
     //
