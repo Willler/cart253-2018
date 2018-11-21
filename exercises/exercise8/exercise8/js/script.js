@@ -92,8 +92,33 @@ function draw() {
 //
 // function to draw the player sprite
 function drawPlayer() {
-  fill(255);
+
+  //hair background
+  fill(25);
+  ellipse(playerX, playerY + 10, 55, 50);
+  ellipse(playerX - 22, playerY + 15, 20, 30);
+  ellipse(playerX + 22, playerY + 15, 20, 30);
+
+  //face
+  fill(150);
   ellipse(playerX, playerY, 50);
+
+  //glasses
+  stroke(0);
+  noFill();
+  ellipse(playerX - 9, playerY + 10, 15);
+  ellipse(playerX + 9, playerY + 10, 15);
+
+
+  //hair foreground
+  noStroke();
+  fill(45);
+  ellipse(playerX + 25, playerY + 5, 20);
+  ellipse(playerX + 15, playerY - 5, 30);
+  ellipse(playerX - 25, playerY + 5, 20);
+  ellipse(playerX - 15, playerY - 5, 30);
+  ellipse(playerX + 2, playerY - 12, 40, 30);
+
 }
 
 // playerMovement()
