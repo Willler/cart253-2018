@@ -27,7 +27,8 @@ var umbrella;
 //
 // Description of preload
 function preload() {
-
+  rainSound = new Audio("assets/sounds/rain.wav");
+  rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav")
 }
 
 
@@ -53,6 +54,13 @@ function setup() {
 
   // create the umbrella object
   umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
+
+  // setup the background music and rain sounds
+  rainSound.play();
+  rainSound.loop = true;
+  rainBackgroundMusic.play();
+  rainBackgroundMusic.loop = true;
+
 }
 
 
@@ -68,7 +76,7 @@ function draw() {
   umbrella.handleInput();
   umbrella.update();
   umbrella.display();
-  
+
  // call the rain.js functions through the array
   for (var i = 0; i < rain.length; i++) {
     rain[i].update();
@@ -114,12 +122,19 @@ function drawBackground() {
   ellipse(width/2, height, width, height, 80);
 
 
-  //buildings
+  //buildings (there is probably a better way to do this)
   fill(0);
   rectMode(CORNER);
 
   // first three buildings on the left
   rect(0, 200, 75, 300);
+  fill(255, 255, 0, 80);
+  ellipse(60, 300, 20);
+  fill(255, 255, 0, 40);
+  ellipse(60, 300, 40);
+  fill(255, 255, 0, 10);
+  ellipse(60, 300, 60);
+  fill(0);
   rect(180, 150, 75, 350);
   rect(60, 100, 125, 400);
 
