@@ -28,7 +28,9 @@ var umbrella;
 // Description of preload
 function preload() {
   rainSound = new Audio("assets/sounds/rain.wav");
-  rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav")
+  rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav");
+
+  promptFont = loadFont("assets/fonts/display.ttf");
 }
 
 
@@ -69,6 +71,7 @@ function setup() {
 // Description of draw()
 function draw() {
   drawBackground();
+  drawBackgroundText()
   drawPlayer();
 
   playerMovement();
@@ -166,11 +169,45 @@ function drawBackground() {
   // buildings in the middle
   rect(300, 125, 60, 375);
   rect(470, 200, 120, 300);
+  //light
+  fill(255, 255, 0, 80);
+  ellipse(590, 270, 20);
+  fill(255, 255, 0, 40);
+  ellipse(590, 270, 40);
+  fill(255, 255, 0, 10);
+  ellipse(590, 270, 60);
+  fill(0);
+  //end light
   rect(380, 180, 100, 320);
+  //light
+  fill(255, 255, 0, 80);
+  ellipse(390, 400, 20);
+  fill(255, 255, 0, 40);
+  ellipse(390, 400, 40);
+  fill(255, 255, 0, 10);
+  ellipse(390, 400, 60);
+  fill(0);
+  //end light
   rect(590, 250, 150, 250);
 
   // buildings on the right
   rect(750, 50, 100, 450);
   rect(840, 200, 75, 300);
+  //light
+  fill(255, 255, 0, 80);
+  ellipse(830, 150, 20);
+  fill(255, 255, 0, 40);
+  ellipse(830, 150, 40);
+  fill(255, 255, 0, 10);
+  ellipse(830, 150, 60);
+  fill(0);
+  //end light
   rect(910, 100, 90, 400);
+}
+
+function drawBackgroundText() {
+  textSize(24);
+  fill(255);
+  textFont(promptFont);
+  text("<--   Brandish Your Mask   -->", 50, 50);
 }
