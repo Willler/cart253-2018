@@ -216,12 +216,18 @@ function spotlightText() {
     //flavor
     textSize(24);
     text("- The Side Seen in Public -", 650, (height/2) + 50);
+    // prompt
+    textSize(18);
+    text("Press Control to Begin", 650, (height/2) + 75);
   } else if (menuHead.x === (width - 200)) {
     //heading
     text("The Truth", 350, height/2);
     //flavor
     textSize(24);
     text("- The Side Seen by None -", 350, (height/2) + 50);
+    // prompt
+    textSize(18);
+    text("Press Shift to Begin", 350, height/2 + 75);
   }
 }
 
@@ -408,7 +414,7 @@ function drawBackgroundText() {
   textSize(24);
   fill(255);
   textFont(promptFont);
-  text("<--   Brandish Your Mask   -->", 150, 50);
+  text("<--   Brandish Your Mask   -->", 180, 50);
 }
 
 function displayTransition() {
