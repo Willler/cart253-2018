@@ -32,6 +32,10 @@ var rainDrops = 50;
 // variables for the Umbrella
 var umbrella;
 
+// variable for transitions
+var transitionAlphaOut = 0;
+var transitionAlphaIn = 255;
+
 // preload()
 //
 // preload assets before running the code, such as fonts, images and sounds
@@ -105,7 +109,37 @@ if (gameState === 0) {
 
  // call the spotlight sound effect
  playSpotlightSound();
-} else if (gameState === 1) {
+} else if(gameState === 0.1) {
+  background(57, 77, 0);
+
+  drawSpotlightVines();
+
+  menuHead.update();
+  menuHead.display();
+
+  // call the spotlight
+  spotlightDisplay();
+
+  // call the spotlight text
+  spotlightText();
+
+  displayTransition();
+
+} else if(gameState === 0.2) {
+
+  drawBackground();
+  drawBackgroundText()
+
+  // call the rain.js functions through the array
+    for (var i = 0; i < rain.length; i++) {
+      rain[i].update();
+      rain[i].touchedBottom();
+      rain[i].display();
+      rain[i].handleCollision(umbrella);
+    }
+
+    displayTransitionFadeIn();
+  } else if (gameState === 1) {
   drawBackground();
   drawBackgroundText()
   drawPlayer();
@@ -237,7 +271,7 @@ function playSpotlightSound() {
 function keyPressed() {
   if (keyCode === CONTROL) {
     if(menuHead.x === 200) {
-      gameState = 1;
+      gameState = 0.1;
   }
   }
 }
@@ -376,3 +410,26 @@ function drawBackgroundText() {
   textFont(promptFont);
   text("<--   Brandish Your Mask   -->", 150, 50);
 }
+
+function displayTransition() {
+
+  transitionAlphaOut += 2;
+  fill(0, transitionAlphaOut)
+  rect(0,0, width, height);
+
+  if (transitionAlphaOut >= 255) {
+    gameState = 0.2;
+  }
+ }
+
+ function displayTransitionFadeIn() {
+
+   transitionAlphaIn -= 2;
+   fill(0, transitionAlphaIn);
+   rect(0, 0, width, height);
+
+   if (transitionAlphaIn <= 0) {
+     gameState = 1;
+   }
+
+ }
