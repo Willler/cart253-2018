@@ -52,35 +52,35 @@ function setup() {
   gameState = 0;
 
 
-// calling objects
-menuHead = new MenuHead(width/2, height/2, 2, 0, 0, 150);
+  // calling objects
+  menuHead = new MenuHead(width/2, height/2, 2, 0, 0, 150);
 
-//determine the initial player character position
-playerX = width/2;
-playerY = height - 50;
+  //determine the initial player character position
+  playerX = width/2;
+  playerY = height - 50;
 
-// initialize value of playerVX
-playerVX = 2;
+  // initialize value of playerVX
+  playerVX = 2;
 
-// create the rain object array
-for (var i = 0; i < rainDrops; i++) {
-rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
-}
+  // create the rain object array
+  for (var i = 0; i < rainDrops; i++) {
+  rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
+  }
 
-// create the umbrella object
-umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
+  // create the umbrella object
+  umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
-  // play the background music
+    // play the background music
 
-if(gameState === 0) {
-  menuMusic.play();
-  menuMusic.loop = true;
-} else if(gameState === 1) {
-  rainSound.play();
-  rainSound.loop = true;
-  rainBackgroundMusic.play();
-  rainBackgroundMusic.loop = true;
-}
+  if(gameState === 0) {
+    menuMusic.play();
+    menuMusic.loop = true;
+  } else if(gameState === 1) {
+    rainSound.play();
+    rainSound.loop = true;
+    rainBackgroundMusic.play();
+    rainBackgroundMusic.loop = true;
+  }
 
   // defining vines opacity and growth, which will be called in a later function
   vinesOpacity = 0;
@@ -88,8 +88,6 @@ if(gameState === 0) {
 }
 
 function draw() {
-
-  keyPressed();
 
 if (gameState === 0) {
   background(57, 77, 0);
@@ -109,30 +107,31 @@ if (gameState === 0) {
  playSpotlightSound();
 } else if (gameState === 1) {
   drawBackground();
-drawBackgroundText()
-drawPlayer();
+  drawBackgroundText()
+  drawPlayer();
 
-// as the name implies
-playerMovement();
+  // as the name implies
+  playerMovement();
 
-// functions taken from the umbrella script
-umbrella.handleInput();
-umbrella.update();
-umbrella.display();
+  // functions taken from the umbrella script
+  umbrella.handleInput();
+  umbrella.update();
+  umbrella.display();
 
 // call the rain.js functions through the array
-for (var i = 0; i < rain.length; i++) {
-  rain[i].update();
-  rain[i].touchedBottom();
-  rain[i].display();
-  rain[i].handleCollision(umbrella);
-}
+  for (var i = 0; i < rain.length; i++) {
+    rain[i].update();
+    rain[i].touchedBottom();
+    rain[i].display();
+    rain[i].handleCollision(umbrella);
+  }
 }
 
 }
 
 ///////////////////////////////////// NOTE: the following functions all have the same (or similar) if statements
 ///////////////////////////////////// but they are separated for clarity
+///////////////////////////////////////Menu functions
 
 
 // // spotlightDisplay();
@@ -237,9 +236,15 @@ function playSpotlightSound() {
 // press a certain key on the keyboard to start either the truth or mask minigames
 function keyPressed() {
   if (keyCode === CONTROL) {
-    gameState = 1
+    if(menuHead.x === 200) {
+      gameState = 1;
+  }
   }
 }
+
+
+///////////////////////////////////////////////////////// Mask game functions below
+
 
 // drawPlayer()
 //
@@ -369,5 +374,5 @@ function drawBackgroundText() {
   textSize(24);
   fill(255);
   textFont(promptFont);
-  text("<--   Brandish Your Mask   -->", 50, 50);
+  text("<--   Brandish Your Mask   -->", 150, 50);
 }
