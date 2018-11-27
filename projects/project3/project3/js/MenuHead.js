@@ -17,14 +17,20 @@ function MenuHead(x, y, vx, vy, angle, radius) {
 //
 // update the movement of the head object according to if statement
 MenuHead.prototype.update = function () {
+
+  // checks if mouse is to the left of the screen or on the right, then moves the head accordingly
   if(mouseX > (width/2) + 100) {
+
       this.x = this.x - this.vx;
       console.log("right");
+
   } else if (mouseX < (width/2) - 100) {
+
       this.x = this.x + this.vx;
       console.log("left");
   }
 
+  // constrains the x-axis to within 200 pixels of the edges of the canvas
   this.x = constrain(this.x, 200, width - 200);
 }
 
@@ -55,11 +61,6 @@ MenuHead.prototype.display = function () {
   fill(150,0,0);
   noStroke();
   ellipse(this.x, this.y, 150 + growth);
-
-  // the mouth
-  // stroke(0);
-  // strokeWeight(5);
-  // line(((width/2) - 10) + growth, 340, (width/2) + 10, 340);
 
   // the angle of the curve, which determines how fast everything will oscillate
   this.angle += 0.03;
