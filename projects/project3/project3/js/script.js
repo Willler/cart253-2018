@@ -9,9 +9,13 @@
 // A minigame depicting a pet/tumor thing that grows heavier and darker when playing
 
 
-// variable for opacity of vines, so that they appear gradually
+// variable for opacity of vines for the menu, so that they appear gradually
 var vinesOpacity;
 var vinesOpacityGrowth;
+
+// variable to decide if the page should display the menu, the mask or the Truth
+// 0 will be the menu, 1 will be the mask, and 2 the truth
+var gameState = 0;
 
 // preload()
 //
@@ -26,6 +30,8 @@ function preload() {
 function setup() {
   createCanvas(1000,500);
 
+
+  // calling objects
   menuHead = new MenuHead(width/2, height/2, 2, 0, 0, 150);
 
   // play the background menuMusic
@@ -154,5 +160,21 @@ function drawSpotlightVines() {
 function playSpotlightSound() {
   if (menuHead.x === 200 || menuHead.x === (width - 200)) {
     menuSpotlightSound.play();
+  }
+}
+
+// startGame()
+//
+// press a certain key on the keyboard to start either the truth or mask minigames
+function startGame() {
+
+  if(menuHead.x === 200){
+    if (keyIsDown(CONTROL)) {
+      gameState = 2;
+    }
+  } else if (menuHead.x === 800) {
+    if (keyIsDown(SHIFT)) {
+      gameState = 1;
+    }
   }
 }
