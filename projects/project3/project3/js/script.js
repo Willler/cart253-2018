@@ -499,6 +499,4 @@ function drawTruthBackground() {
   rect(600, 425, 15, 50);
   rect(585, 410, 10, 25);
 
-
-
 }
