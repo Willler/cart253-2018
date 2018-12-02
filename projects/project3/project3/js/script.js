@@ -125,7 +125,7 @@ if (gameState === "menu") {
   // call the spotlight text
   spotlightText();
 
-  displayTransition();
+  displayTransitionMenuToMask();
 
 } else if(gameState === "maskIn") {
 
@@ -140,7 +140,7 @@ if (gameState === "menu") {
       rain[i].handleCollision(umbrella);
     }
 
-    displayTransitionFadeIn();
+    displayTransitionFadeInMask();
   } else if (gameState === "mask") {
   drawBackground();
   drawBackgroundText()
@@ -161,6 +161,9 @@ if (gameState === "menu") {
     rain[i].display();
     rain[i].handleCollision(umbrella);
   }
+} else if (gameState === "truth") {
+
+    drawTruthBackground();
 }
 
 }
@@ -280,7 +283,11 @@ function keyPressed() {
   if (keyCode === CONTROL) {
     if(menuHead.x === 200) {
       gameState = "menuOut";
-  }
+    }
+  } else if (keyCode === SHIFT) {
+    if(menuHead.x === 800) {
+      gameState = "truth";
+    }
   }
 }
 
@@ -419,7 +426,12 @@ function drawBackgroundText() {
   text("<--   Brandish Your Mask   -->", 180, 50);
 }
 
-function displayTransition() {
+
+
+////////////////////////////////////// the following functions are
+////////////////////////////////////// display transitions between the menu and the mask game
+
+function displayTransitionMenuToMask() {
 
   transitionAlphaOut += 2;
   fill(0, transitionAlphaOut)
@@ -430,7 +442,7 @@ function displayTransition() {
   }
  }
 
- function displayTransitionFadeIn() {
+ function displayTransitionFadeInMask() {
 
    transitionAlphaIn -= 2;
    fill(0, transitionAlphaIn);
@@ -441,3 +453,52 @@ function displayTransition() {
    }
 
  }
+
+
+
+
+ //////////////////////////////////// the following functions are
+ //////////////////////////////////// the game functions for the "truth" minigame
+
+function drawTruthBackground() {
+
+  rectMode(CENTER);
+
+  // cement ground
+  fill(55);
+  rect(500, 450, 1000, 100);
+
+  // sky
+  fill(0, 38, 77);
+  rect(500, 200, 1000, 400);
+
+  // bushes (a mess of green ellipses)
+  fill(57, 77, 0);
+  ellipse(0, 400, 200, 90);
+  ellipse(150, 390, 100, 110);
+  ellipse(225, 390, 150, 80);
+  ellipse(350, 360, 120, 130);
+  ellipse(400, 400, 80, 90);
+  ellipse(450, 390, 250, 100);
+  ellipse(525, 400, 175, 110);
+  ellipse(620, 410, 125, 70);
+  ellipse(650, 380, 200, 95);
+  ellipse(790, 400, 150, 110);
+  ellipse(930, 380, 100, 110);
+  ellipse(870, 410, 100, 80);
+  ellipse(1000, 400, 150, 75);
+  ellipse(75, 400, 100, 60);
+  ellipse(265, 400, 125, 110);
+
+  // bench
+  fill(32, 16, 0);
+  rect(500, 370, 200, 60);
+  rect(500, 395, 230, 30);
+  rect(400, 425, 15, 50);
+  rect(415, 410, 10, 25);
+  rect(600, 425, 15, 50);
+  rect(585, 410, 10, 25);
+
+
+
+}
