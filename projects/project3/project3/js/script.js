@@ -17,6 +17,8 @@ var vinesOpacityGrowth;
 // 0 will be the menu, 1 will be the mask, and 2 the truth
 var gameState;
 
+
+// the variable for the pulsing head in the menu
 var menuHead;
 
 // player character variables
@@ -53,7 +55,7 @@ function preload() {
 
 function setup() {
   createCanvas(1000,500);
-  gameState = 0;
+  gameState = "menu";
 
 
   // calling objects
@@ -76,7 +78,7 @@ function setup() {
 
     // play the background music
 
-  if(gameState === 0) {
+  if(gameState === "menu") {
     menuMusic.play();
     menuMusic.loop = true;
   } else if(gameState === 1) {
@@ -93,7 +95,7 @@ function setup() {
 
 function draw() {
 
-if (gameState === 0) {
+if (gameState === "menu") {
   background(57, 77, 0);
 
   drawSpotlightVines();
@@ -109,7 +111,7 @@ if (gameState === 0) {
 
  // call the spotlight sound effect
  playSpotlightSound();
-} else if(gameState === 0.1) {
+} else if(gameState === "menuOut") {
   background(57, 77, 0);
 
   drawSpotlightVines();
@@ -125,7 +127,7 @@ if (gameState === 0) {
 
   displayTransition();
 
-} else if(gameState === 0.2) {
+} else if(gameState === "maskIn") {
 
   drawBackground();
   drawBackgroundText()
@@ -139,7 +141,7 @@ if (gameState === 0) {
     }
 
     displayTransitionFadeIn();
-  } else if (gameState === 1) {
+  } else if (gameState === "mask") {
   drawBackground();
   drawBackgroundText()
   drawPlayer();
@@ -277,7 +279,7 @@ function playSpotlightSound() {
 function keyPressed() {
   if (keyCode === CONTROL) {
     if(menuHead.x === 200) {
-      gameState = 0.1;
+      gameState = "menuOut";
   }
   }
 }
@@ -424,7 +426,7 @@ function displayTransition() {
   rect(0,0, width, height);
 
   if (transitionAlphaOut >= 255) {
-    gameState = 0.2;
+    gameState = "maskIn";
   }
  }
 
@@ -435,7 +437,7 @@ function displayTransition() {
    rect(0, 0, width, height);
 
    if (transitionAlphaIn <= 0) {
-     gameState = 1;
+     gameState = "mask";
    }
 
  }
