@@ -187,6 +187,7 @@ if (gameState === "menu") {
       pebbles[i].touchedBottom();
       pebbles[i].display();
       pebbles[i].handleCollision(truthPlayer);
+
     }
 }
 
@@ -488,13 +489,29 @@ function drawTruthBackground() {
 
   rectMode(CENTER);
 
-  // cement ground
-  fill(55);
-  rect(500, 450, 1000, 100);
-
   // sky
   fill(0, 38, 77);
   rect(500, 200, 1000, 400);
+  fill(255, 10);
+  ellipse(500, 0, 1000, 150);
+
+  //buildings
+  fill(41, 41, 61);
+  rect(500, 300, 120, 400);
+  rect(500, 100, 60, 70);
+  rect(500, 50, 10, 40);
+  fill(31, 31, 46);
+  rect(75, 300, 150, 400);
+  rect(925, 300, 150, 400);
+  rect(225, 300, 150, 300);
+  rect(775, 300, 150, 300);
+  rect(375, 300, 150, 200);
+  rect(625, 300, 150, 200);
+
+
+  // cement ground
+  fill(55);
+  rect(500, 450, 1000, 100);
 
   // bushes (a mess of green ellipses)
   fill(57, 77, 0);
@@ -516,12 +533,12 @@ function drawTruthBackground() {
 
   // bench
   fill(32, 16, 0);
-  rect(500, 370, 200, 60);
-  rect(500, 395, 230, 30);
-  rect(400, 425, 15, 50);
-  rect(415, 410, 10, 25);
-  rect(600, 425, 15, 50);
-  rect(585, 410, 10, 25);
+  rect(500, 400, 200, 60);
+  rect(500, 415, 230, 30);
+  rect(400, 455, 15, 50);
+  rect(415, 440, 10, 25);
+  rect(600, 455, 15, 50);
+  rect(585, 440, 10, 25);
 
 }
 
@@ -533,6 +550,4 @@ function drawTruthBackgroundText() {
   fill(255);
   textFont(displayFont);
   text("<--- Keep the Dark Thoughts at Bay --->", 160, 485);
-  textSize(24);
-  text("Anxiety:", 900, 50);
 }
