@@ -38,6 +38,9 @@ var umbrella;
 var pebbles = [];
 var pebblesCount = 30;
 
+//variable for the truth minigame player
+var truthPlayer;
+
 // variable for transitions
 var transitionAlphaOut = 0;
 var transitionAlphaIn = 255;
@@ -46,15 +49,14 @@ var transitionAlphaIn = 255;
 //
 // preload assets before running the code, such as fonts, images and sounds
 function preload() {
-  displayFont = loadFont("assets/fonts/display.ttf");
 
   menuMusic = new Audio("assets/sounds/waltz.wav");
   menuSpotlightSound = new Audio("assets/sounds/strum.wav");
-
   rainSound = new Audio("assets/sounds/rain.wav");
   rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav");
 
   promptFont = loadFont("assets/fonts/display.ttf");
+  displayFont = loadFont("assets/fonts/display.ttf");
 }
 
 function setup() {
@@ -85,8 +87,9 @@ function setup() {
     pebbles.push(new Pebbles(random(50,950),0,random(-2,2),random(2,4),6,5,5));
   }
 
-    // play the background music
+  truthPlayer = new TruthPlayer(width/2, 400, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
+  // play the background music
   if(gameState === "menu") {
     menuMusic.play();
     menuMusic.loop = true;
@@ -173,6 +176,10 @@ if (gameState === "menu") {
 } else if (gameState === "truth") {
 
     drawTruthBackground();
+
+    truthPlayer.update();
+    truthPlayer.handleInput();
+    truthPlayer.display();
 
     for (var i = 0; i < pebbles.length; i++) {
       pebbles[i].update();
