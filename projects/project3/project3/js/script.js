@@ -34,6 +34,10 @@ var rainDrops = 50;
 // variables for the Umbrella
 var umbrella;
 
+// variables for the pebbles array
+var pebbles = [];
+var pebblesCount = 30;
+
 // variable for transitions
 var transitionAlphaOut = 0;
 var transitionAlphaIn = 255;
@@ -70,11 +74,16 @@ function setup() {
 
   // create the rain object array
   for (var i = 0; i < rainDrops; i++) {
-  rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
+    rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
   }
 
   // create the umbrella object
   umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
+
+  // create the array for pebbles
+  for (var i = 0; i < pebblesCount; i++) {
+    pebbles.push(new Pebbles(random(50,950),0,random(-2,2),random(2,4),6,5,5));
+  }
 
     // play the background music
 
@@ -164,6 +173,12 @@ if (gameState === "menu") {
 } else if (gameState === "truth") {
 
     drawTruthBackground();
+
+    for (var i = 0; i < pebbles.length; i++) {
+      pebbles[i].update();
+      pebbles[i].touchedBottom();
+      pebbles[i].display();
+    }
 }
 
 }

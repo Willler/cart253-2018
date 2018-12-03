@@ -25,7 +25,9 @@ function Pebbles(x, y, vx, vy, size, border, speed) {
 //
 // where changes to the object are determined
 Pebbles.prototype.update = function() {
-
+  // Update position with velocity
+  this.x += this.vx;
+  this.y += this.vy;
 }
 
 // touchedBottom()
@@ -33,14 +35,19 @@ Pebbles.prototype.update = function() {
 // when the pebbles touch the bottom of the canvas, reset them to the top
 // with a random, constrained x-direction
 Pebbles.prototype.touchedBottom = function() {
-
+  // check if the y value is greater than the height of the canvas
+  if (this.y > height) {
+    this.y = 0;
+    this.x = random(10, 990);
+  }
 }
 
 // display()
 //
 // where we determine what the pebbles will look like
 Pebbles.prototype.display = function() {
-
+  fill(0, 100, 150);
+  ellipse(this.x, this.y, this.size);
 }
 
 // handleCollision()
@@ -48,5 +55,6 @@ Pebbles.prototype.display = function() {
 // determine what happens when pebbles touch the player
 // in this case, it will decrease the "score" and make the parasite grow
 Pebbles.prototype.handleCollision = function(truthPlayer) {
+
 
 }
