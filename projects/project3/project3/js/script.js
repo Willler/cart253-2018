@@ -176,6 +176,7 @@ if (gameState === "menu") {
 } else if (gameState === "truth") {
 
     drawTruthBackground();
+    drawTruthBackgroundText();
 
     truthPlayer.update();
     truthPlayer.handleInput();
@@ -185,6 +186,7 @@ if (gameState === "menu") {
       pebbles[i].update();
       pebbles[i].touchedBottom();
       pebbles[i].display();
+      pebbles[i].handleCollision(truthPlayer);
     }
 }
 
@@ -521,4 +523,16 @@ function drawTruthBackground() {
   rect(600, 425, 15, 50);
   rect(585, 410, 10, 25);
 
+}
+
+// drawTruthBackgroundText
+//
+// draw the background text for the truth minigame, such as the instructions and "score"
+function drawTruthBackgroundText() {
+  textSize(18);
+  fill(255);
+  textFont(displayFont);
+  text("<--- Keep the Dark Thoughts at Bay --->", 160, 485);
+  textSize(24);
+  text("Anxiety:", 900, 50);
 }
