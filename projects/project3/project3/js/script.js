@@ -53,6 +53,7 @@ function preload() {
   menuSpotlightSound = loadSound("assets/sounds/strum.wav");
   rainBackgroundMusic = loadSound("assets/sounds/loneliness.wav");
   rainSound = loadSound("assets/sounds/rain.wav");
+  truthBackgroundMusic = loadSound("assets/sounds/truthMusic.wav");
 
   // menuMusic = new Audio("assets/sounds/waltz.wav");
   // menuSpotlightSound = new Audio("assets/sounds/strum.wav");
@@ -91,14 +92,18 @@ function setup() {
 
 
     menuMusic.play();
-    // menuMusic.loop = true;
+
     rainSound.setVolume(0);
     rainSound.play();
     rainSound.loop();
-    // rainSound.loop = true;
+
     rainBackgroundMusic.setVolume(0);
     rainBackgroundMusic.play();
-    // rainBackgroundMusic.loop = true;
+    rainBackgroundMusic.loop();
+
+    truthBackgroundMusic.setVolume(0);
+    truthBackgroundMusic.play();
+    truthBackgroundMusic.loop();
 
 
   // defining vines opacity and growth, which will be called in a later function
@@ -156,6 +161,7 @@ if (gameState === "menu") {
     displayTransitionFadeInMask();
 
     menuMusic.setVolume(0);
+    truthBackgroundMusic.setVolume(0);
     rainBackgroundMusic.currentTime(0);
     rainBackgroundMusic.setVolume(1);
     rainSound.currentTime(0);
@@ -209,6 +215,12 @@ if (gameState === "menu") {
   }
 
   displayTransitionFadeInTruth();
+
+  menuMusic.setVolume(0);
+  truthBackgroundMusic.currentTime(0);
+  truthBackgroundMusic.setVolume(1);
+  rainBackgroundMusic.setVolume(0);
+  rainSound.setVolume(0);
 
 } else if (gameState === "truth") {
 
@@ -472,9 +484,6 @@ function displayTransitionMenuToMask() {
    }
  }
 
-
-
-
  //////////////////////////////////// the following functions are
  //////////////////////////////////// the game functions for the "truth" minigame
 
@@ -489,15 +498,17 @@ function drawTruthBackground() {
   ellipse(500, 0, 1000, 150);
 
   //buildings
-  fill(41, 41, 61);
+  fill(104);
   rect(500, 300, 120, 400);
   rect(500, 100, 60, 70);
   rect(500, 50, 10, 40);
-  fill(31, 31, 46);
+  fill(26);
   rect(75, 300, 150, 400);
   rect(925, 300, 150, 400);
+  fill(52);
   rect(225, 300, 150, 300);
   rect(775, 300, 150, 300);
+  fill(78);
   rect(375, 300, 150, 200);
   rect(625, 300, 150, 200);
 
