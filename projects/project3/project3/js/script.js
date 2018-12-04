@@ -189,8 +189,7 @@ if (gameState === "menu") {
       pebbles[i].handleCollision(truthPlayer);
 
     }
-}
-
+  }
 }
 
 ///////////////////////////////////// NOTE: the following functions all have the same (or similar) if statements
@@ -549,5 +548,8 @@ function drawTruthBackgroundText() {
   textSize(18);
   fill(255);
   textFont(displayFont);
-  text("<--- Keep the Dark Thoughts at Bay --->", 160, 485);
+  text("<--- Keep the Dark Thoughts at Bay --->", 160, 480);
+  textSize(24);
+  text("Anxiety:", 900, 50);
+  text(truthPlayer.score, 950, 50);
 }

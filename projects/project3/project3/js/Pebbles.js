@@ -58,5 +58,6 @@ Pebbles.prototype.handleCollision = function(truthPlayer) {
   if (this.y + this.size > truthPlayer.y && this.x > truthPlayer.x - truthPlayer.size/2  && this.x < truthPlayer.x + truthPlayer.size/2) {
     this.y = 0;
     this.x = random(10, 990);
+    truthPlayer.score ++;
   }
 }

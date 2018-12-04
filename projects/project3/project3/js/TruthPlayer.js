@@ -16,6 +16,7 @@ function TruthPlayer(x, y, size, speed, rightKey, leftKey) {
   this.speed = speed;
   this.rightKey = rightKey;
   this.leftKey = leftKey;
+  this.score = 0;
 }
 
 // update()
