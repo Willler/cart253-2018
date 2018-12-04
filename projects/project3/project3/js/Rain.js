@@ -65,3 +65,11 @@ Rain.prototype.handleCollision = function(umbrella) {
 
   }
 }
+
+Rain.prototype.handlePlayerCollision = function(maskPlayer) {
+  if (this.y + this.size > maskPlayer.y && this.x > maskPlayer.x - maskPlayer.size/2  && this.x < maskPlayer.x + maskPlayer.size/2) {
+    this.y = 0;
+    this.x = random(10, 990);
+    maskPlayer.score --;
+  }
+}

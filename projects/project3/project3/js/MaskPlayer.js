@@ -13,7 +13,7 @@ function MaskPlayer(x, y, vx, vy, size, speed) {
   this.vy = vy;
   this.size = size;
   this.speed = speed;
-  this.score = 0;
+  this.score = 100;
 }
 
 // update()

@@ -185,6 +185,7 @@ if (gameState === "menu") {
     rain[i].touchedBottom();
     rain[i].display();
     rain[i].handleCollision(umbrella);
+    rain[i].handlePlayerCollision(maskPlayer);
   }
 } else if (gameState === "menuToTruth") {
   background(57, 77, 0);
@@ -449,6 +450,8 @@ function drawBackgroundText() {
   fill(255);
   textFont(promptFont);
   text("<--   Brandish Your Mask   -->", 180, 50);
+  text("Comfort", 850, 475);
+  text(maskPlayer.score, 925, 475);
 }
 
 
