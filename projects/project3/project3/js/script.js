@@ -47,10 +47,17 @@ var transitionAlphaIn = 255;
 // preload assets before running the code, such as fonts, images and sounds
 function preload() {
 
-  menuMusic = new Audio("assets/sounds/waltz.wav");
-  menuSpotlightSound = new Audio("assets/sounds/strum.wav");
-  rainSound = new Audio("assets/sounds/rain.wav");
-  rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav");
+  soundFormats('mp3', 'wav');
+
+  menuMusic = loadSound("assets/sounds/waltz.wav");
+  menuSpotlightSound = loadSound("assets/sounds/strum.wav");
+  rainBackgroundMusic = loadSound("assets/sounds/loneliness.wav");
+  rainSound = loadSound("assets/sounds/rain.wav");
+
+  // menuMusic = new Audio("assets/sounds/waltz.wav");
+  // menuSpotlightSound = new Audio("assets/sounds/strum.wav");
+  // rainSound = new Audio("assets/sounds/rain.wav");
+  // rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav");
 
   promptFont = loadFont("assets/fonts/display.ttf");
   displayFont = loadFont("assets/fonts/display.ttf");
@@ -81,16 +88,18 @@ function setup() {
 
   truthPlayer = new TruthPlayer(width/2, 400, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
-  // play the background music
-  if(gameState === "menu") {
+
+
     menuMusic.play();
-    menuMusic.loop = true;
-  } else if(gameState === 1) {
+    // menuMusic.loop = true;
+    rainSound.setVolume(0);
     rainSound.play();
-    rainSound.loop = true;
+    rainSound.loop();
+    // rainSound.loop = true;
+    rainBackgroundMusic.setVolume(0);
     rainBackgroundMusic.play();
-    rainBackgroundMusic.loop = true;
-  }
+    // rainBackgroundMusic.loop = true;
+
 
   // defining vines opacity and growth, which will be called in a later function
   vinesOpacity = 0;
@@ -145,6 +154,13 @@ if (gameState === "menu") {
     }
 
     displayTransitionFadeInMask();
+
+    menuMusic.setVolume(0);
+    rainBackgroundMusic.currentTime(0);
+    rainBackgroundMusic.setVolume(1);
+    rainSound.currentTime(0);
+    rainSound.setVolume(1);
+
   } else if (gameState === "mask") {
   drawBackground();
   drawBackgroundText()
@@ -317,7 +333,8 @@ function drawSpotlightVines() {
 // there is currently an issue where the sound plays repeatedly, will fix that in final version
 function playSpotlightSound() {
   if (menuHead.x === 200 || menuHead.x === (width - 200)) {
-    menuSpotlightSound.play();
+    // menuSpotlightSound.play();
+    // menuSpotlightSound.setVolume(0);
   }
 }
 
