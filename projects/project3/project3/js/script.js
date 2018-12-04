@@ -21,12 +21,6 @@ var gameState;
 // the variable for the pulsing head in the menu
 var menuHead;
 
-// player character variables
-var playerX;
-var playerY;
-var playerVX;
-var playerVY;
-
 // variables for rain array
 var rain = [];
 var rainDrops = 50;
@@ -40,6 +34,9 @@ var pebblesCount = 30;
 
 //variable for the truth minigame player
 var truthPlayer;
+
+// variable for the mask minigame player
+var maskPlayer;
 
 // variable for transitions
 var transitionAlphaOut = 0;
@@ -67,12 +64,7 @@ function setup() {
   // calling objects
   menuHead = new MenuHead(width/2, height/2, 2, 0, 0, 150);
 
-  //determine the initial player character position
-  playerX = width/2;
-  playerY = height - 50;
-
-  // initialize value of playerVX
-  playerVX = 2;
+  maskPlayer = new MaskPlayer(width/2, (height - 50), 2, 0, 5, 0);
 
   // create the rain object array
   for (var i = 0; i < rainDrops; i++) {
@@ -156,10 +148,9 @@ if (gameState === "menu") {
   } else if (gameState === "mask") {
   drawBackground();
   drawBackgroundText()
-  drawPlayer();
 
-  // as the name implies
-  playerMovement();
+  maskPlayer.update();
+  maskPlayer.display();
 
   // functions taken from the umbrella script
   umbrella.handleInput();
@@ -347,55 +338,6 @@ function keyPressed() {
 
 
 ///////////////////////////////////////////////////////// Mask game functions below
-
-
-// drawPlayer()
-//
-// function to draw the player sprite
-// it is grey/monochrome on purpose
-// to show contrast between the colorful mask/umbrella and the reality underneath
-function drawPlayer() {
-
-  //hair background
-  fill(25);
-  ellipse(playerX, playerY + 10, 55, 50);
-  ellipse(playerX - 22, playerY + 15, 20, 30);
-  ellipse(playerX + 22, playerY + 15, 20, 30);
-
-  //face
-  fill(150);
-  ellipse(playerX, playerY, 50);
-
-  //glasses
-  stroke(0);
-  noFill();
-  ellipse(playerX - 9, playerY + 10, 15);
-  ellipse(playerX + 9, playerY + 10, 15);
-
-
-  //hair foreground
-  noStroke();
-  fill(45);
-  ellipse(playerX + 25, playerY + 5, 20);
-  ellipse(playerX + 15, playerY - 5, 30);
-  ellipse(playerX - 25, playerY + 5, 20);
-  ellipse(playerX - 15, playerY - 5, 30);
-  ellipse(playerX + 2, playerY - 12, 40, 30);
-
-}
-
-// playerMovement()
-//
-// function to determine how the player sprite moves around
-// for now, it moves left to right statically, will improve with perlin noise or something better suited in final version
-function playerMovement() {
-  playerX = playerX + playerVX;
-
-  // constrain the player within set boundaries on the x-axis
-  if (playerX === 150 || playerX === 850) {
-    playerVX = -playerVX;
-  }
-}
 
 // drawBackground()
 //
