@@ -123,7 +123,7 @@ if (gameState === "menu") {
 
  // call the spotlight sound effect
  playSpotlightSound();
-} else if(gameState === "menuOut") {
+} else if(gameState === "menuToMask") {
   background(57, 77, 0);
 
   drawSpotlightVines();
@@ -173,6 +173,36 @@ if (gameState === "menu") {
     rain[i].display();
     rain[i].handleCollision(umbrella);
   }
+} else if (gameState === "menuToTruth") {
+  background(57, 77, 0);
+
+  drawSpotlightVines();
+
+  menuHead.update();
+  menuHead.display();
+
+  // call the spotlight
+  spotlightDisplay();
+
+  // call the spotlight text
+  spotlightText();
+
+  displayTransitionMenuToTruth();
+
+} else if (gameState === "truthIn") {
+
+  drawTruthBackground();
+
+  for (var i = 0; i < pebbles.length; i++) {
+    pebbles[i].update();
+    pebbles[i].touchedBottom();
+    pebbles[i].display();
+    pebbles[i].handleCollision(truthPlayer);
+
+  }
+
+  displayTransitionFadeInTruth();
+
 } else if (gameState === "truth") {
 
     drawTruthBackground();
@@ -300,17 +330,17 @@ function playSpotlightSound() {
   }
 }
 
-// startGame()
+// keyPressed()
 //
 // press a certain key on the keyboard to start either the truth or mask minigames
 function keyPressed() {
   if (keyCode === CONTROL) {
     if(menuHead.x === 200) {
-      gameState = "menuOut";
+      gameState = "menuToMask";
     }
   } else if (keyCode === SHIFT) {
     if(menuHead.x === 800) {
-      gameState = "truth";
+      gameState = "menuToTruth";
     }
   }
 }
@@ -455,6 +485,9 @@ function drawBackgroundText() {
 ////////////////////////////////////// the following functions are
 ////////////////////////////////////// display transitions between the menu and the mask game
 
+// displayTransitionFadeToMask()
+//
+// when menu choice to mask game is taken, fade to black
 function displayTransitionMenuToMask() {
 
   transitionAlphaOut += 2;
@@ -466,6 +499,9 @@ function displayTransitionMenuToMask() {
   }
  }
 
+// displayTransitionFadeInMask()
+//
+// When the menu fade to black is finished, fade from black into the mask minigame
  function displayTransitionFadeInMask() {
 
    transitionAlphaIn -= 2;
@@ -475,7 +511,6 @@ function displayTransitionMenuToMask() {
    if (transitionAlphaIn <= 0) {
      gameState = "mask";
    }
-
  }
 
 
@@ -553,3 +588,31 @@ function drawTruthBackgroundText() {
   text("Anxiety:", 900, 50);
   text(truthPlayer.score, 950, 50);
 }
+
+// displayTransitionMenuToTruth()
+//
+// when the menu head is in place and shift is pressed, fade the menu to black
+function displayTransitionMenuToTruth() {
+
+  transitionAlphaOut += 2;
+  fill(0, transitionAlphaOut)
+  rect(0,0, width, height);
+
+  if (transitionAlphaOut >= 255) {
+    gameState = "truthIn";
+  }
+ }
+
+ // displayTransitionFadeInTruth()
+ //
+ // When the menu fade to black is finished, fade from black into the truth minigame
+  function displayTransitionFadeInTruth() {
+
+    transitionAlphaIn -= 2;
+    fill(0, transitionAlphaIn);
+    rect(500, 250, width, height);
+
+    if (transitionAlphaIn <= 0) {
+      gameState = "truth";
+    }
+  }
