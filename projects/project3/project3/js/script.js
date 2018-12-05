@@ -417,13 +417,13 @@ function playSpotlightSound() {
 function keyPressed() {
 
   if (keyCode === CONTROL) {
-    if(menuHead.x === 200) {
+    if (menuHead.x === 200) {
 
       gameState = "menuToMask";
 
     }
   } else if (keyCode === SHIFT) {
-    if(menuHead.x === 800) {
+    if (menuHead.x === 800) {
 
       gameState = "menuToTruth";
 
