@@ -196,7 +196,9 @@ if (gameState === "menu") {
     rain[i].handlePlayerCollision(maskPlayer);
   }
 
-  gameReset()
+  increaseMaskRainNoise();
+
+  gameReset();
 
 } else if (gameState === "menuToTruth") {
   background(57, 77, 0);
@@ -485,10 +487,29 @@ function drawMaskBackgroundText() {
   text(maskPlayer.score, 925, 475);
 }
 
+// increaseMaskRainNoise()
+//
+// the more the comfort level decreases, the louder the rain gets
+function increaseMaskRainNoise() {
 
+   if (maskPlayer.score < 20 && maskPlayer.score >= 15) {
 
-////////////////////////////////////// the following functions are
-////////////////////////////////////// display transitions between the menu and the mask game
+    rainSound.setVolume(2);
+
+  } else if (maskPlayer.score < 15 && maskPlayer.score >= 10) {
+
+    rainSound.setVolume(3);
+
+  } else if (maskPlayer.score < 10 && maskPlayer.score >= 5) {
+
+    rainSound.setVolume(4);
+
+  } else if (maskPlayer.score < 5 && maskPlayer.score >= 0) {
+
+    rainSound.setVolume(5);
+
+  }
+}
 
 // displayTransitionFadeToMask()
 //
