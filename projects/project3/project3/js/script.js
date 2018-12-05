@@ -434,6 +434,7 @@ function keyPressed() {
 // gameReset()
 //
 // if the score reaches a certain level, send the player back to the menu and reset scores
+// this is very abrupt on puprose, as if you are being booted out of a dream
 function gameReset() {
 
   if (truthPlayer.score >= 25) {  ///// mask minigame if statement
