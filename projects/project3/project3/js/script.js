@@ -35,6 +35,10 @@ var pebblesCount = 30;
 //variable for the truth minigame player
 var truthPlayer;
 
+// variables for the pulsing truthParasite
+var parasiteAngle = 0;
+var parasiteSize;
+
 // variable for the mask minigame player
 var maskPlayer;
 
@@ -90,7 +94,7 @@ function setup() {
   truthPlayer = new TruthPlayer(width/2, 400, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
 
-
+    menuMusic.currentTime(0);
     menuMusic.play();
 
     rainSound.setVolume(0);
@@ -116,6 +120,12 @@ function draw() {
 if (gameState === "menu") {
   background(57, 77, 0);
 
+  menuMusic.currentTime();
+  menuMusic.setVolume(1);
+  rainSound.setVolume(0);
+  rainBackgroundMusic.setVolume(0);
+  truthBackgroundMusic.setVolume(0);
+
   drawSpotlightVines();
 
   menuHead.update();
@@ -129,6 +139,10 @@ if (gameState === "menu") {
 
  // call the spotlight sound effect
  playSpotlightSound();
+
+ transitionAlphaOut = 0;
+ transitionAlphaIn = 255;
+
 } else if(gameState === "menuToMask") {
   background(57, 77, 0);
 
@@ -187,6 +201,9 @@ if (gameState === "menu") {
     rain[i].handleCollision(umbrella);
     rain[i].handlePlayerCollision(maskPlayer);
   }
+
+  gameReset()
+
 } else if (gameState === "menuToTruth") {
   background(57, 77, 0);
 
@@ -239,6 +256,10 @@ if (gameState === "menu") {
       pebbles[i].handleCollision(truthPlayer);
 
     }
+
+    truthParasite();
+
+    gameReset();
   }
 }
 
@@ -480,7 +501,7 @@ function displayTransitionMenuToMask() {
 
    transitionAlphaIn -= 2;
    fill(0, transitionAlphaIn);
-   rect(0, 0, width, height);
+   rect(500, 250, width, height);
 
    if (transitionAlphaIn <= 0) {
      gameState = "mask";
@@ -562,6 +583,25 @@ function drawTruthBackgroundText() {
   text(truthPlayer.score, 950, 50);
 }
 
+
+// truthReset()
+//
+// if the score reaches a certain level, send the player back to the menu and reset scores
+function gameReset() {
+  if (truthPlayer.score >= 15) {
+    truthPlayer.score = 0;
+    gameState = "menu";
+    menuHead.x = width/2;
+  }
+
+  if (maskPlayer.score <= 0) {
+    maskPlayer.score = 0;
+    gameState = "menu";
+    menuHead.x = width/2;
+  }
+}
+
+
 // displayTransitionMenuToTruth()
 //
 // when the menu head is in place and shift is pressed, fade the menu to black
@@ -588,4 +628,30 @@ function displayTransitionMenuToTruth() {
     if (transitionAlphaIn <= 0) {
       gameState = "truth";
     }
+  }
+
+  // truthParasite
+  //
+  // a pulsing parasite that grows as the player gets hit by pebbles, obscuring the screen
+  function truthParasite() {
+
+    var parasiteGrowth = sin(parasiteAngle) * (parasiteSize/10);
+
+    fill(0);
+    ellipseMode(CENTER);
+    ellipse(500, 250, parasiteSize + parasiteGrowth);
+
+    if (truthPlayer.score <= 3) {
+      parasiteSize = 50;
+    } else if (truthPlayer.score > 3 && truthPlayer.score <= 6) {
+      parasiteSize = 100;
+    } else if (truthPlayer.score > 6 && truthPlayer.score <= 9) {
+      parasiteSize = 150;
+    } else if (truthPlayer.score > 9 && truthPlayer.score <= 12) {
+      parasiteSize = 200;
+    } else if (truthPlayer.score > 12 && truthPlayer.score <= 15) {
+      parasiteSize = 250;
+    }
+
+    parasiteAngle += 0.1;
   }
