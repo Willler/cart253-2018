@@ -23,8 +23,9 @@ function Umbrella(x, y, width, height, speed, rightKey, leftKey) {
 //
 // where changes to the umbrella object are determined
 Umbrella.prototype.update = function () {
+
+  // move player with x velocity
   this.x += this.vx;
-  // this.x = constrain(this.x, 50, width - 50);
 }
 
 // handleInput()
@@ -35,14 +36,20 @@ Umbrella.prototype.handleInput = function () {
 
   // if the appropriate key is down, move left or right, if nothing pressed stay still
   if (keyIsDown(this.rightKey)) {
+
     this.vx = this.speed;
-}
+
+  }
   else if (keyIsDown(this.leftKey)) {
+
     this.vx = -this.speed;
-}
+
+  }
   else {
+
     this.vx = 0;
-}
+
+  }
 }
 
 // display()

@@ -42,9 +42,11 @@ Rain.prototype.touchedBottom = function () {
 //
 // where we determine the object's appearance
 Rain.prototype.display = function () {
+
   fill(200);
   noStroke();
   ellipse(this.x, this.y, this.size);
+
 }
 
 // handleCollision(umbrella)
@@ -57,19 +59,28 @@ Rain.prototype.handleCollision = function(umbrella) {
   // and if so, reset the rain drop to the top at a random x value
   // also constraining the area affected to within the umbrella x-value range
   if (this.y + this.size > umbrella.y && this.x > umbrella.x - umbrella.width/2  && this.x < umbrella.x + umbrella.width/2) {
-    // this.y -= this.vy;
-    //
-    // this.vy = -this.vy;
+
     this.y = 0;
     this.x = random(10, 990);
 
   }
 }
 
+// handlePlayerCollision()
+//
+// check if the rain object has touched the player
 Rain.prototype.handlePlayerCollision = function(maskPlayer) {
+
+  // check if the rain object overlaps with the maskPlayer by calculating if their edges touch
   if (this.y + this.size > maskPlayer.y && this.x > maskPlayer.x - maskPlayer.size/2  && this.x < maskPlayer.x + maskPlayer.size/2) {
+
+    // set position back at the top of the canvas
     this.y = 0;
+
+    // set x-position randomly betwen a specific range
     this.x = random(10, 990);
+
+    // decrease the score/comfort
     maskPlayer.score --;
   }
 }

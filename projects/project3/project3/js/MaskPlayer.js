@@ -28,6 +28,9 @@ MaskPlayer.prototype.update = function() {
     }
 }
 
+// display()
+//
+// what the character will look like
 MaskPlayer.prototype.display = function() {
   //hair background
   fill(25);
@@ -44,7 +47,6 @@ MaskPlayer.prototype.display = function() {
   noFill();
   ellipse(this.x - 9, this.y + 10, 15);
   ellipse(this.x + 9, this.y + 10, 15);
-
 
   //hair foreground
   noStroke();

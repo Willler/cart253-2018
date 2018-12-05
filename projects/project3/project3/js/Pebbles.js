@@ -55,9 +55,17 @@ Pebbles.prototype.display = function() {
 // determine what happens when pebbles touch the player
 // in this case, it will decrease the "score" and make the parasite grow
 Pebbles.prototype.handleCollision = function(truthPlayer) {
+
+  // calculate of edges of pebbles and player overlap, if so, do something
   if (this.y + this.size > truthPlayer.y && this.x > truthPlayer.x - truthPlayer.size/2  && this.x < truthPlayer.x + truthPlayer.size/2) {
+
+    // set position back at the top
     this.y = 0;
+
+    // set x value to random
     this.x = random(10, 990);
+
+    // increase anxiety level
     truthPlayer.score ++;
   }
 }

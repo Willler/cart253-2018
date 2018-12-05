@@ -42,12 +42,13 @@ MenuHead.prototype.display = function () {
 
   push();
 
+  // calculate just how the head will pulsate
   var growth = sin(this.angle) * (this.radius/10);
 
   // the shadow
   noStroke();
   ellipseMode(CENTER);
-  // rectMode(CENTER);
+
   fill(25);
   ellipse((this.x) + 10, this.y + 50, 130 + growth, 150 + growth);
   noStroke();

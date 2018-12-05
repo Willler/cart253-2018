@@ -17,9 +17,11 @@ var vinesOpacityGrowth;
 // 0 will be the menu, 1 will be the mask, and 2 the truth
 var gameState;
 
-
 // the variable for the pulsing head in the menu
 var menuHead;
+
+// variable for the mask minigame player
+var maskPlayer;
 
 // variables for rain array
 var rain = [];
@@ -39,10 +41,7 @@ var truthPlayer;
 var parasiteAngle = 0;
 var parasiteSize;
 
-// variable for the mask minigame player
-var maskPlayer;
-
-// variable for transitions
+// variable for gameState transitions
 var transitionAlphaOut = 0;
 var transitionAlphaIn = 255;
 
@@ -63,227 +62,264 @@ function preload() {
 }
 
 function setup() {
+
   createCanvas(1000,500);
+
+  // initializing the game on the menu state
   gameState = "menu";
 
+  ///////////////////// calling objects ///////////////////////
 
-  // calling objects
+  /// the pulsing head in the menu
   menuHead = new MenuHead(width/2, height/2, 2, 0, 0, 150);
 
+  // the player within the mask minigame
   maskPlayer = new MaskPlayer(width/2, (height - 50), 2, 0, 5, 0);
 
-  // create the rain object array
+  // creating the rain object array
   for (var i = 0; i < rainDrops; i++) {
+
     rain.push(new Rain(random(50,950),0,random(-1,1),random(3,7),6,5,5));
+
   }
 
-  // create the umbrella object
+  // creating the umbrella object for the mask minigame
   umbrella = new Umbrella(width/2, 300, 150, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
-  // create the array for pebbles
+  // create the array for pebbles for the truth minigame
   for (var i = 0; i < pebblesCount; i++) {
     pebbles.push(new Pebbles(random(50,950),0,random(-2,2),random(2,4),6,5,5));
   }
 
+  // creating the player for the truth minigame
   truthPlayer = new TruthPlayer(width/2, 400, 50, 5, RIGHT_ARROW, LEFT_ARROW);
 
+  ////////////////////////// Initializing Sounds ///////////////////////////
 
-    menuMusic.currentTime(0);
-    menuMusic.play();
+  menuMusic.currentTime(0);
+  menuMusic.play();   ///// menu
 
-    rainSound.setVolume(0);
-    rainSound.play();
-    rainSound.loop();
+  rainSound.setVolume(0);
+  rainSound.play(); /////// mask
+  rainSound.loop();
 
-    rainBackgroundMusic.setVolume(0);
-    rainBackgroundMusic.play();
-    rainBackgroundMusic.loop();
+  rainBackgroundMusic.setVolume(0);
+  rainBackgroundMusic.play(); /////// mask
+  rainBackgroundMusic.loop();
 
-    truthBackgroundMusic.setVolume(0);
-    truthBackgroundMusic.play();
-    truthBackgroundMusic.loop();
+  truthBackgroundMusic.setVolume(0);
+  truthBackgroundMusic.play();  ////// truth
+  truthBackgroundMusic.loop();
 
 
-  // defining vines opacity and growth, which will be called in a later function
+  // defining vines opacity and growth, which will be called in a later function for the menu
   vinesOpacity = 0;
   vinesOpacityGrowth = 1;
 }
 
 function draw() {
+  if (gameState === "menu") {  ///////////////// check if it is the menu game state
 
-if (gameState === "menu") {
-  background(57, 77, 0);
+      background(57, 77, 0);
 
-  menuMusic.currentTime();
-  menuMusic.setVolume(1);
-  rainSound.setVolume(0);
-  rainBackgroundMusic.setVolume(0);
-  truthBackgroundMusic.setVolume(0);
+      // call music and sounds, setting the sounds for other game states to volume zero
+      menuMusic.currentTime(0);
+      menuMusic.setVolume(1);
+      rainSound.setVolume(0);
+      rainBackgroundMusic.setVolume(0);
+      truthBackgroundMusic.setVolume(0);
 
-  drawSpotlightVines();
+      // draw the vines
+      drawSpotlightVines();
 
-  menuHead.update();
-  menuHead.display();
+      // call the menu head object
+      menuHead.update();
+      menuHead.display();
 
-  // call the spotlight
-  spotlightDisplay();
+      // call the spotlight
+      spotlightDisplay();
 
-  // call the spotlight text
-  spotlightText();
+      // call the spotlight text
+      spotlightText();
 
- // call the spotlight sound effect
- playSpotlightSound();
+      // call the spotlight sound effect
+      playSpotlightSound();
 
- transitionAlphaOut = 0;
- transitionAlphaIn = 255;
+      // place transition values here so they are reset everytime user comes back to menu
+      transitionAlphaOut = 0;
+      transitionAlphaIn = 255;
 
-} else if(gameState === "menuToMask") {
-  background(57, 77, 0);
+  } else if(gameState === "menuToMask") {   ///////////// check if user has chosen the Mask, fade to black
 
-  drawSpotlightVines();
+      background(57, 77, 0);
 
-  menuHead.update();
-  menuHead.display();
+      drawSpotlightVines();
 
-  // call the spotlight
-  spotlightDisplay();
+      menuHead.update();
+      menuHead.display();
 
-  // call the spotlight text
-  spotlightText();
+      // call the spotlight
+      spotlightDisplay();
 
-  displayTransitionMenuToMask();
+      // call the spotlight text
+      spotlightText();
 
-} else if(gameState === "maskIn") {
+      // code for the transition
+      displayTransitionMenuToMask();
 
-  drawMaskBackground();
-  drawMaskBackgroundText()
+  } else if(gameState === "maskIn") {   /////////////////////// fade into the mask minigame, only calling visual functions
 
-  // call the rain.js functions through the array
-    for (var i = 0; i < rain.length; i++) {
-      rain[i].update();
-      rain[i].touchedBottom();
-      rain[i].display();
-      rain[i].handleCollision(umbrella);
-    }
+      // draw the background and such for the mask minigame
+      drawMaskBackground();
+      drawMaskBackgroundText()
 
-    displayTransitionFadeInMask();
+    // call the rain.js functions through the array
+      for (var i = 0; i < rain.length; i++) {
+        rain[i].update();
+        rain[i].touchedBottom();
+        rain[i].display();
+        rain[i].handleCollision(umbrella);
+      }
 
-    menuMusic.setVolume(0);
-    truthBackgroundMusic.setVolume(0);
-    rainBackgroundMusic.currentTime(0);
-    rainBackgroundMusic.setVolume(1);
-    rainSound.currentTime(0);
-    rainSound.setVolume(1);
+      // the function for the transition part 2
+      displayTransitionFadeInMask();
 
-  } else if (gameState === "mask") {
-  drawMaskBackground();
-  drawMaskBackgroundText()
+      // switching the volumes for the music and sounds, setting the mask ones to 1
+      menuMusic.setVolume(0);
+      truthBackgroundMusic.setVolume(0);
+      rainBackgroundMusic.currentTime(0);
+      rainBackgroundMusic.setVolume(1); ////// mask
+      rainSound.currentTime(0);
+      rainSound.setVolume(1);    //// mask
 
-  maskPlayer.update();
-  maskPlayer.display();
+  } else if (gameState === "mask") {    ///////// the main game state for the mask minigame
 
-  // functions taken from the umbrella script
-  umbrella.handleInput();
-  umbrella.update();
-  umbrella.display();
+      // the background and such
+      drawMaskBackground();
+      drawMaskBackgroundText();
 
-// call the rain.js functions through the array
-  for (var i = 0; i < rain.length; i++) {
-    rain[i].update();
-    rain[i].touchedBottom();
-    rain[i].display();
-    rain[i].handleCollision(umbrella);
-    rain[i].handlePlayerCollision(maskPlayer);
-  }
+      // calling the player functions for this minigame
+      maskPlayer.update();
+      maskPlayer.display();
 
-  increaseMaskRainNoise();
+      // functions for the umbrella object
+      umbrella.handleInput();
+      umbrella.update();
+      umbrella.display();
 
-  gameReset();
+      // call the rain.js functions through the array
+      for (var i = 0; i < rain.length; i++) {
+        rain[i].update();
+        rain[i].touchedBottom();
+        rain[i].display();
+        rain[i].handleCollision(umbrella);
+        rain[i].handlePlayerCollision(maskPlayer);
+      }
 
-} else if (gameState === "menuToTruth") {
-  background(57, 77, 0);
+      // the function in which the rain volume increases based on score
+      increaseMaskRainNoise();
 
-  drawSpotlightVines();
+      // reset the game to the menu once a certain score is reached
+      gameReset();
 
-  menuHead.update();
-  menuHead.display();
+  } else if (gameState === "menuToTruth") { ///////////// transition from the menu to the truth minigame, fading to black
 
-  // call the spotlight
-  spotlightDisplay();
+      // menu background color
+      background(57, 77, 0);
 
-  // call the spotlight text
-  spotlightText();
+       // the vines
+      drawSpotlightVines();
 
-  displayTransitionMenuToTruth();
+      // the menu head object
+      menuHead.update();
+      menuHead.display();
 
-} else if (gameState === "truthIn") {
+      // the spotlight function
+      spotlightDisplay();
 
-  drawTruthBackground();
+      // the spotlight text function
+      spotlightText();
 
-  for (var i = 0; i < pebbles.length; i++) {
-    pebbles[i].update();
-    pebbles[i].touchedBottom();
-    pebbles[i].display();
-    pebbles[i].handleCollision(truthPlayer);
+      // calling the function for the fade to black effect
+      displayTransitionMenuToTruth();
 
-  }
+  } else if (gameState === "truthIn") { ///////////////////////// second part of the transition, fading from black to the truth game
 
-  displayTransitionFadeInTruth();
-
-  menuMusic.setVolume(0);
-  truthBackgroundMusic.currentTime(0);
-  truthBackgroundMusic.setVolume(1);
-  rainBackgroundMusic.setVolume(0);
-  rainSound.setVolume(0);
-
-} else if (gameState === "truth") {
-
+    // draw the background for the truth minigame
     drawTruthBackground();
-    drawTruthBackgroundText();
 
-    truthPlayer.update();
-    truthPlayer.handleInput();
-    truthPlayer.display();
-
+    // call the pebbles object through an array, which will create an amount equal to the array length
     for (var i = 0; i < pebbles.length; i++) {
       pebbles[i].update();
       pebbles[i].touchedBottom();
       pebbles[i].display();
       pebbles[i].handleCollision(truthPlayer);
-
     }
 
+    // second transition, fade from black
+    displayTransitionFadeInTruth();
+
+    // set music volumes so that only the truth music is heard
+    menuMusic.setVolume(0);
+    truthBackgroundMusic.currentTime(0); ///// set the song to the beginning
+    truthBackgroundMusic.setVolume(1); ///////// truth music
+    rainBackgroundMusic.setVolume(0);
+    rainSound.setVolume(0);
+
+  } else if (gameState === "truth") {  ////////////////////// the main game state for the truth minigame
+
+    // draw the truth minigame background
+    drawTruthBackground();
+    drawTruthBackgroundText();
+
+    // the functions for the player object
+    truthPlayer.update();
+    truthPlayer.handleInput();
+    truthPlayer.display();
+
+    // calling the pebbles array
+    for (var i = 0; i < pebbles.length; i++) {
+        pebbles[i].update();
+        pebbles[i].touchedBottom();
+        pebbles[i].display();
+        pebbles[i].handleCollision(truthPlayer);
+    }
+
+    // function for the parasite that grows with the score, complicating things
     truthParasite();
 
+    // reset scores and game to the menu once you reach a certain score
     gameReset();
   }
 }
 
-///////////////////////////////////// NOTE: the following functions all have the same (or similar) if statements
-///////////////////////////////////// but they are separated for clarity
-///////////////////////////////////////Menu functions
 
+/////////////////////////////////////// Menu functions ///////////////////////////////////
 
-// // spotlightDisplay();
-// //
-// // shows a spotlight/window where text will appear once the head reaches a certain point
+// spotlightDisplay();
+//
+// shows a spotlight/window where text will appear once the head reaches a certain point
 function spotlightDisplay() {
 
   noStroke();
 
+  // check if the menu head object is at either end of the canvas on the x-axis, message bubble pops up if it is so
   if (menuHead.x === 200) {
-    // vx = 0;
+
     //shadow
     fill(25);
     ellipse(660, height/2 + 10, 500 , 300);
+
     //spotlight
     fill(204, 153, 102);
     ellipse(650, height/2, 500 , 300);
+
   } else if (menuHead.x === (width - 200)) {
-    // vx = 0;
+
     //shadow
     fill(25);
     ellipse(340, height/2 + 10, 500, 300);
+
     //spotlight
     fill(204, 153, 102);
     ellipse(350, height/2, 500, 300);
@@ -291,11 +327,9 @@ function spotlightDisplay() {
 }
 
 
-// //spotlightText()
-// //
-// // function that shows the spotlight text when called
-// // NOTE: I plan on having the header be clickable to open a minigame in the final product
-// // by using the p5.dom library, for now however, it is just regular text
+//spotlightText()
+//
+// function that shows the spotlight text when called
 function spotlightText() {
 
 // how the text will look
@@ -307,21 +341,28 @@ function spotlightText() {
 
 // if statement to show text when constrain extremities are shown
   if (menuHead.x === 200) {
+
     //heading
     text("The Mask", 650, height/2);
+
     //flavor
     textSize(24);
     text("- The Side Seen in Public -", 650, (height/2) + 50);
-    // prompt
+
+    // prompt to start minigame
     textSize(18);
     text("Press Control to Begin", 650, (height/2) + 75);
+
   } else if (menuHead.x === (width - 200)) {
+
     //heading
     text("The Truth", 350, height/2);
+
     //flavor
     textSize(24);
     text("- The Side Seen by None -", 350, (height/2) + 50);
-    // prompt
+
+    // prompt to start minigame
     textSize(18);
     text("Press Shift to Begin", 350, height/2 + 75);
   }
@@ -337,16 +378,18 @@ function drawSpotlightVines() {
 
   // what determines the opacity increase
   vinesOpacity = vinesOpacityGrowth += 0.8;
-  ///// vinesOpacity = constrain(vinesOpacity, 0, 100);
 
   // fill the vines a red color, with an updating opacity
   fill(150, 0, 0, vinesOpacity);
 
   // if statement to see if headX is beyond certain points on the x-axis and start showing vines then
   if (menuHead.x <= 400) {
+
     textSize(1500);
     text("FV", 400, 800);
+
   } else if (menuHead.x >= (width - 400)) {
+
     textSize(1500);
     text("QS", 150, 800);
   }
@@ -360,7 +403,7 @@ function drawSpotlightVines() {
 // playSpotlightSound()
 //
 // plays the spotlight guitar strum once head stops moving
-// there is currently an issue where the sound plays repeatedly, will fix that in final version
+// there is currently an issue where the sound plays repeatedly
 function playSpotlightSound() {
   if (menuHead.x === 200 || menuHead.x === (width - 200)) {
     // menuSpotlightSound.play();
@@ -372,13 +415,18 @@ function playSpotlightSound() {
 //
 // press a certain key on the keyboard to start either the truth or mask minigames
 function keyPressed() {
+
   if (keyCode === CONTROL) {
     if(menuHead.x === 200) {
+
       gameState = "menuToMask";
+
     }
   } else if (keyCode === SHIFT) {
     if(menuHead.x === 800) {
+
       gameState = "menuToTruth";
+
     }
   }
 }
@@ -387,13 +435,14 @@ function keyPressed() {
 //
 // if the score reaches a certain level, send the player back to the menu and reset scores
 function gameReset() {
-  if (truthPlayer.score >= 25) {
+
+  if (truthPlayer.score >= 25) {  ///// mask minigame if statement
     truthPlayer.score = 0;
     gameState = "menu";
     menuHead.x = width/2;
   }
 
-  if (maskPlayer.score <= 0) {
+  if (maskPlayer.score <= 0) {  ////// truth minigame if statement
     maskPlayer.score = 0;
     gameState = "menu";
     menuHead.x = width/2;
@@ -407,6 +456,8 @@ function gameReset() {
 // draw the background image
 // an evening cityscape, melancholy and dreary
 function drawMaskBackground() {
+
+  // color with opacity to allow for streaks to show behind rain drops in the sky
   background(11, 18, 30, 80);
 
   //city hue/mist
@@ -437,39 +488,45 @@ function drawMaskBackground() {
   // buildings in the middle
   rect(300, 125, 60, 375);
   rect(470, 200, 120, 300);
-  //light
-  fill(255, 255, 0, 80);
-  ellipse(590, 270, 20);
-  fill(255, 255, 0, 40);
-  ellipse(590, 270, 40);
-  fill(255, 255, 0, 10);
-  ellipse(590, 270, 60);
-  fill(0);
-  //end light
+
+    //light
+    fill(255, 255, 0, 80);
+    ellipse(590, 270, 20);
+    fill(255, 255, 0, 40);
+    ellipse(590, 270, 40);
+    fill(255, 255, 0, 10);
+    ellipse(590, 270, 60);
+    fill(0);
+    //end light
+
   rect(380, 180, 100, 320);
-  //light
-  fill(255, 255, 0, 80);
-  ellipse(390, 400, 20);
-  fill(255, 255, 0, 40);
-  ellipse(390, 400, 40);
-  fill(255, 255, 0, 10);
-  ellipse(390, 400, 60);
-  fill(0);
-  //end light
+
+    //light
+    fill(255, 255, 0, 80);
+    ellipse(390, 400, 20);
+    fill(255, 255, 0, 40);
+    ellipse(390, 400, 40);
+    fill(255, 255, 0, 10);
+    ellipse(390, 400, 60);
+    fill(0);
+    //end light
+
   rect(590, 250, 150, 250);
 
   // buildings on the right
   rect(750, 50, 100, 450);
   rect(840, 200, 75, 300);
-  //light
-  fill(255, 255, 0, 80);
-  ellipse(830, 150, 20);
-  fill(255, 255, 0, 40);
-  ellipse(830, 150, 40);
-  fill(255, 255, 0, 10);
-  ellipse(830, 150, 60);
-  fill(0);
-  //end light
+
+    //light
+    fill(255, 255, 0, 80);
+    ellipse(830, 150, 20);
+    fill(255, 255, 0, 40);
+    ellipse(830, 150, 40);
+    fill(255, 255, 0, 10);
+    ellipse(830, 150, 60);
+    fill(0);
+    //end light
+
   rect(910, 100, 90, 400);
 }
 
@@ -479,32 +536,35 @@ function drawMaskBackground() {
 // its not obvious, which is on purpose
 // as its not always easy to know what to do in public
 function drawMaskBackgroundText() {
+
   textSize(24);
   fill(255);
   textFont(displayFont);
   text("<--   Brandish Your Mask   -->", 180, 50);
   text("Comfort", 850, 475);
   text(maskPlayer.score, 925, 475);
+
 }
 
 // increaseMaskRainNoise()
 //
 // the more the comfort level decreases, the louder the rain gets
+/// adjust volume using the sound library and .setVolume()
 function increaseMaskRainNoise() {
 
-   if (maskPlayer.score < 20 && maskPlayer.score >= 15) {
+   if (maskPlayer.score < 20 && maskPlayer.score >= 15) {  /// check if the score is between 19 and 15
 
     rainSound.setVolume(2);
 
-  } else if (maskPlayer.score < 15 && maskPlayer.score >= 10) {
+  } else if (maskPlayer.score < 15 && maskPlayer.score >= 10) {   /// between 14 and 10
 
     rainSound.setVolume(3);
 
-  } else if (maskPlayer.score < 10 && maskPlayer.score >= 5) {
+  } else if (maskPlayer.score < 10 && maskPlayer.score >= 5) {  /// between 9 and 5
 
     rainSound.setVolume(4);
 
-  } else if (maskPlayer.score < 5 && maskPlayer.score >= 0) {
+  } else if (maskPlayer.score < 5 && maskPlayer.score >= 0) {  /// between 4 and 0
 
     rainSound.setVolume(5);
 
@@ -520,21 +580,21 @@ function displayTransitionMenuToMask() {
   fill(0, transitionAlphaOut)
   rect(0,0, width, height);
 
-  if (transitionAlphaOut >= 255) {
+  if (transitionAlphaOut >= 255) {  /// if the alpha reaches 255 or above, change state
     gameState = "maskIn";
   }
- }
+}
 
 // displayTransitionFadeInMask()
 //
 // When the menu fade to black is finished, fade from black into the mask minigame
- function displayTransitionFadeInMask() {
+function displayTransitionFadeInMask() {
 
    transitionAlphaIn -= 2;
    fill(0, transitionAlphaIn);
    rect(500, 250, width, height);
 
-   if (transitionAlphaIn <= 0) {
+   if (transitionAlphaIn <= 0) {  /// if the alpha reaches 0 or under, change state
      gameState = "mask";
    }
  }
@@ -557,16 +617,18 @@ function drawTruthBackground() {
   rect(500, 300, 120, 400);
   rect(500, 100, 60, 70);
   rect(500, 50, 10, 40);
+
   fill(26);
   rect(75, 300, 150, 400);
   rect(925, 300, 150, 400);
+
   fill(52);
   rect(225, 300, 150, 300);
   rect(775, 300, 150, 300);
+
   fill(78);
   rect(375, 300, 150, 200);
   rect(625, 300, 150, 200);
-
 
   // cement ground
   fill(55);
@@ -598,13 +660,13 @@ function drawTruthBackground() {
   rect(415, 440, 10, 25);
   rect(600, 455, 15, 50);
   rect(585, 440, 10, 25);
-
 }
 
 // drawTruthBackgroundText
 //
 // draw the background text for the truth minigame, such as the instructions and "score"
 function drawTruthBackgroundText() {
+
   textSize(18);
   fill(255);
   textFont(displayFont);
@@ -614,20 +676,16 @@ function drawTruthBackgroundText() {
   text(truthPlayer.score, 950, 50);
 }
 
-
-
-
-
 // displayTransitionMenuToTruth()
 //
-// when the menu head is in place and shift is pressed, fade the menu to black
+// when the menu head is in place and shift is pressed, fade the menu to black using a black rectangle above the canvas
 function displayTransitionMenuToTruth() {
 
-  transitionAlphaOut += 2;
+  transitionAlphaOut += 2;  // transition rate
   fill(0, transitionAlphaOut)
   rect(0,0, width, height);
 
-  if (transitionAlphaOut >= 255) {
+  if (transitionAlphaOut >= 255) {  /// if the alpha is 255 or above, change state
     gameState = "truthIn";
   }
  }
@@ -635,39 +693,51 @@ function displayTransitionMenuToTruth() {
  // displayTransitionFadeInTruth()
  //
  // When the menu fade to black is finished, fade from black into the truth minigame
-  function displayTransitionFadeInTruth() {
+function displayTransitionFadeInTruth() {
 
-    transitionAlphaIn -= 2;
+    transitionAlphaIn -= 2;  //// transition rate
     fill(0, transitionAlphaIn);
     rect(500, 250, width, height);
 
-    if (transitionAlphaIn <= 0) {
+    if (transitionAlphaIn <= 0) {   //// if the alpha is 0 or under, change state
       gameState = "truth";
     }
   }
 
-  // truthParasite
-  //
-  // a pulsing parasite that grows as the player gets hit by pebbles, obscuring the screen
-  function truthParasite() {
+// truthParasite
+//
+// a pulsing parasite that grows as the player gets hit by pebbles, obscuring the screen
+function truthParasite() {
 
-    var parasiteGrowth = sin(parasiteAngle) * (parasiteSize/10);
+    var parasiteGrowth = sin(parasiteAngle) * (parasiteSize/10);  //// calculation the pulsing
 
     fill(0);
     ellipseMode(CENTER);
     ellipse(500, 250, parasiteSize + parasiteGrowth);
 
-    if (truthPlayer.score <= 3) {
+    /// check player score and change the parasite size accordingly
+    if (truthPlayer.score <= 3) { // 3 or under
+
       parasiteSize = 50;
-    } else if (truthPlayer.score > 3 && truthPlayer.score <= 6) {
+
+    } else if (truthPlayer.score > 3 && truthPlayer.score <= 6) { // between 4 and 6
+
       parasiteSize = 100;
-    } else if (truthPlayer.score > 6 && truthPlayer.score <= 9) {
+
+    } else if (truthPlayer.score > 6 && truthPlayer.score <= 9) { // between 7 and 9
+
       parasiteSize = 150;
-    } else if (truthPlayer.score > 9 && truthPlayer.score <= 12) {
+
+    } else if (truthPlayer.score > 9 && truthPlayer.score <= 12) { // between 10 and 12
+
       parasiteSize = 200;
-    } else if (truthPlayer.score > 12 && truthPlayer.score <= 15) {
+
+    } else if (truthPlayer.score > 12 && truthPlayer.score <= 15) { // between 13 and 15
+
       parasiteSize = 250;
+
     }
 
-    parasiteAngle += 0.1;
-  }
+    parasiteAngle += 0.1; //// the rate at which the parasite pulses, so the height of the sine waves
+
+}

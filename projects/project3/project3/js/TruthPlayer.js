@@ -26,6 +26,8 @@ TruthPlayer.prototype.update = function() {
   // move the player with x-velocity
   this.x += this.vx;
 
+  // screen wrapping, if player touches the edge of the screen, teleport to the other Side
+
   if ((this.x - 25) >= width) {
     this.x  = 0;
   }
@@ -40,13 +42,18 @@ TruthPlayer.prototype.update = function() {
 // determine what happens to the player when certain keys are pressed
 // such as movement from side to side
 TruthPlayer.prototype.handleInput = function() {
+
+  // if the right key is touched, move right
   if (keyIsDown(this.rightKey)) {
+
     this.vx = this.speed;
-  }
-  else if (keyIsDown(this.leftKey)) {
+
+  } else if (keyIsDown(this.leftKey)) { /// if left key touched, move left
+
     this.vx = -this.speed;
-  }
-  else {
+
+  } else { // else do nothing
+    
     this.vx = 0;
   }
 }
