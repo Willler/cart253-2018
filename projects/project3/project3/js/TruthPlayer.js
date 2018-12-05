@@ -25,6 +25,14 @@ function TruthPlayer(x, y, size, speed, rightKey, leftKey) {
 TruthPlayer.prototype.update = function() {
   // move the player with x-velocity
   this.x += this.vx;
+
+  if ((this.x - 25) >= width) {
+    this.x  = 0;
+  }
+
+  if ((this.x + 25) <= 0) {
+    this.x = width;
+  }
 }
 
 // handleInput()
@@ -34,13 +42,13 @@ TruthPlayer.prototype.update = function() {
 TruthPlayer.prototype.handleInput = function() {
   if (keyIsDown(this.rightKey)) {
     this.vx = this.speed;
-}
+  }
   else if (keyIsDown(this.leftKey)) {
     this.vx = -this.speed;
-}
+  }
   else {
     this.vx = 0;
-}
+  }
 }
 
 // display()

@@ -6,7 +6,7 @@
 //
 // A menu depicting a floating head that you can make move from side to side
 // A minigame depicting your public "mask"
-// A minigame depicting a pet/tumor thing that grows heavier and darker when playing
+// A minigame depicting a parasite/tumor thing that grows heavier and darker when playing
 
 
 // variable for opacity of vines for the menu, so that they appear gradually
@@ -23,7 +23,7 @@ var menuHead;
 
 // variables for rain array
 var rain = [];
-var rainDrops = 50;
+var rainDrops = 100;
 
 // variables for the Umbrella
 var umbrella;
@@ -59,12 +59,6 @@ function preload() {
   rainSound = loadSound("assets/sounds/rain.wav");
   truthBackgroundMusic = loadSound("assets/sounds/truthMusic.wav");
 
-  // menuMusic = new Audio("assets/sounds/waltz.wav");
-  // menuSpotlightSound = new Audio("assets/sounds/strum.wav");
-  // rainSound = new Audio("assets/sounds/rain.wav");
-  // rainBackgroundMusic = new Audio("assets/sounds/loneliness.wav");
-
-  promptFont = loadFont("assets/fonts/display.ttf");
   displayFont = loadFont("assets/fonts/display.ttf");
 }
 
@@ -80,7 +74,7 @@ function setup() {
 
   // create the rain object array
   for (var i = 0; i < rainDrops; i++) {
-    rain.push(new Rain(random(50,950),0,0,random(3,5),6,5,5));
+    rain.push(new Rain(random(50,950),0,random(-1,1),random(3,7),6,5,5));
   }
 
   // create the umbrella object
@@ -161,8 +155,8 @@ if (gameState === "menu") {
 
 } else if(gameState === "maskIn") {
 
-  drawBackground();
-  drawBackgroundText()
+  drawMaskBackground();
+  drawMaskBackgroundText()
 
   // call the rain.js functions through the array
     for (var i = 0; i < rain.length; i++) {
@@ -182,8 +176,8 @@ if (gameState === "menu") {
     rainSound.setVolume(1);
 
   } else if (gameState === "mask") {
-  drawBackground();
-  drawBackgroundText()
+  drawMaskBackground();
+  drawMaskBackgroundText()
 
   maskPlayer.update();
   maskPlayer.display();
@@ -387,14 +381,30 @@ function keyPressed() {
   }
 }
 
+// gameReset()
+//
+// if the score reaches a certain level, send the player back to the menu and reset scores
+function gameReset() {
+  if (truthPlayer.score >= 25) {
+    truthPlayer.score = 0;
+    gameState = "menu";
+    menuHead.x = width/2;
+  }
+
+  if (maskPlayer.score <= 0) {
+    maskPlayer.score = 0;
+    gameState = "menu";
+    menuHead.x = width/2;
+  }
+}
 
 ///////////////////////////////////////////////////////// Mask game functions below
 
-// drawBackground()
+// drawMaskBackground()
 //
 // draw the background image
 // an evening cityscape, melancholy and dreary
-function drawBackground() {
+function drawMaskBackground() {
   background(11, 18, 30, 80);
 
   //city hue/mist
@@ -461,15 +471,15 @@ function drawBackground() {
   rect(910, 100, 90, 400);
 }
 
-// drawBackgroundText()
+// drawMaskBackgroundText()
 //
 // put in a text display to subtly show the player the controls
 // its not obvious, which is on purpose
 // as its not always easy to know what to do in public
-function drawBackgroundText() {
+function drawMaskBackgroundText() {
   textSize(24);
   fill(255);
-  textFont(promptFont);
+  textFont(displayFont);
   text("<--   Brandish Your Mask   -->", 180, 50);
   text("Comfort", 850, 475);
   text(maskPlayer.score, 925, 475);
@@ -584,22 +594,7 @@ function drawTruthBackgroundText() {
 }
 
 
-// truthReset()
-//
-// if the score reaches a certain level, send the player back to the menu and reset scores
-function gameReset() {
-  if (truthPlayer.score >= 15) {
-    truthPlayer.score = 0;
-    gameState = "menu";
-    menuHead.x = width/2;
-  }
 
-  if (maskPlayer.score <= 0) {
-    maskPlayer.score = 0;
-    gameState = "menu";
-    menuHead.x = width/2;
-  }
-}
 
 
 // displayTransitionMenuToTruth()

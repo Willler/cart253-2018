@@ -47,20 +47,37 @@ MenuHead.prototype.display = function () {
   // the shadow
   noStroke();
   ellipseMode(CENTER);
+  // rectMode(CENTER);
   fill(25);
   ellipse((this.x) + 10, this.y + 50, 130 + growth, 150 + growth);
   noStroke();
   ellipse((this.x) + 10, this.y, 150 + growth);
+
+  // hair in the back
+  fill(130, 0, 0);
+  ellipse(this.x, this.y + 70, 140 + growth, 120 + growth);
 
   // the face
   ellipseMode(CENTER);
   fill(204, 153, 102);
   ellipse(this.x, this.y + 50, 130 + growth, 150 + growth);
 
-  // the bowl cut
+  // the glasses
+  noFill();
+  stroke(150,0,0);
+  strokeWeight(2);
+  ellipse(this.x - 25, this.y + 75, 25 + growth);
+  ellipse(this.x + 25, this.y + 75, 25 + growth);
+
+  // the hair
   fill(150,0,0);
   noStroke();
   ellipse(this.x, this.y, 150 + growth);
+  ellipse(this.x + 60, this.y + 35, 30 + growth, 100 + growth);
+  ellipse(this.x - 60, this.y + 35, 30 + growth, 100 + growth);
+  ellipse(this.x + 70, this.y + 15, 30 + growth, 70 + growth);
+  ellipse(this.x - 70, this.y + 15, 30 + growth, 70 + growth);
+
 
   // the angle of the curve, which determines how fast everything will oscillate
   this.angle += 0.03;
